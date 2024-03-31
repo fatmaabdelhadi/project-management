@@ -9,7 +9,10 @@
 
     font-size: 15px;
     color: #3C3C3C;
-}
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
 
 /* text stuff */
 h1 {
@@ -49,4 +52,15 @@ input[type=text]:focus {
     outline: none;
     box-shadow: none;
     border: #48C7B0 solid 4px;
+}
+
+.App {
+  display: flex;
+  background-color: white;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

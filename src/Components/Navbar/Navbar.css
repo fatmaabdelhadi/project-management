@@ -1,0 +1,21 @@
+.navbar {
+    background-color: #efefef;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+}
+.BreadCrump a {
+    text-decoration: none;
+}
+
+.BreadCrump a:hover {
+    text-decoration: underline;
+}
+
+.BreadCrumpParent {
+    color: #A7A7AA;
+}
+
+.BreadCrumpChild {
+    color: #3C3C3C;
+}
