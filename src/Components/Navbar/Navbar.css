@@ -4,18 +4,19 @@
     display: flex;
     flex-direction: column;
 }
-.BreadCrump a {
+.BreadCrumb a {
     text-decoration: none;
-}
-
-.BreadCrump a:hover {
-    text-decoration: underline;
-}
-
-.BreadCrumpParent {
     color: #A7A7AA;
 }
 
-.BreadCrumpChild {
+.BreadCrumb a:hover {
+    text-decoration: underline;
+}
+
+.BreadCrumbParent {
+    color: #A7A7AA;
+}
+
+.BreadCrumbChild {
     color: #3C3C3C;
 }

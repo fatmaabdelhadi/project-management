@@ -1,12 +1,19 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useState } from "react";
-import SideMenu from "./Components/SideMenu/SideMenu";
-import Content from "./Components/Content/Content";
-import Navbar from "./Components/Navbar/Navbar";
-import Dashboard from "./Components/SideMenu/Dashboard";
-import TaskList from "./Components/TaskList/TaskList";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import logo from './logo.svg';
+import './App.css';
+import { useState } from 'react';
+
+import SideMenu from './Components/SideMenu/SideMenu';
+import Home from './Components/Home/Home';
+import Navbar from './Components/Navbar/Navbar';
+import Dashboard from './Components/Dashboard/Dashboard';
+import TaskList from './Components/TaskList/TaskList'
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom"
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -36,17 +43,24 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <SideMenu></SideMenu>
-        <div className="Layout">
-          <Navbar></Navbar>
+        <div className='Layout'>
 
-          <Routes>
-            <Route path="/" element={<Content />} />
-            <Route path="/content" element={<Content />} />
-            <Route path="/dashboard" element={<Dashboard />}></Route>
-          </Routes>
-          <TaskList addTask={addTask} tasks={tasks} />
+            <Navbar></Navbar>
+
+          <div className='Content'>
+             <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/home' element={<Home />} />
+                <Route path='/dashboard' element={<Dashboard/>}></Route>
+                <Route path='/create' element={<TaskList addTask={addTask} tasks={tasks} />}></Route>
+              </Routes>
+          </div>
+           
+
         </div>
-      </div>
+  
+   
+    </div>
     </BrowserRouter>
   );
 }
