@@ -57,10 +57,16 @@ input[type=text]:focus {
 .App {
   display: flex;
   background-color: white;
+  min-height: 100vh;
 }
 
 .Layout {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.Content {
+  padding: 20px;
+  padding-left: 50px;
 }

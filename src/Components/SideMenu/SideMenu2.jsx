@@ -19,7 +19,7 @@ export default function SideMenu() {
   let data = [{
     name: 'home',
     image: HomeImg,
-    url: '/home'
+    url: '/content'
     },
     {
     name: 'dashboard',
@@ -34,22 +34,25 @@ export default function SideMenu() {
     
 ]
   const [navbarItems, setNavbarItems] = useState([...data])
-  
+
   return (
     <div>
-      <div className='sideMenu'>
+      <Sidebar className='sideMenu'>
         <div className='sideMenuHeader'>
-          <img alt="Side menu button" src={ArrowImg} onClick={() => { console.log("clicked")}} />
+         <img alt="Side menu button" src={ArrowImg}/>
         </div>
-        <div className='menu'>
+        <Menu>
           {navbarItems.map(item => {
-            return <div className='menuItem'
-            >
-              <NavLink className='NavLink'
+            return <MenuItem
+              component={<NavLink
                 // className={({ isActive}) => (isActive ? 'activeDot':'')}
                 to={`/${item.name}`}
                 key={`navbar-${item}`}>
-                 <div className='sideMenuItem'>
+                
+                </NavLink>}
+            >
+              {/* {({ isActive }) =>( */}
+                <div className='sideMenuItem'>
                   <div className='sideMenuItemContent'>
                     <img alt={`${item.name}`} src={`${item.image}`} />
                     <p>{item.name}</p>
@@ -57,13 +60,10 @@ export default function SideMenu() {
                   {/* <img class={isActive ? "activeDot" : ""} className={'dot'} src={DotImg} */}
                   {/* /> */}
                 </div>
-                </NavLink>
-              {/* {({ isActive }) =>( */}
-               
           {/* )} */}
-            </div>
+            </MenuItem>
           })}
-        </div>
-      </div></div>
+        </Menu>
+      </Sidebar></div>
   )
 }

@@ -1,13 +1,23 @@
 import React from 'react'
 import './Navbar.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 export default function Navbar() {
+  const location = useLocation()
+    const { hash, pathname, search } = location;
+
   return (
     <div className='navbar'>
       <br></br>
-      <div className='BreadCrump'>
-        <NavLink className='BreadCrumpParent' to=''>SmartHome / </NavLink><NavLink className='BreadCrumpChild' to='/dashboard'>Dashboard</NavLink>
+      <div className='BreadCrumb'>
+        {/* <NavLink className='BreadCrumbParent' to=''>SmartHome / </NavLink><NavLink className='BreadCrumpChild' to='/dashboard'>Dashboard</NavLink> */}
+        <NavLink
+          to=''>
+              SmartHome&nbsp;
+        </NavLink>
+        <NavLink>
+          &nbsp;{pathname}
+        </NavLink>
       </div>
       </div>
   )

@@ -2,7 +2,7 @@
 .sideMenu {
     box-shadow: 0px 41px 87px -4px #989898;
     min-width: 30px;
-    height: 100vh;
+    height: 100%;
     background-color: #efefef;
     /* border-radius: 10px;  */
     border-right: 2px #48C7B0 solid !important;
@@ -22,10 +22,10 @@
     padding: 20px;
 } */
 
-.sideMenuItem {
+.sideMenuItem, .menuItem {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 200px;
     position: relative;
 }
 
@@ -55,4 +55,10 @@
     visibility:visible;
     background-color: #989898;
     transition: 2s;
+}
+
+.NavLink {
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 10px;
 }
