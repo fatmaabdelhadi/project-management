@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import QuickChart from "quickchart-js";
 import "./Dashboard.css";
 
