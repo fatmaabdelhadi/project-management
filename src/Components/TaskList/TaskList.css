@@ -1,6 +1,6 @@
-.newTaskName{
-  margin: 1.2em 8em;
-  padding: 10px;
+.input-wrapper>*{
+  margin: 1em 8em;
+  padding: 1.25em;
 }
 
 table {
@@ -17,4 +17,9 @@ td {
 th{
   border-bottom: 1px solid #ddd;
   padding-bottom: 22px;
+}
+
+input{
+  min-width: 100px;
+  max-width: 150px;
 }

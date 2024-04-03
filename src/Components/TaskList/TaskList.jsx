@@ -68,7 +68,7 @@ export default function TaskList({ addTask, tasks }) {
             </tr>
           ))}
           {/* Form to add a new task */}
-          <tr>
+          <tr className="input-wrapper">
             <td></td>
             <td>
               <input
