@@ -93,28 +93,9 @@ export default function Dashboard() {
       {diagrams.map(item => {
         return <div>
           <h3 className="bold">{item.name}</h3>
-          <img className={`diagram ${item.className}`} src={item.data} />
+          <img alt={item.name} className={`diagram ${item.className}`} src={item.data} />
           </div>
       })}
     </div>
   );
 }
-
-
-  // let diagrams = [
-  //   { name: "Task Status", data: statusDonut, className: "statusDonut" },
-  //   { name: "Task Priority", data: priorityBar, className: "priorityBar" },
-  // ];
-
-      // {diagrams.map((diagram) => {
-      //   return (
-      //     <div>
-      //       <h3 className="bold">{diagrams.name}</h3>
-      //       <img
-      //         alt={`${diagrams.name}`}
-      //         className={`${diagrams.className}`}
-      //         src={priorityBar.getUrl()}
-      //       ></img>
-      //     </div>
-      //   );
-      // })}
