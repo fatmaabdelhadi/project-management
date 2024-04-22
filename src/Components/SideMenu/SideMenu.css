@@ -16,24 +16,23 @@
 .sideMenuHeader > img {
         float: inline-end;
 }
-/* 
-.sideMenuContent {
-    visibility: hidden;
-    padding: 20px;
-} */
 
 .sideMenuItem, .menuItem {
     display: flex;
     align-items: center;
-    width: 200px;
+    /* width: 200px; */
     position: relative;
 }
 
 .sideMenuItemContent {
     display: flex;
     align-items: center;
-    gap: 10px;
     width: 100%;
+}
+
+.sideMenuItemContent > img {
+    margin: 0px 10px;
+
 }
 
 .ps-menu-button {
@@ -62,3 +61,26 @@
     margin-top: 20px;
     margin-left: 10px;
 }
+.NavLink .active {
+    color: #48C7B0;
+}
+
+/* Menu Collapsing */
+.sideMenuItemContent > p {
+    display: block;
+    margin-right: 30px;
+    color: #A7A7AA;
+} 
+
+.menu.collapsed .sideMenuItemContent > p {
+    display: none; /* Hide paragraphs when menu is collapsed */
+}
+
+
+.active > * > * > * {
+    color: #48C7B0 !important;
+    font-weight: 700;
+}
+
+
+/* sign in */

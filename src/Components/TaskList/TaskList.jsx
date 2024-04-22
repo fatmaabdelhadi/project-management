@@ -44,7 +44,7 @@ export default function TaskList({ addTask, tasks }) {
       <table>
         {/* Table headers */}
         <thead>
-          <tr>
+          <tr className="input-wrapper">
             <th>No.</th>
             <th>Task Name</th>
             <th>Start Date</th>
@@ -67,77 +67,6 @@ export default function TaskList({ addTask, tasks }) {
               <td>{task.notes}</td>
             </tr>
           ))}
-          {/* Form to add a new task */}
-          <tr className="input-wrapper">
-            <td></td>
-            <td>
-              <input
-                type="text"
-                name="taskName"
-                className="newTaskName"
-                value={taskData.taskName}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="startDate"
-                className="newStartDate"
-                value={taskData.startDate}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="endDate"
-                className="newEndDate"
-                value={taskData.endDate}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="cost"
-                className="newCost"
-                value={taskData.cost}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="owner"
-                className="newOwner"
-                value={taskData.owner}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="notes"
-                className="newNotes"
-                value={taskData.notes}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="submit" onClick={handleSubmit}>
-                Add
-              </button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </>
