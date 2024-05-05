@@ -21,7 +21,13 @@
     color: #3C3C3C;
 }
 
+.guestNavbarContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .guestNavbar {
+    margin-top: 20px;
     padding: 10px 10px;
     width: 50%;
     display: flex;
@@ -34,7 +40,13 @@
     font-weight: 700;
 }
 
+
+
 .guestNavbar .NavLink {
     color: #efefef;
     font-weight: 700;
+}
+
+.guestNavbar .NavLink:hover {
+    color: #48C7B0;
 }

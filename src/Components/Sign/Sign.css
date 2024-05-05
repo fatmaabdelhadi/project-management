@@ -94,3 +94,6 @@
 .login.form {
     height: 50%;
 }
+.login h2 {
+  margin-bottom: 5px;
+}

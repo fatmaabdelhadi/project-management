@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function GuestNavbar() {
     let data = [
     {
-      name: "home",
+      name: "Home",
       url: "/",
       },
     {
@@ -31,20 +31,24 @@ export default function GuestNavbar() {
     return location.pathname.includes(match.url);
   };
   return (
-    <div className='guestNavbar'>
-      {navbarItems.map((item) => {
-        return (
-          <div className='navItem'>
-             <NavLink
-              className={`NavLink ${location.pathname.startsWith(item.url) ? "activeLink" : ""}`}
-              to={item.url}
-              key={`navbar-${item}`}
-              activeClassName='activeLink'
-              isActive={isActive}
-            >{item.name}</NavLink>
-          </div>
-        )
-      })}
+
+    <div className="guestNavbarContainer">
+        <div className='guestNavbar'>
+              {navbarItems.map((item) => {
+                return (
+                  <div className='navItem'>
+                    <NavLink
+                      className={`NavLink ${location.pathname.startsWith(item.url) ? "activeLink" : ""}`}
+                      to={item.url}
+                      key={`navbar-${item}`}
+                      activeClassName='activeLink'
+                      isActive={isActive}
+                    >{item.name}</NavLink>
+                  </div>
+                )
+              })}
+            </div>
     </div>
+    
   )
 }
