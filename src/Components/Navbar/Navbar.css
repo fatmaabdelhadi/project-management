@@ -20,3 +20,21 @@
 .BreadCrumbChild {
     color: #3C3C3C;
 }
+
+.guestNavbar {
+    padding: 10px 10px;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    color: #efefef;
+    font-weight: 700;
+}
+
+.guestNavbar .NavLink {
+    color: #efefef;
+    font-weight: 700;
+}

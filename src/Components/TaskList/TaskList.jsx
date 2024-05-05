@@ -41,7 +41,7 @@ export default function TaskList({ addTask, tasks }) {
 
   return (
     <>
-      <table>
+      <table className="taskList">
         {/* Table headers */}
         <thead>
           <tr className="input-wrapper">

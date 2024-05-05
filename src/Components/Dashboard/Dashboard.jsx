@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import QuickChart from "quickchart-js";
 import "./Dashboard.css";
-
+import Network from "./Network";
+import Gannt from "./Gannt";
 export default function Dashboard() {
 
   const statusDonut = new QuickChart();
@@ -89,12 +90,16 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
+      
+      <Network></Network>
+      <Gannt></Gannt>
       {diagrams.map(item => {
         return <div>
           <h3 className="bold">{item.name}</h3>
           <img alt={item.name} className={`diagram ${item.className}`} src={item.data} />
           </div>
       })}
+                     
     </div>
   );
 }

@@ -3,23 +3,23 @@
   padding: 1.25em;
 }
 
-table {
+table.taskList {
   width: 100%;
   border-collapse: collapse;
   border: 2px solid #48C7B0;
 }
 
-th,
-td {
+.taskList th,
+.taskList td {
   padding: 20px;
 }
 
-th{
+.taskList th{
   border-bottom: 1px solid #ddd;
   padding-bottom: 22px;
 }
 
-input{
+.taskList input{
   min-width: 100px;
   max-width: 150px;
 }

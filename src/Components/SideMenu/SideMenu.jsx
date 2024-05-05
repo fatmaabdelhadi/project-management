@@ -25,7 +25,7 @@ export default function SideMenu() {
     {
       name: "create",
       image: CreateImg,
-      url: "/create",
+      url: "/create-tasks",
     },
   ];
 
@@ -73,7 +73,7 @@ export default function SideMenu() {
                       <img alt={`${item.name}`} src={`${item.image}`} />
                       {!collapse && <p>{item.name}</p>}
                     </div>
-    {location.pathname.startsWith(item.url) && (
+          {location.pathname.startsWith(item.url) && (
                   <img className="dot" src={DotImg} alt="Dot" />
                 )}                </div>
                 </NavLink>
