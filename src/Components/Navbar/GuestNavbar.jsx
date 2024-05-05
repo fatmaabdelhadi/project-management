@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function GuestNavbar() {
     let data = [
     {
-      name: "Home",
+      name: "PM",
       url: "/",
       },
     {

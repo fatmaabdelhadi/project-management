@@ -4,7 +4,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 import SideMenu from './Components/SideMenu/SideMenu';
-import Home from './Components/Home/Home';
+import Home from './Components/Account/AccountHome';
 import Navbar from './Components/Navbar/Navbar';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Network from './Components/Dashboard/Network'
@@ -21,30 +21,36 @@ import SignUp from './Components/Sign/SignUp';
 import {LogIn} from './Components/Sign/LogIn'
 import { UserLayout } from './Components/Layouts/UserLayout';
 import { GuestLayout } from './Components/Layouts/GuestLayout';
-
+import AccountSettings from './Components/Account/AccountSettings';
+import ProjectSettings from './Components/Project/ProjectSettings';
+import AccountHome from './Components/Account/AccountHome';
+import LandingPage from './Components/Landing/LandingPage';
+import ContactUs from './Components/Landing/ContactUs'
 
 function App() {
   const [isSigned, setSignStatus] = useState(false);
   return (
     <BrowserRouter>
       <div className="App">
-        <div className='Layout'>
-
-              
+        <div className='Layout'>        
           <Routes>
             {/* Guest Layout */}
-             <Route element={<GuestLayout />}>
+            <Route element={<GuestLayout />}>
+              <Route path='/' element={<LandingPage/>}></Route>
+              <Route path='/contact' element={<ContactUs/>}></Route>
               <Route path='/signUp' element={<SignUp></SignUp>}></Route>
               <Route path='/logIn' element={<LogIn></LogIn>}></Route>
             </Route>
             
             {/* User Layout */}
               <Route element={<UserLayout></UserLayout>} className='Content' >
-                  <Route path='/:username' element={<Home />} />
+                  <Route path='/:username' element={<AccountHome />} />
                   <Route path='/home' element={<Home />} />
                   <Route path='/dashboard' element={<Dashboard/>}/>
                   <Route path='/create-tasks' element={<CreateTasks />}/>
                 <Route path='/create-network' element={<CreateNetwork />}/>
+                <Route path='/account-settings' element={<AccountSettings />}/>
+                <Route path='/project-settings' element={<ProjectSettings />}/>
               </Route>
           </Routes>
           </div>

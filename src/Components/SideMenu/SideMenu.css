@@ -20,7 +20,6 @@
 .sideMenuItem, .menuItem {
     display: flex;
     align-items: center;
-    /* width: 200px; */
     position: relative;
 }
 
@@ -80,7 +79,5 @@
 .active > * > * > * {
     color: #48C7B0 !important;
     font-weight: 700;
+        filter: brightness(0) saturate(100%) invert(65%) sepia(10%) saturate(2377%) hue-rotate(119deg) brightness(109%) contrast(74%);
 }
-
-
-/* sign in */

@@ -9,23 +9,43 @@ export default function SideMenu() {
   let HomeImg = require("../../Assets/Home inactive.svg").default;
   let DashboardImg = require("../../Assets/Dashboard inactive.svg").default;
   let CreateImg = require("../../Assets//Create inactive.svg").default;
+  let AccountImg = require("../../Assets/Account inactive.svg").default;
+  let SettingsImg = require("../../Assets/Settings inactive.svg").default;
+  let LogoutImg = require("../../Assets/Logout inactive.svg").default;
+
   let DotImg = require("../../Assets/Dot.svg").default;
 
   let data = [
     {
-      name: "home",
+      name: "Account Settings",
+      image: AccountImg,
+      url: "./account-settings",
+    },
+    {
+      name: "Home",
       image: HomeImg,
       url: "/home",
     },
+
     {
       name: "dashboard",
       image: DashboardImg,
       url: "./dashboard",
     },
     {
-      name: "create",
+      name: "Create",
       image: CreateImg,
       url: "/create-tasks",
+    },
+    {
+      name: "Project Settings",
+      image: SettingsImg,
+      url: "/project-settings",
+    },
+    {
+      name: "Logout",
+      image: LogoutImg,
+      url: "/logIn",
     },
   ];
 
@@ -38,10 +58,10 @@ export default function SideMenu() {
 
   const location = useLocation(); // Get the current location
   const isActive = (match, location) => {
-     console.log()
     if (!match) return false; // If the link doesn't match the current location, it's not active
      // Check if the current URL includes the link URL
-    return location.pathname.includes(match.url);
+    // return location.pathname.includes(match.url);
+    return true;
   };
 
   return (
@@ -58,7 +78,9 @@ export default function SideMenu() {
         </div>
         <div className="menu ${collapse ? 'collapsed' : ''}">
           {navbarItems.map((item) => {
-          {/* let isActive = false */}
+            {/* let isActive = false */
+              console.log(isActive(location.pathname))
+            }
             return (
               <div className="menuItem">
                 <NavLink
@@ -66,10 +88,11 @@ export default function SideMenu() {
               to={item.url}
                   key={`navbar-${item}`}
                   activeClassName='activeLink'
-                  isActive={isActive}
+                  isActive={isActive(location.pathname)}
                 >
                   <div className="sideMenuItem">
                     <div className="sideMenuItemContent">
+                      {/* <img alt={`${item.name}`} src={isActive(location.pathname) ? `${item.activeImage}` : `${item.image}`} /> */}
                       <img alt={`${item.name}`} src={`${item.image}`} />
                       {!collapse && <p>{item.name}</p>}
                     </div>
