@@ -11,10 +11,7 @@ export default function Navbar() {
       <br></br>
       <div className='BreadCrumb'>
         {/* <NavLink className='BreadCrumbParent' to=''>SmartHome / </NavLink><NavLink className='BreadCrumpChild' to='/dashboard'>Dashboard</NavLink> */}
-        <NavLink
-          to=''>
-              SmartHome&nbsp;
-        </NavLink>
+              ProjectName&nbsp;
         <NavLink>
           &nbsp;{pathname}
         </NavLink>

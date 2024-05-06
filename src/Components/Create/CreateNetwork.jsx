@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function CreateNetwork() {
   return (
+    <div>
       <div>
           <NavLink
                     to='/create-tasks'
@@ -15,5 +16,10 @@ export default function CreateNetwork() {
             ><button>Done</button></NavLink>
           <Network></Network>
       </div>
+
+      <div>
+        
+      </div>
+    </div>
   )
 }
