@@ -5,7 +5,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { useLocation } from "react-router-dom";
 
 export default function SideMenu() {
-  let ArrowImg = require("../../Assets/Arrow.svg").default;
+  let ArrowImg = require("../../Assets/Arrow Flip.svg").default;
   let HomeImg = require("../../Assets/Home inactive.svg").default;
   let DashboardImg = require("../../Assets/Dashboard inactive.svg").default;
   let CreateImg = require("../../Assets//Create inactive.svg").default;
@@ -28,7 +28,7 @@ export default function SideMenu() {
     },
 
     {
-      name: "dashboard",
+      name: "Dashboard",
       image: DashboardImg,
       url: "./dashboard",
     },
@@ -67,7 +67,8 @@ export default function SideMenu() {
   return (
     <div>
       <div className="sideMenu">
-        <div className="sideMenuHeader">
+        <div className={`menu ${collapse ? 'collapsed' : ''}`}>
+          <div className="sideMenuHeader">
           <img
             alt="Side menu button"
             src={ArrowImg}
@@ -76,31 +77,28 @@ export default function SideMenu() {
             }}
           />
         </div>
-        <div className="menu ${collapse ? 'collapsed' : ''}">
           {navbarItems.map((item) => {
-            {/* let isActive = false */
+            {
+              //test if link is active
               console.log(isActive(location.pathname))
             }
             return (
               <div className="menuItem">
                 <NavLink
                   className={`NavLink ${location.pathname.startsWith(item.url) ? "activeLink" : ""}`}
-              to={item.url}
+                  to={item.url}
                   key={`navbar-${item}`}
                   activeClassName='activeLink'
                   isActive={isActive(location.pathname)}
                 >
                   <div className="sideMenuItem">
                     <div className="sideMenuItemContent">
-                      {/* <img alt={`${item.name}`} src={isActive(location.pathname) ? `${item.activeImage}` : `${item.image}`} /> */}
                       <img alt={`${item.name}`} src={`${item.image}`} />
                       {!collapse && <p>{item.name}</p>}
                     </div>
-          {location.pathname.startsWith(item.url) && (
+                  </div>
                   <img className="dot" src={DotImg} alt="Dot" />
-                )}                </div>
                 </NavLink>
-                
               </div>
             );
           })}
