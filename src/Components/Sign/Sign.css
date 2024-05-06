@@ -1,6 +1,6 @@
 .background {
     background: url('../../Assets/Sign.jpg');
-    background-color: #48C7B0;
+    background-color: var(--teal);
     background-size:cover;
     background-repeat: no-repeat;
     background-position: right;
@@ -53,17 +53,17 @@
 .signUp input:focus {
     outline: none;
     box-shadow: none;
-    border: #48C7B0 solid 4px;
+    border: var(--teal) solid 4px;
 
 }
 
 .signUp > * > *   {
-  color: #ffffff;
+  color: white;
 }
 
 .signUp a {
   font: inherit;
-  color: #48c7b0;
+  color: var(--teal);
   font-weight: 700;
 }
 

@@ -6,7 +6,7 @@
 table.taskList {
   width: 100%;
   border-collapse: collapse;
-  border: 2px solid #48C7B0;
+  border: 2px solid var(--teal);
 }
 
 .taskList th,

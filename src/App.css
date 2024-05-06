@@ -8,7 +8,7 @@
       "slnt" 0;
 
     font-size: 15px;
-    color: #3C3C3C;
+    color: var(--black);
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -32,7 +32,7 @@ h4 {
 
 /* general components stuff */
 button, input[type=button], input[type=submit] {
-    background: #48C7B0;
+    background: var(--teal);
     border: none;
     outline: none;
     box-shadow: none;
@@ -44,20 +44,21 @@ button, input[type=button], input[type=submit] {
 
 input[type=text] {
     border-radius: 10px;
-    border: #D9D9D9 solid 1px;
+    border: var(--grey) solid 1px;
     padding: 5px 10px;
 }
 
 input[type=text]:focus {
     outline: none;
     box-shadow: none;
-    border: #48C7B0 solid 4px;
+    border: var(--teal) solid 4px;
 }
 
 .App {
   display: flex;
-  background-color: white;
+  background-color: var(--lightGrey);
   min-height: 100vh;
+  
 }
 
 .Layout {
@@ -69,12 +70,21 @@ input[type=text]:focus {
 
 .Content {
   padding: 20px;
-  padding-left: 50px;
+  background: white;
+  border-radius: 23px;
+  margin: auto 0;
+  min-height: 400px;
+  box-shadow: var(--shadow)
+}
+
+.userLayout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 10px 10px;
 }
 
 .guestLayout {
-  /* display: flex;
-  flex-direction: column; */
   height: 100vh;
   position: relative;
 

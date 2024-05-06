@@ -1,6 +1,7 @@
 
 import logo from './logo.svg';
 import './App.css';
+import './variables.css';
 import { useState, useEffect } from 'react';
 
 import SideMenu from './Components/SideMenu/SideMenu';

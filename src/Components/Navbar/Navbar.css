@@ -1,24 +1,21 @@
 .navbar {
-    background-color: #efefef;
-    padding: 10px 10px;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
+
+.BreadCrumb {
+    color: var(--darkGrey);
+}
+
 .BreadCrumb a {
     text-decoration: none;
-    color: #A7A7AA;
+    color: var(--black);
 }
 
 .BreadCrumb a:hover {
     text-decoration: underline;
-}
-
-.BreadCrumbParent {
-    color: #A7A7AA;
-}
-
-.BreadCrumbChild {
-    color: #3C3C3C;
 }
 
 .guestNavbarContainer {
@@ -36,17 +33,15 @@
     position: fixed;
     top: 0;
     z-index: 1;
-    color: #efefef;
+    color: var(--lightGrey);
     font-weight: 700;
 }
 
-
-
 .guestNavbar .NavLink {
-    color: #efefef;
+    color: var(--lightGrey);
     font-weight: 700;
 }
 
 .guestNavbar .NavLink:hover {
-    color: #48C7B0;
+    color: var(--teal);
 }
