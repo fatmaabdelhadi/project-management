@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import './variables.css';
 import { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import SideMenu from './Components/SideMenu/SideMenu';
 import Home from './Components/Account/AccountHome';
 import Navbar from './Components/Navbar/Navbar';

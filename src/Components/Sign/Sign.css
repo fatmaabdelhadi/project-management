@@ -46,8 +46,7 @@
     margin-top: 15px;
     width: 300px;
     display: block;
-    background-color: #3c3c3c;
-    color: #ffffff;
+    background-color: var(--lightGrey);
 }
 
 .signUp input:focus {
@@ -58,7 +57,6 @@
 }
 
 .signUp > * > *   {
-  color: white;
 }
 
 .signUp a {
