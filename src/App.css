@@ -23,6 +23,10 @@ h2 {
   font-size: 48px;
   font-weight: 700;
 }
+h3 {
+  font-size: 28px;
+  color: #a7a7a7;
+}
 h4 {
   font-size: 26px;
 }
@@ -58,7 +62,7 @@ input[type=text]:focus {
   display: flex;
   background-color: var(--lightGrey);
   min-height: 100vh;
-  
+
 }
 
 .Layout {
@@ -90,4 +94,3 @@ input[type=text]:focus {
 
 }
 
-                                                             

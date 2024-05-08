@@ -1,0 +1,111 @@
+.tasks{
+    color: #A7A7A7;
+}
+.filtersRow{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.filtersRow form{
+    background-color: #fff;
+    border: var(--grey) solid 1px;
+    border-end-start-radius: 20px;
+    border-end-end-radius: 20px;
+    padding: 5px;
+    position: absolute;
+    top: 20px;
+    display: none;
+
+}
+
+/* .filtersRow button:hover .filtersRow form{
+
+} */
+
+.filtersRow button:hover .filtersRow form{
+    display: block;
+}
+
+
+.btnDropFilterP, .btnDropFilterS {
+    background: unset;
+    color: #A7A7A7;
+    font-weight: unset;
+    border-radius: unset;
+    padding: unset;
+}
+
+.gg-search {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 16px;
+    height: 16px;
+    border: 2px solid;
+    border-radius: 100%;
+    margin-left: -4px;
+    margin-top: -4px
+   }
+
+   .gg-search::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 3px;
+    width: 2px;
+    height: 8px;
+    background: currentColor;
+    transform: rotate(-45deg);
+    top: 10px;
+    left: 12px
+   }
+
+
+
+
+.userTasks{
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    width: 30%;
+    margin: 10px 0;
+
+}
+
+.userTasks > * {
+    display: flex;
+    margin: 10px 10px;
+    /* padding: 5px; */
+
+}
+.priorityBadge{
+    border: var(--red) solid 2px;
+    border-radius: 25px;
+    padding: 0 10px;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+}
+
+.timeBadge {
+    border: var(--red) solid 2px;
+    background-color: var(--red);
+    border-radius: 25px;
+    padding: 0 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+
+}
+
+.timeBadge img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(351deg) brightness(104%) contrast(103%);
+
+}
+.userTasks  p{
+    color: #A7A7A7;
+}
