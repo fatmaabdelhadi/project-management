@@ -49,6 +49,9 @@ export default function AccountHome() {
       <div className='userTasksLayout'>
         <UserTasks></UserTasks>
       </div>
+      <div className="userProjects">
+      <div className="projects"><h3>Projects</h3></div>
+      </div>
     </div>
   )
 }

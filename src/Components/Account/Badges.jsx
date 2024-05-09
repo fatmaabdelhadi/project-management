@@ -15,8 +15,8 @@ export function TimeBadge() {
   return (
     <div class="timeBadge bold">
       2 days left  &nbsp;
-      <img src={clockImg}/>
+      <img src={clockImg} alt="deadline"/>
     </div>
-  
+
   )
 }
