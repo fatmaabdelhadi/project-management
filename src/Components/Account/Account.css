@@ -47,9 +47,9 @@
     border-radius: 100%;
     margin-left: -4px;
     margin-top: -4px
-   }
+    }
 
-   .gg-search::after {
+    .gg-search::after {
     content: "";
     display: block;
     box-sizing: border-box;
@@ -61,7 +61,7 @@
     transform: rotate(-45deg);
     top: 10px;
     left: 12px
-   }
+    }
 
 
 
@@ -107,4 +107,9 @@
 }
 .userTasks  p{
     color: #A7A7A7;
+}
+.userProjects .search input{
+
+    justify-content: left;
+
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Account.css"
 import UserTasks from './UserTasks'
+import UserProjects from './UserProjects';
 
 export default function AccountHome() {
   let dropDownImg = require("../../Assets/Dropdown.svg").default;
@@ -11,7 +12,7 @@ export default function AccountHome() {
       <div class ="filtersRow">
         <label>All</label>
         <div className="filterP">
-        <button class ="btnDropFilterP" > Filter By Priority <img src={dropDownImg}/></button>
+        <button class ="btnDropFilterP" > Filter By Priority <img src={dropDownImg} alt="dropdown"/></button>
           <form>
             <input type="checkbox" />
             <label>Urgent</label><br/>
@@ -24,7 +25,7 @@ export default function AccountHome() {
           </form>
         </div>
         <div className="filterS">
-        <button class="btnDropFilterS">Filter By Status <img src={dropDownImg}/></button>
+        <button class="btnDropFilterS">Filter By Status <img src={dropDownImg} alt="dropdown"/></button>
 
           <form>
             <input type="checkbox" />
@@ -36,22 +37,36 @@ export default function AccountHome() {
             <input type="checkbox" />
             <label>Completed</label><br/>
           </form>
-      </div>
-
-
-      </div>
-
-      <div className='search'>
+          <div className='search'>
         <input type='text gg-search' placeholder='search'></input>
       </div>
+      </div>
+
+
+      </div>
+
+
       <hr/>
 
       <div className='userTasksLayout'>
         <UserTasks></UserTasks>
       </div>
+      <br/>
+
+
       <div className="userProjects">
-      <div className="projects"><h3>Projects</h3></div>
+      <h3> Projects</h3>
+      <div className='search'>
+        <input type='text gg-search' placeholder='search'></input>
       </div>
+      <hr/>
+      <div className="userProjects">
+        <UserProjects></UserProjects>
+      </div>
+
+      </div>
+
+
     </div>
   )
 }
