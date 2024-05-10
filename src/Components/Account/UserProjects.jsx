@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import "./Account.css"
-import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
+import  {TimeBadge} from './Badges'
 import axios from 'axios'
 
 export default function UserProjects() {
@@ -31,36 +31,39 @@ const calculateDaysLeft = (dueDate) => {
     return daysLeft;
 };
 return (
-    <div>
-    { projects.map(project => {
-    return (
+    // <div>
+    // { projects.map(project => {
+    // return (
 
-        <div className='userProjects'>
-            <div>
-                <h4 class="bold">{project.projectName}</h4>
-                {/* <PriorityBadge value={project.priority}></PriorityBadge> */}
-                <TimeBadge value={calculateDaysLeft(project.dueDate)}></TimeBadge>
-            </div>
+    //     <div className='userProjects'>
+    //         <div>
+    //             <h4 class="bold">{project.projectName}</h4>
+    //             {/* <PriorityBadge value={project.priority}></PriorityBadge> */}
+    //             <TimeBadge value={calculateDaysLeft(project.dueDate)}></TimeBadge>
+    //         </div>
 
-            <div>
-                {/* <p>{task.project}</p> */}
+    //         <div>
+    //             {/* progressBar */}
 
-            </div>
 
-            {/* <div>
-                <p><StatusBadge value={task.status} /></p>
-                <p>{task.dueDate}</p>
-            </div> */}
+    //         </div>
+    //         <hr/>
+    //         <div>
+    //             {/* <p>{task.comments[0].text}</p> */}
+    //         </div>
+    //     </div>
+    //         )
+    //     })
+    //     }
+    // </div>
+    <div class = "userProject">
+        <div calss="projectName"><h4 class="bold">Smart Home</h4><TimeBadge></TimeBadge>
 
-            <hr/>
-
-            <div>
-                {/* <p>{task.comments[0].text}</p> */}
-            </div>
         </div>
-            )
-        })
-        }
+
+        {/* progressBar */}
+        <div> </div>
+        <div class ="settings"> <h4 class="bold">Settings  View Dashboard</h4></div>
     </div>
     )
 

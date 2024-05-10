@@ -54,12 +54,13 @@ export default function AccountHome() {
       <br/>
 
 
-      <div className="userProjects">
+      <div className="projects">
       <h3> Projects</h3>
       <div className='search'>
         <input type='text gg-search' placeholder='search'></input>
       </div>
       <hr/>
+      </div>
       <div className="userProjects">
         <UserProjects></UserProjects>
       </div>
@@ -67,6 +68,6 @@ export default function AccountHome() {
       </div>
 
 
-    </div>
+
   )
 }
