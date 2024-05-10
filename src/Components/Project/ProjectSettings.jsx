@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function ProjectSettings() {
   return (
-    <div>ProjectSettings</div>
+    <div>Project's Settings</div>
   )
 }
