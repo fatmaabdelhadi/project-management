@@ -58,7 +58,7 @@ export default function UserTasks() {
             <hr/>
 
             <div>
-                <p>{task.comments[0].text}</p>
+                {/* <p>{task.comments[0].text}</p> */}
             </div>
         </div>
             )
