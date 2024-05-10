@@ -3,46 +3,42 @@ import "./TaskList.css";
 import axios from "axios";
 
 export default function TaskList({ addTask, tasks }) {
+  // Empty Task
+  const taskTemplate = {
+    "taskName": "",
+    "startDate": "",
+    "endDate": "",
+    // "dependency": ""
+  }
   // State to hold the data of the new task
-  const [taskData, setTaskData] = useState({
-      task_name: "",
-      // create_at: "",
-      // due_date: "",
-      // assigned_user: "",
-      // comments: "",
-  });
+  const [taskData, setTaskData] = useState(taskTemplate);
 
   // Function to handle changes in the input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setTaskData((prevTaskData) => ({
-      ...prevTaskData,
+    setTaskData((taskData) => ({
+      ...taskData,
       [name]: value,
     }));
   };
 
+
+
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-
     // Add the new task to the task list
-    addTask(taskData);
+    // addTask(taskData);
     // Reset taskData to placeholder values
-    setTaskData({
-      task_name: "",
-      create_at: "",
-      due_date: "",
-      assigned_user: "",
-      comments: "",
-    });
+    // setTaskData(taskTemplate);
 
-    const url = 'https://pm-platform-backend.onrender.com/api/tasks/create/'
+    const url = 'http://localhost:5000/api/tasks/create/'
     axios.post(url, taskData)
+      .catch((err) => {
+        alert(err.message)
+    })
   
   }
-
-
-
 
   return (
     <>
@@ -52,11 +48,9 @@ export default function TaskList({ addTask, tasks }) {
           <tr className="input-wrapper">
             <th>No.</th>
             <th>Task Name</th>
-            <th>Description</th>
-            <th>Contributer</th>
-            <th>Start Date?????</th>
-            <th>Due Date</th>
-            <th>Notes</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Dependency</th>
           </tr>
         </thead>
         {/* Table body */}
@@ -64,13 +58,10 @@ export default function TaskList({ addTask, tasks }) {
           {tasks.map((task, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{task.task_name}</td>
-              <td>{task.description}</td>
-              <td>{task.assignedUser}</td>
-              <td>{task.due_date}</td>
-              <td>{task.cost}</td>
-              <td>{task.owner}</td>
-              <td>{task.comments[0].text}</td>
+              <td>{task.taskName}</td>
+              <td>{task.startDate}</td>
+              <td>{task.endDate}</td>
+              {/* <td>{task.dependency}</td> */}
             </tr>
           ))}
           {/* Form to add a new task */}
@@ -81,13 +72,13 @@ export default function TaskList({ addTask, tasks }) {
                 type="text"
                 name="taskName"
                 className="newTaskName"
-                value={taskData.task_name}
+                value={taskData.taskName}
                 onChange={handleChange}
               />
             </td>
             <td>
               <input
-                type="text"
+                type="date"
                 name="startDate"
                 className="newStartDate"
                 value={taskData.startDate}
@@ -96,14 +87,14 @@ export default function TaskList({ addTask, tasks }) {
             </td>
             <td>
               <input
-                type="text"
+                type="date"
                 name="endDate"
                 className="newEndDate"
                 value={taskData.endDate}
                 onChange={handleChange}
               />
-            </td>
-            <td>
+             </td>
+            {/*<td>
               <input
                 type="text"
                 name="cost"
@@ -111,8 +102,8 @@ export default function TaskList({ addTask, tasks }) {
                 value={taskData.cost}
                 onChange={handleChange}
               />
-            </td>
-            <td>
+            </td> */}
+            {/* <td>
               <input
                 type="text"
                 name="owner"
@@ -120,16 +111,16 @@ export default function TaskList({ addTask, tasks }) {
                 value={taskData.owner}
                 onChange={handleChange}
               />
-            </td>
-            <td>
+            </td> */}
+            {/* <td>
               <input
                 type="text"
-                name="notes"
+                name="dependency"
                 className="newNotes"
-                value={taskData.notes}
+                value={taskData.dependency}
                 onChange={handleChange}
               />
-            </td>
+            </td> */}
           </tr>
           <tr>
             <td></td>
