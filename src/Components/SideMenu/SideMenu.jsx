@@ -80,7 +80,7 @@ export default function SideMenu() {
           {navbarItems.map((item) => {
             {
               //test if link is active
-              console.log(isActive(location.pathname))
+              {/* console.log(isActive(location.pathname)) */}
             }
             return (
               <div className="menuItem">

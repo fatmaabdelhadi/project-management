@@ -2,21 +2,27 @@ import React from 'react'
 import "./Account.css"
 
 
-export default function PriorityBadge() {
+export default function PriorityBadge({value}) {
   return (
     <div class="priorityBadge bold">
-      Urgent
+      {value}
     </div>
   )
 }
 
-export function TimeBadge() {
+export function TimeBadge({value}) {
   let clockImg = require("../../Assets/Time.svg").default;
   return (
     <div class="timeBadge bold">
-      2 days left  &nbsp;
+      {value} days left  &nbsp;
       <img src={clockImg} alt="deadline"/>
     </div>
 
+  )
+}
+
+export function StatusBadge({value}) {
+  return (
+    <div>{value}</div>
   )
 }

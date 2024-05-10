@@ -5,12 +5,11 @@ import axios from "axios";
 export default function TaskList({ addTask, tasks }) {
   // State to hold the data of the new task
   const [taskData, setTaskData] = useState({
-    taskName: "",
-    startDate: "",
-    endDate: "",
-    owner: "",
-    notes: "",
-    subtasks: [],
+      task_name: "",
+      // create_at: "",
+      // due_date: "",
+      // assigned_user: "",
+      // comments: "",
   });
 
   // Function to handle changes in the input fields
@@ -25,19 +24,22 @@ export default function TaskList({ addTask, tasks }) {
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+
     // Add the new task to the task list
     addTask(taskData);
     // Reset taskData to placeholder values
     setTaskData({
-      taskName: "",
-      startDate: "",
-      endDate: "",
-      cost: "",
-      owner: "",
-      notes: "",
-      subtasks: [],
+      task_name: "",
+      create_at: "",
+      due_date: "",
+      assigned_user: "",
+      comments: "",
     });
-  };
+
+    const url = 'https://pm-platform-backend.onrender.com/api/tasks/create/'
+    axios.post(url, taskData)
+  
+  }
 
 
 
@@ -79,7 +81,7 @@ export default function TaskList({ addTask, tasks }) {
                 type="text"
                 name="taskName"
                 className="newTaskName"
-                value={taskData.taskName}
+                value={taskData.task_name}
                 onChange={handleChange}
               />
             </td>
