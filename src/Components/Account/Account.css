@@ -97,7 +97,7 @@
     padding: 0 10px;
     color: white;
     display: flex;
-    align-items: center;
+    align-items: right;
 
 }
 
@@ -114,7 +114,7 @@
     flex-direction: column;
     border-radius: 20px;
     box-shadow: var(--shadow);
-    width: 30%;
+    width: 70%;
     margin: 10px 0;
 }
 .userProjects .settings h4{
@@ -127,8 +127,25 @@
     align-items: center;
     margin: 10px 0;
 }
-.userProjects .projectName{
+.projectName{
     display: flex;
-    flex-direction: column;
-    
+    /* align-items: center; */
+
 }
+.projectName h4{
+    margin-right: 40px;
+}
+
+
+.projectName {
+    display: flex;
+    flex-direction: row;
+}
+/* .userProjects .progressBar{
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 10px;
+    box-shadow: var(--shadow);
+    position: relative;
+} */

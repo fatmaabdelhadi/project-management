@@ -56,13 +56,14 @@ export default function AccountHome() {
 
       <div className="projects">
       <h3> Projects</h3>
-      <div className='search'>
+      <div className='gg-search'>
         <input type='text gg-search' placeholder='search'></input>
       </div>
       <hr/>
       </div>
       <div className="userProjects">
         <UserProjects></UserProjects>
+        
       </div>
 
       </div>

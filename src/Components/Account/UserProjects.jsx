@@ -56,14 +56,18 @@ return (
     //     })
     //     }
     // </div>
-    <div class = "userProject">
-        <div calss="projectName"><h4 class="bold">Smart Home</h4><TimeBadge></TimeBadge>
+    <div className = "userProject">
+        <div className="projectName"><h4 className="bold">Smart Home</h4><TimeBadge></TimeBadge>
 
         </div>
 
         {/* progressBar */}
-        <div> </div>
-        <div class ="settings"> <h4 class="bold">Settings  View Dashboard</h4></div>
+        <div>
+            <div className='progressBar'>
+                <div className='progress' style={'innerWidth:25%' }></div>
+            </div>
+        </div>
+        <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div>
     </div>
     )
 
