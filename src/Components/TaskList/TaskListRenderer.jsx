@@ -9,12 +9,8 @@ export default function TaskListRenderer({projectID}) {
         setTasks([...tasks, newTask]);
     };
     
-    // GET project
-    const projectsUrl = 'https://pm-platform-backend.onrender.com/api/projects/find/'
-
-
   // GET Tasks
-  const tasksUrl = 'https://pm-platform-backend.onrender.com/api/tasks/user/6629442719d2130518b601a6'
+  const tasksUrl = 'https://pm-platform-backend.onrender.com/api/tasks/all'
    React.useEffect(() => {
      axios.get(tasksUrl)
          .then((res) => {

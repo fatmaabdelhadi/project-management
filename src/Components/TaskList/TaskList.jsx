@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./TaskList.css";
 import axios from "axios";
+import { fixDateFormat } from "../../functions";
 
 export default function TaskList({ addTask, tasks }) {
   // Empty Task
@@ -40,6 +41,7 @@ export default function TaskList({ addTask, tasks }) {
   
   }
 
+
   return (
     <>
       <table className="taskList">
@@ -59,8 +61,8 @@ export default function TaskList({ addTask, tasks }) {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{task.taskName}</td>
-              <td>{task.startDate}</td>
-              <td>{task.endDate}</td>
+              <td>{fixDateFormat(task.startDate)}</td>
+              <td>{fixDateFormat(task.endDate)}</td>
               {/* <td>{task.dependency}</td> */}
             </tr>
           ))}

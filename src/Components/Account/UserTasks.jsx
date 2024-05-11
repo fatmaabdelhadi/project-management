@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "./Account.css"
 import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
 import axios from 'axios'
+import { fixDateFormat, GetForiegnData, calculateDaysLeft } from '../../functions'
 
 export default function UserTasks() {
     const [tasks, setTasks] = useState([]);
@@ -23,36 +24,24 @@ export default function UserTasks() {
     });
     }, []);
 
-        const calculateDaysLeft = (dueDate) => {
-        const currentDate = new Date();
-        const dueDateTime = new Date(dueDate).getTime();
-        const differenceInMs = dueDateTime - currentDate.getTime();
-        const daysLeft = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-        if (daysLeft < 0)
-            return 0
-        return daysLeft;
-    };
-
     return (
     <div className='row'>
-    { tasks.map(task => {
+    {tasks.map(task => {
     return (
-
         <div className='userTasks'>
             <div>
                 <h4 class="bold">{task.taskName}</h4>
                 <PriorityBadge value={task.priority}></PriorityBadge>
-                <TimeBadge value={calculateDaysLeft(task.dueDate)}></TimeBadge>
+                <TimeBadge value={calculateDaysLeft(task.endDate)}></TimeBadge>
             </div>
 
             <div>
-                <p>{task.project}</p>
-
+                <p><GetForiegnData object={"projects"} method={"find"} id={task.project} attr={"projectName"} /></p>
             </div>
 
             <div>
                 <p><StatusBadge value={task.status} /></p>
-                <p>{task.dueDate}</p>
+                <p>{fixDateFormat(task.endDate)}</p>
             </div>
 
             <hr/>
@@ -63,7 +52,7 @@ export default function UserTasks() {
         </div>
             )
         })
-        }
+    }
     </div>
     )
 }
