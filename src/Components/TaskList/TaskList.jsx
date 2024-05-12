@@ -17,10 +17,14 @@ export default function TaskList({ addTask, tasks }) {
   // Function to handle changes in the input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setTaskData((taskData) => ({
-      ...taskData,
-      [name]: value,
-    }));
+    if (!event.target.value) {
+      alert("You Must fill all required fields")
+    } else {
+      setTaskData((taskData) => ({
+        ...taskData,
+        [name]: value,
+      }));
+    }
   };
 
 
@@ -32,13 +36,15 @@ export default function TaskList({ addTask, tasks }) {
     // addTask(taskData);
     // Reset taskData to placeholder values
     // setTaskData(taskTemplate);
-
-    const url = 'http://localhost:5000/api/tasks/create/'
-    axios.post(url, taskData)
-      .catch((err) => {
-        alert(err.message)
-    })
-  
+    if (taskData.startDate < taskData.endDate) {
+      const url = 'https://pm-platform-backend.onrender.com/api/tasks/create/'
+      axios.post(url, taskData)
+        .catch((err) => {
+          alert(err.message)
+        })
+    } else {
+      alert("Start date must be later than end date")
+    }
   }
 
 
@@ -49,9 +55,9 @@ export default function TaskList({ addTask, tasks }) {
         <thead>
           <tr className="input-wrapper">
             <th>No.</th>
-            <th>Task Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>Task Name<span>*</span></th>
+            <th>Start Date<span>*</span></th>
+            <th>End Date<span>*</span></th>
             <th>Dependency</th>
           </tr>
         </thead>
@@ -74,6 +80,7 @@ export default function TaskList({ addTask, tasks }) {
                 type="text"
                 name="taskName"
                 className="newTaskName"
+                required
                 value={taskData.taskName}
                 onChange={handleChange}
               />
@@ -83,6 +90,7 @@ export default function TaskList({ addTask, tasks }) {
                 type="date"
                 name="startDate"
                 className="newStartDate"
+                required
                 value={taskData.startDate}
                 onChange={handleChange}
               />
@@ -91,6 +99,7 @@ export default function TaskList({ addTask, tasks }) {
               <input
                 type="date"
                 name="endDate"
+                required
                 className="newEndDate"
                 value={taskData.endDate}
                 onChange={handleChange}

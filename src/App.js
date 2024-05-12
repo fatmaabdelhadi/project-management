@@ -27,6 +27,7 @@ import ProjectSettings from './Components/Project/ProjectSettings';
 import AccountHome from './Components/Account/AccountHome';
 import LandingPage from './Components/Landing/LandingPage';
 import ContactUs from './Components/Landing/ContactUs'
+import CreateProject from './Components/Create/CreateProject';
 
 function App() {
   const [isSigned, setSignStatus] = useState(false);
@@ -50,6 +51,7 @@ function App() {
                   <Route path='/dashboard' element={<Dashboard/>}/>
                   <Route path='/create-tasks' element={<CreateTasks />}/>
                 <Route path='/create-network' element={<CreateNetwork />}/>
+                <Route path='/create-project' element={<CreateProject />}/>
                 <Route path='/account-settings' element={<AccountSettings />}/>
                 <Route path='/project-settings' element={<ProjectSettings />}/>
               </Route>

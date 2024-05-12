@@ -5,21 +5,19 @@ import { NavLink } from 'react-router-dom'
 export default function CreateNetwork() {
   return (
     <div>
-      <div>
+        <div>
+            <Network></Network>
+      </div>
+       <div className='createNavigationButtons'>
           <NavLink
                     to='/create-tasks'
                     key='create-tasks'
             ><button>Prev</button></NavLink>
-        <NavLink
+          <NavLink
                     to='/dashboard'
                     key='/dashboard'
             ><button>Done</button></NavLink>
-          <Network></Network>
-      </div>
-
-      <div>
-        
-      </div>
+        </div>
     </div>
   )
 }

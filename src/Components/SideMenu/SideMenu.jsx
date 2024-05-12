@@ -35,7 +35,7 @@ export default function SideMenu() {
     {
       name: "Create",
       image: CreateImg,
-      url: "/create-tasks",
+      url: "/create-project",
     },
     {
       name: "Project Settings",

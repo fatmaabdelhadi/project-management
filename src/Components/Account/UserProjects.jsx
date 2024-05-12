@@ -64,7 +64,7 @@ return (
         {/* progressBar */}
         <div>
             <div className='progressBar'>
-                <div className='progress' style={'innerWidth:25%' }></div>
+                <div className='progress' style={{innerWidth:'25%' }}></div>
             </div>
         </div>
         <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div>

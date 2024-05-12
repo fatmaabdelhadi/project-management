@@ -34,10 +34,24 @@ h4 {
   font-weight: 700;
 }
 
+.grey {
+  color: var(--darkGrey);
+}
+
+.star {
+  color: var(--teal);
+  font-weight: 900;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
 }
 
 /* general components stuff */
