@@ -152,7 +152,6 @@
 }
 .progress{
     position: relative;
-<<<<<<< HEAD
 } */
 
 
@@ -237,26 +236,3 @@
   .delete-account-button:hover {
     background-color: #da190b;
   }
-=======
-    width: 70%;
-    height: 20px;
-    background-color: var(--grey);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-left: 10px;
-
-}
-.progressFill{
-    width: 50%;
-    height: 100%;
-    background-color: var(--teal);
-}
-.progressPer{
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--black);
-    font: bold 14px;
-}
->>>>>>> 6ccdea175e030091d8987bf7471bf08974e0cd30
