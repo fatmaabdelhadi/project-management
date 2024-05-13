@@ -1,172 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "./Account.css";
 
 export default function AccountSettings() {
-
-
   const [editMode, setEditMode] = useState(false);
-  const [username, setUsername] = useState('GannaMohamed777');
-  const [email, setEmail] = useState('gannamohamed7776@gmail.com');
-  const [fullName, setFullName] = useState('Ganna Mohamed');
-  const [jobTitle, setJobTitle] = useState('Frontend Engineer');
-  const [theme, setTheme] = useState('Light Mode');
-  const [notifications, setNotifications] = useState(['Email', 'SMS']);
-  const [originalData, setOriginalData] = useState({
-    username: '',
-    email: '',
-    fullName: '',
-    jobTitle: '',
-    theme: '',
-    notifications: ['', ''],
-  });
-  const [isSaved, setIsSaved] = useState(true);
+  const [userData, setUserData] = useState(null); // State to hold user data
+  const [updatedUserData, setUpdatedUserData] = useState(null); // State to hold updated user data
 
-  
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    axios.get(`https://pm-platform-backend.onrender.com/api/users/find/6629442719d2130518b601a8`)
+      .then(response => {
+        setUserData(response.data);
+        setUpdatedUserData({ ...response.data }); // Initialize updatedUserData with all nested properties
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []); // Empty dependency array ensures this effect runs only once
 
-  const handleEditAccount = () => {
+  const handleEditClick = () => {
     setEditMode(true);
-    setOriginalData({
-      username: username,
-      email: email,
-      fullName: fullName,
-      jobTitle: jobTitle,
-      theme: theme,
-      notifications: notifications,
-    });
   };
 
-  const handleCancelEdit = () => {
-    setEditMode(false);
-    setUsername('GannaMohamed777');
-    setEmail('gannamohamed7776@gmail.com');
-    setFullName('Ganna Mohamed');
-    setJobTitle('Frontend Engineer');
-    setTheme('Light Mode');
-    setNotifications(['Email', 'SMS']);
+  const handleSaveChanges = () => {
+    // Call API to save updatedUserData
+    axios.put(`https://pm-platform-backend.onrender.com/api/users/update/6629442719d2130518b601a8`, updatedUserData)
+      .then(response => {
+        console.log("Changes saved successfully:", response.data);
+        setUserData(updatedUserData); // Update userData with the updatedUserData
+        setEditMode(false); // Exit edit mode after saving changes
+      })
+      .catch(error => {
+        console.error('Error saving changes:', error);
+      });
   };
 
   const handleDeleteAccount = () => {
-    // Add code here to delete the user's account
-  };
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    setIsSaved(false);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    setIsSaved(false);
-  };
-
-  const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
-    setIsSaved(false);
-  };
-
-  const handleJobTitleChange = (e) => {
-    setJobTitle(e.target.value);
-    setIsSaved(false);
-  };
-
-  const handleThemeChange = (e) => {
-    setTheme(e.target.value);
-    setIsSaved(false);
-  };
-
-  const handleNotificationChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setNotifications([...notifications, value]);
-    } else {
-      setNotifications(notifications.filter((notification) => notification !== value));
+    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
+    if (confirmDelete) {
+      // Call API to delete the user
+      axios.delete(`https://pm-platform-backend.onrender.com/api/users/delete/${userData._id}`)
+        .then(response => {
+          console.log("User deleted successfully:", response.data);
+          // Optionally, you can navigate the user to a different page or perform any cleanup tasks after deletion.
+        })
+        .catch(error => {
+          console.error('Error deleting user:', error);
+        });
     }
-    setIsSaved(false);
   };
 
-  const handleSaveAccount = () => {
-    const isDataChanged =
-      username !== originalData.username ||
-      email !== originalData.email ||
-      fullName !== originalData.fullName ||
-      jobTitle !== originalData.jobTitle ||
-      theme !== originalData.theme ||
-      JSON.stringify(notifications) !== JSON.stringify(originalData.notifications);
-    // if (!isDataChanged) {
-    //   setIsSaved(true);
-    // } else {
-    //   setIsSaved(false);
-    // }
-    console.log(originalData)
-
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedUserData(prevUserData => ({
+      ...prevUserData,
+      [name]: value
+    }));
   };
 
   return (
     <div className="account-settings">
-      <h1>Account Settings</h1>
-      <div className="user-info">
-        <div className="form-group">
-          <label>Username:</label>
-          <input type="text" value={username} readOnly={!editMode} onChange={handleUsernameChange} />
-        </div>
-        <div className="form-group">
-          <label>Email Address:</label>
-          <input type="email" value={email} readOnly={!editMode} onChange={handleEmailChange} />
-        </div>
-        <div className="form-group">
-          <label>Profile Full Name:</label>
-          <input type="text" value={fullName} readOnly={!editMode} onChange={handleFullNameChange} />
-        </div>
-        <div className="form-group">
-          <label>Job Title:</label>
-          <input type="text" value={jobTitle} readOnly={!editMode} onChange={handleJobTitleChange} />
-        </div>
-      </div>
-      <div className="preferences">
-        <h2>Preferences</h2>
-        <div className="form-group">
-          <label>Theme:</label>
-          <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-            <option value="Light Mode">Light Mode</option>
-            <option value="Dark Mode">Dark Mode</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Notifications:</label>
-          <ul>
-            <li>
-              <input
-                type="checkbox"
-                value="Email"
-                checked={notifications.includes('Email')}
-                onChange={handleNotificationChange}
-              />
-              <label>Email</label>
-            </li>
-            <li>
-              <input
-                type="checkbox"
-                value="SMS"
-                checked={notifications.includes('SMS')}
-                onChange={handleNotificationChange}
-              />
-              <label>SMS</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="other-options">
-        <h2>Other Options</h2>
-        {editMode ? (
-          <>
-            <button className="edit-account-button" onClick={handleCancelEdit}>Cancel</button>
-            <button className="delete-account-button" onClick={handleDeleteAccount}>Delete Account</button>
-            <button className="save-account-button" onClick={handleSaveAccount} disabled={isSaved}>Save Changes</button>
-          </>
-        ) : (
-          <button className="edit-account-button" onClick={handleEditAccount}>Edit Account</button>
-        )}
-      </div>
+      {userData && (
+        <>
+          <h1>Account Settings</h1>
+          <div className="user-info">
+            <div className="form-group">
+              <label>Username:</label>
+              <input type="text" name="username" value={editMode ? updatedUserData.username : userData.username} readOnly={!editMode} onChange={handleInputChange} />
+            </div>
+            <div className="form-group">
+              <label>Email Address:</label>
+              <input type="email" name="email" value={editMode ? updatedUserData.email : userData.email} readOnly={!editMode} onChange={handleInputChange} />
+            </div>
+            <div className="form-group">
+              <label>Profile Full Name:</label>
+              <input type="text" name="fullName" value={editMode ? updatedUserData.profile.fullName : userData.profile.fullName} readOnly={!editMode} onChange={handleInputChange} />
+            </div>
+            <div className="form-group">
+              <label>Job Title:</label>
+              <input type="text" name="jobTitle" value={editMode ? updatedUserData.profile.jobTitle : userData.profile.jobTitle} readOnly={!editMode} onChange={handleInputChange} />
+            </div>
+          </div>
+          <div className="other-options">
+            {editMode ? (
+              <>
+                <button className="save-account-button" onClick={handleSaveChanges}>Save Changes</button>
+              </>
+            ) : (
+              <>
+                <button className="edit-account-button" onClick={handleEditClick}>Edit Account</button>
+                <button className="delete-account-button" onClick={handleDeleteAccount}>Delete Account</button>
+              </>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
