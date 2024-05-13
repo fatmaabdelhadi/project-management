@@ -2,6 +2,7 @@ import React from 'react'
 import "./Account.css"
 import UserTasks from './UserTasks'
 import UserProjects from './UserProjects';
+import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
 
 export default function AccountHome() {
   let dropDownImg = require("../../Assets/Dropdown.svg").default;
