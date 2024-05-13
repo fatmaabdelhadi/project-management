@@ -27,8 +27,6 @@ export default function TaskList({ addTask, tasks }) {
     }
   };
 
-
-
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();

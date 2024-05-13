@@ -14,7 +14,7 @@ export default function CreateTasks() {
             ><button>Prev</button></NavLink>
            <NavLink
                     to='/create-network'
-                    key='craete-network'
+                    key='create-network'
             ><button>Next</button></NavLink>
       </div>
     </div>
