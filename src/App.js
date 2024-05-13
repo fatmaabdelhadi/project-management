@@ -22,7 +22,7 @@ import SignUp from './Components/Sign/SignUp';
 import {LogIn} from './Components/Sign/LogIn'
 import { UserLayout } from './Components/Layouts/UserLayout';
 import { GuestLayout } from './Components/Layouts/GuestLayout';
-import AccountSettings from './Components/Account/AccountSettings';
+import AccountSettingsRenderer from './Components/Account/AccountSettingsRenderer';
 import ProjectSettings from './Components/Project/ProjectSettings';
 import AccountHome from './Components/Account/AccountHome';
 import LandingPage from './Components/Landing/LandingPage';
@@ -53,7 +53,7 @@ function App() {
                   <Route path='/create-tasks/' element={<CreateTasks />}/>
                   <Route path='/create-network' element={<CreateNetwork />}/>
                   <Route path='/create-project' element={<CreateProject />}/>
-                  <Route path='/account-settings' element={<AccountSettings />}/>
+                  <Route path='/account-settings' element={<AccountSettingsRenderer />}/>
                   <Route path='/project-settings' element={<ProjectSettings />}/>
               </Route>
           </Routes>
