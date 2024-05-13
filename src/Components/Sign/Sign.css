@@ -28,6 +28,10 @@
   justify-content: space-between;
 }
 
+.signUp.form h2, .signUp.form p {
+  color: white;
+}
+
 
 .filter {
   position: absolute;
@@ -54,9 +58,6 @@
     box-shadow: none;
     border: var(--teal) solid 4px;
 
-}
-
-.signUp > * > *   {
 }
 
 .signUp a {

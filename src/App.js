@@ -49,11 +49,12 @@ function App() {
                   <Route path='/:username' element={<AccountHome />} />
                   <Route path='/home' element={<Home />} />
                   <Route path='/dashboard' element={<Dashboard/>}/>
-                  <Route path='/create-tasks' element={<CreateTasks />}/>
-                <Route path='/create-network' element={<CreateNetwork />}/>
-                <Route path='/create-project' element={<CreateProject />}/>
-                <Route path='/account-settings' element={<AccountSettings />}/>
-                <Route path='/project-settings' element={<ProjectSettings />}/>
+                  <Route path='/create-tasks/:id' element={<CreateTasks />}/>
+                  <Route path='/create-tasks/' element={<CreateTasks />}/>
+                  <Route path='/create-network' element={<CreateNetwork />}/>
+                  <Route path='/create-project' element={<CreateProject />}/>
+                  <Route path='/account-settings' element={<AccountSettings />}/>
+                  <Route path='/project-settings' element={<ProjectSettings />}/>
               </Route>
           </Routes>
           </div>
