@@ -117,10 +117,19 @@
     width: 70%;
     margin: 10px 0;
 }
-.userProjects .settings h4{
+.userProjects .settings .linkContainer{
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+
+}
+.userProjects .settings .link{
+    display: inline-block;
     color : var(--grey);
+    font-weight: bold;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 16px;
+
 }
 .userProjects .timeBadge{
     display: inline-flex;
@@ -141,13 +150,9 @@
     display: flex;
     flex-direction: row;
 }
-/* .userProjects .progressBar{
-    display: flex;
-    width: 100%;
-    color: white;
-    padding: 10px;
-    box-shadow: var(--shadow);
+.progress{
     position: relative;
+<<<<<<< HEAD
 } */
 
 
@@ -232,3 +237,26 @@
   .delete-account-button:hover {
     background-color: #da190b;
   }
+=======
+    width: 70%;
+    height: 20px;
+    background-color: var(--grey);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 10px;
+
+}
+.progressFill{
+    width: 50%;
+    height: 100%;
+    background-color: var(--teal);
+}
+.progressPer{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--black);
+    font: bold 14px;
+}
+>>>>>>> 6ccdea175e030091d8987bf7471bf08974e0cd30

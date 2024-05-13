@@ -1,7 +1,6 @@
 import React from 'react'
 import "./Account.css"
 
-
 export default function PriorityBadge({value}) {
   return (
     <div class="priorityBadge bold">

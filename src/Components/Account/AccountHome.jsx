@@ -2,6 +2,7 @@ import React from 'react'
 import "./Account.css"
 import UserTasks from './UserTasks'
 import UserProjects from './UserProjects';
+import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
 
 export default function AccountHome() {
   let dropDownImg = require("../../Assets/Dropdown.svg").default;
@@ -61,10 +62,22 @@ export default function AccountHome() {
       </div>
       <hr/>
       </div>
-      <div className="userProjects">
-        <UserProjects></UserProjects>
-        
-      </div>
+      <div className = "userProject">
+        <div className="projectName"><h4 className="bold">Smart Home</h4><TimeBadge></TimeBadge>
+
+        </div>
+
+        {/* progressBar */}
+        <div className="progress">
+            <div className="progressFill"></div>
+            <span class="progressPer">50%</span>
+        </div>
+        <br/>
+        <div className='linkContainer'>
+        <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
+        </div>
+
+    </div>
 
       </div>
 
