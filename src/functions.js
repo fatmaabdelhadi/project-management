@@ -59,3 +59,15 @@ export function GetForiegnData({ object, method, id, attr }) { // Destructure pr
         <>{projectName}</>
     );
 }
+
+export function getIdFromResponse(message) {
+    const regex = /ID\s+(\w+)/;
+    const match = message.match(regex);
+
+    if (match) {
+        const id = match[1];
+        return id
+    }  else {
+            console.log('ID not found in message');
+    }
+}
