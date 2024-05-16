@@ -1,14 +1,12 @@
 import React from 'react'
 import TaskListRenderer from '../TaskList/TaskListRenderer'
 import { NavLink } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
 
 export default function CreateTasks() {
-  const { id } = useParams
-
+  const projectID = 'project789'
   return (
     <div>   
-      <TaskListRenderer projectID={"6638cb129ebc1e809dd23fe4"}/>
+      <TaskListRenderer projectID={projectID}></TaskListRenderer>
       <div className='createNavigationButtons'>
         <NavLink
                     to='/create-project'

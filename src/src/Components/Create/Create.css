@@ -1,0 +1,38 @@
+/* general for 'Create' pages */
+.createNavigationButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+/* create project page */
+.createProjectComponent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.createProjectLayout {
+    display: flex;
+    flex-direction: column;
+    margin: auto 50px;    
+}
+
+.createProject {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+.createProject input {
+    width: 400px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.createProject .row {
+    display: flex;
+    flex-direction: row;
+}
