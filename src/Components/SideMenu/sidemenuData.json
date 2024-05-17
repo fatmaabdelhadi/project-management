@@ -1,0 +1,62 @@
+
+    {
+      name: 'Ganna Mohamed',
+      class: 'header',
+      image: '',
+      url: '',
+  },
+    {
+      name: "Profile",
+      class: 'link',
+      image: AccountImg,
+      url: "./account-settings",
+    },
+    {
+      name: '',
+      class: 'divider',
+      image: '',
+      url: '',
+    },
+    {
+      name: "Home",
+      class: 'link',
+      image: HomeImg,
+      url: "/home",
+    },
+    {
+      name: "Create",
+      class: 'link',
+      image: CreateImg,
+      url: "/create-project",
+    },
+    {
+      name: '',
+      class: 'divider',
+      image: '',
+      url: ''
+    },
+    {
+      name: 'Smart Home',
+      class: 'dropdown',
+      image: '',
+      url: ''
+    },
+    {
+      name: "Dashboard",
+      class: 'link',
+      image: DashboardImg,
+      url: "./dashboard",
+    },
+
+    {
+      name: "Project Settings",
+      class: 'link',
+      image: SettingsImg,
+      url: "/project-settings",
+    },
+    {
+      name: "Logout",
+      class: 'link',
+      image: LogoutImg,
+      url: "/logIn",
+    },

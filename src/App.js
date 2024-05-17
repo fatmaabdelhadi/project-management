@@ -22,7 +22,7 @@ import SignUp from './Components/Sign/SignUp';
 import {LogIn} from './Components/Sign/LogIn'
 import { UserLayout } from './Components/Layouts/UserLayout';
 import { GuestLayout } from './Components/Layouts/GuestLayout';
-import AccountSettingsRenderer from './Components/Account/AccountSettingsRenderer';
+import AccountSettings from './Components/Account/AccountSettings';
 import ProjectSettings from './Components/Project/ProjectSettings';
 import AccountHome from './Components/Account/AccountHome';
 import LandingPage from './Components/Landing/LandingPage';
@@ -34,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <div className='Layout'>        
+        <div className='Layout'>
           <Routes>
             {/* Guest Layout */}
             <Route element={<GuestLayout />}>
@@ -43,22 +43,22 @@ function App() {
               <Route path='/signUp' element={<SignUp></SignUp>}></Route>
               <Route path='/logIn' element={<LogIn></LogIn>}></Route>
             </Route>
-            
+
             {/* User Layout */}
               <Route element={<UserLayout></UserLayout>} className='Content' >
                   <Route path='/:username' element={<AccountHome />} />
                   <Route path='/home' element={<Home />} />
                   <Route path='/dashboard' element={<Dashboard/>}/>
-                  <Route path='/create-tasks/:id' element={<CreateTasks />}/>
+                  <Route path='/create-tasks/:projectID' element={<CreateTasks />}/>
                   <Route path='/create-tasks/' element={<CreateTasks />}/>
                   <Route path='/create-network' element={<CreateNetwork />}/>
                   <Route path='/create-project' element={<CreateProject />}/>
-                  <Route path='/account-settings' element={<AccountSettingsRenderer />}/>
+                  <Route path='/account-settings' element={<AccountSettings />}/>
                   <Route path='/project-settings' element={<ProjectSettings />}/>
               </Route>
           </Routes>
           </div>
-           
+
 
         {/* </div> */}
     </div>
@@ -99,7 +99,7 @@ export default App;
 //       notes: 'placeholder',
 //       subtasks: []
 //     };
-  
+
 //     if (parentIndex !== null) { // subtask
 //       const updatedTasks = [...tasks];
 //       updatedTasks[parentIndex].subtasks.push(newTask);
@@ -113,7 +113,7 @@ export default App;
 //   return (
 //     <BrowserRouter>
 //     <div className="App">
-      
+
 //         <SideMenu></SideMenu>
 //         <div className='Layout'>
 
@@ -127,11 +127,11 @@ export default App;
 //                 <Route path='/create' element={<TaskList addTask={addTask} tasks={tasks} />}></Route>
 //               </Routes>
 //           </div>
-           
+
 
 //         </div>
-  
-   
+
+
 //     </div>
 //     </BrowserRouter>
 

@@ -10,7 +10,11 @@ export default function CreateProject() {
     const projectTemplate = {
         "projectName": "",
         "projectDescription": "",
-        "projectManager": "66351fd740946cd8ea2c13c9"
+        "status": "not started",
+        "projectManager": "66351fd740946cd8ea2c13c9",
+        "teamMembers": [],
+        "tasks": [],
+
     }
     const [projectData, setProjectDate] = useState(projectTemplate)
     const [projectID, setProjectID] = useState('')
@@ -27,32 +31,25 @@ export default function CreateProject() {
     }
 
     const handleSubmit = (event) => {
-        // let id
-        // event.preventDefault();
-        // if (projectData.projectName) {
-        //     const url = 'https://pm-platform-backend.onrender.com/api/projects/create/'
-        //     axios.post(url, projectData)
-        //         .then((res) => {
-        //             console.log(res.data)
-        //             id = getIdFromResponse(res.data)
-        //             setProjectID(id)
-        //             console.log(id)
-        //             setRedirect(true)
-        //         })
-        //         .then(() => {
-        //             //   this.props.history.push(`/create-tasks/${id}`)
-
-        //         })
-        //     .catch((err) => {
-        //         console.log(err.message)
-        //         alert(err.message)
-        //     })
-        // } else {
-        //     alert('Project Name cannot be empty')
-        // }
-
-      
+    event.preventDefault();
+    if (projectData.projectName) {
+        const url = 'https://pm-platform-backend.onrender.com/api/projects/create/';
+        axios.post(url, projectData)
+           .then((res) => {
+                console.log(res.data);
+                const projectId = getIdFromResponse(res.data);
+                setProjectID(projectId);
+                console.log(projectId);
+                setRedirect(true);
+            })
+           .catch((err) => {
+                console.log(err.message);
+                alert(err.message);
+            });
+    } else {
+        alert('Project Name cannot be empty');
     }
+};
     
     return (
         <div className='createProjectComponent'>
@@ -79,11 +76,10 @@ export default function CreateProject() {
             <div className='createNavigationButtons'>
                 <div></div>
                 <NavLink
-                        // to='/create-tasks/'
-                        to='/create-tasks/6638cb129ebc1e809dd23fe4'
+                        to={`/create-tasks/${projectID}`}
                         key='create-tasks'
                     >
-                        {/* {redirect && <Navigate to={`/create-tasks/${projectID}`} />} */}
+        {redirect && <Navigate to={`/create-tasks/${projectID}`} replace={true} />}
                     <input type='submit' form='createProjectForm' value='Next' onClick={handleSubmit} />
                 </NavLink>
             </div>

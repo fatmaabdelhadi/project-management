@@ -2,8 +2,8 @@ import React from 'react'
 import "./Account.css"
 import UserTasks from './UserTasks'
 import UserProjects from './UserProjects';
+//import { TimeBadge } from './Badges';
 import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
-
 export default function AccountHome() {
   let dropDownImg = require("../../Assets/Dropdown.svg").default;
 
@@ -46,7 +46,6 @@ export default function AccountHome() {
 
       </div>
 
-
       <hr/>
 
       <div className='userTasksLayout'>
@@ -54,34 +53,15 @@ export default function AccountHome() {
       </div>
       <br/>
 
-
       <div className="projects">
-      <h3> Projects</h3>
-      <div className='gg-search'>
-        <input type='text gg-search' placeholder='search'></input>
-      </div>
-      <hr/>
-      </div>
-      <div className = "userProject">
-        <div className="projectName"><h4 className="bold">Smart Home</h4><TimeBadge></TimeBadge>
-
+        <h3> Projects</h3>
+        <div className='gg-search'>
+          <input type='text gg-search' placeholder='search'></input>
         </div>
-
-        {/* progressBar */}
-        <div className="progress">
-            <div className="progressFill"></div>
-            <span class="progressPer">50%</span>
-        </div>
-        <br/>
-        <div className='linkContainer'>
-        <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
-        </div>
-
-    </div>
-
+        <hr/>
+        <UserProjects/>
       </div>
-
-
-
+      </div>
   )
 }
+

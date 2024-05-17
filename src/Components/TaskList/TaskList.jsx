@@ -3,12 +3,13 @@ import "./TaskList.css";
 import axios from "axios";
 import { fixDateFormat } from "../../functions";
 
-export default function TaskList({ addTask, tasks }) {
+export default function TaskList({ addTask, tasks, projectID }) {
   // Empty Task
   const taskTemplate = {
     "taskName": "",
     "startDate": "",
     "endDate": "",
+    "project": projectID,
     // "dependency": ""
   }
   // State to hold the data of the new task
@@ -17,14 +18,12 @@ export default function TaskList({ addTask, tasks }) {
   // Function to handle changes in the input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (!event.target.value) {
-      alert("You Must fill all required fields")
-    } else {
+
       setTaskData((taskData) => ({
         ...taskData,
         [name]: value,
       }));
-    }
+    
   };
 
   // Function to handle form submission
@@ -37,6 +36,7 @@ export default function TaskList({ addTask, tasks }) {
     if (taskData.startDate < taskData.endDate) {
       const url = 'https://pm-platform-backend.onrender.com/api/tasks/create/'
       axios.post(url, taskData)
+        .then(console.log(taskData))
         .catch((err) => {
           alert(err.message)
         })
@@ -139,9 +139,9 @@ export default function TaskList({ addTask, tasks }) {
             <td></td>
             <td></td>
             <td>
-              <button type="submit" onClick={handleSubmit}>
-                Add
-              </button>
+              <input type="submit" onClick={handleSubmit} value="Add"
+                
+              />
             </td>
           </tr>
         </tbody>

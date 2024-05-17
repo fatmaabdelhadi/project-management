@@ -31,43 +31,49 @@ const calculateDaysLeft = (dueDate) => {
     return daysLeft;
 };
 return (
-    // <div>
-    // { projects.map(project => {
-    // return (
+    <div className='row'>
+    { projects.map(project => {
+        // console.log(project)
+    return (
 
-    //     <div className='userProjects'>
-    //         <div>
-    //             <h4 class="bold">{project.projectName}</h4>
-    //             {/* <PriorityBadge value={project.priority}></PriorityBadge> */}
-    //             <TimeBadge value={calculateDaysLeft(project.dueDate)}></TimeBadge>
-    //         </div>
+        <div className='userProjects'>
+            <div className='content1'>
+                <h4 class="bold">{project.projectName}</h4>
+                <TimeBadge value={calculateDaysLeft(project.dueDate)}></TimeBadge>
+            </div>
+            <div>
+            <div className='progressBar'>
+            <div className="progressFill"></div>
+                <div className='progress' style={{innerWidth:'25%' }}></div>
+                <span class="progressPer">50%</span>
 
-    //         <div>
-    //             {/* progressBar */}
+            </div>
+        </div>
+        {/* <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div> */}
+        <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
 
-
-    //         </div>
-    //         <hr/>
-    //         <div>
-    //             {/* <p>{task.comments[0].text}</p> */}
-    //         </div>
-    //     </div>
-    //         )
-    //     })
-    //     }
-    // </div>
-    <div className = "userProject">
+        </div>
+        // </div>
+            )
+        })
+        }
+        <div className = "userProjects">
         <div className="projectName"><h4 className="bold">Smart Home</h4><TimeBadge></TimeBadge>
 
         </div>
 
         {/* progressBar */}
-        <div>
-            <div className='progressBar'>
-                <div className='progress' style={{innerWidth:'25%' }}></div>
-            </div>
+        <div className="progress">
+            <div className="progressFill"></div>
+            <span class="progressPer">50%</span>
         </div>
-        <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div>
+        <br/>
+        <div className='linkContainer'>
+        <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
+        </div>
+
+
+    </div>
     </div>
     )
 

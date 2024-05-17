@@ -66,13 +66,13 @@ button, input[type=button], input[type=submit] {
     padding: 10px 40px;
 }
 
-input[type=text] {
+input[type=text], input[type=email]  {
     border-radius: 10px;
     border: var(--grey) solid 1px;
     padding: 5px 10px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=email]:focus {
     outline: none;
     box-shadow: none;
     border: var(--teal) solid 4px;
