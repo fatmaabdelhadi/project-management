@@ -7,27 +7,28 @@ import PriorityBadge, {TimeBadge, StatusBadge} from './Badges'
 export default function AccountHome() {
   let dropDownImg = require("../../Assets/Dropdown.svg").default;
 
+  
+  
   return (
     <div>
       <div className="tasks"><h3>Tasks</h3></div>
       <div class ="filtersRow">
         <label>All</label>
         <div className="filterP">
-        <button class ="btnDropFilterP" > Filter By Priority <img src={dropDownImg} alt="dropdown"/></button>
-          <form>
-            <input type="checkbox" />
-            <label>Urgent</label><br/>
-            <input type="checkbox" />
-            <label>Important</label><br/>
-            <input type="checkbox" />
-            <label>Medium</label><br/>
-            <input type="checkbox" />
-            <label>Low</label><br/>
-          </form>
+          <button class ="btnDropFilterP" > Filter By Priority <img src={dropDownImg} alt="dropdown"/></button>
+            <form>
+              <input type="checkbox" />
+              <label>Urgent</label><br/>
+              <input type="checkbox" />
+              <label>Important</label><br/>
+              <input type="checkbox" />
+              <label>Medium</label><br/>
+              <input type="checkbox" />
+              <label>Low</label><br/>
+            </form>
         </div>
         <div className="filterS">
-        <button class="btnDropFilterS">Filter By Status <img src={dropDownImg} alt="dropdown"/></button>
-
+          <button class="btnDropFilterS">Filter By Status <img src={dropDownImg} alt="dropdown" /></button>
           <form>
             <input type="checkbox" />
             <label>Late</label><br/>
@@ -38,12 +39,10 @@ export default function AccountHome() {
             <input type="checkbox" />
             <label>Completed</label><br/>
           </form>
-          <div className='search'>
-        <input type='text gg-search' placeholder='search'></input>
-      </div>
-      </div>
-
-
+        </div>
+        <div className='searchBar'>
+            <input type='text gg-search' placeholder='search'></input>
+        </div>
       </div>
 
       <hr/>
@@ -55,7 +54,7 @@ export default function AccountHome() {
 
       <div className="projects">
         <h3> Projects</h3>
-        <div className='gg-search'>
+        <div className='searchBar'>
           <input type='text gg-search' placeholder='search'></input>
         </div>
         <hr/>

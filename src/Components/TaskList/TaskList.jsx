@@ -10,7 +10,11 @@ export default function TaskList({ addTask, tasks, projectID }) {
     "startDate": "",
     "endDate": "",
     "project": projectID,
-    // "dependency": ""
+    "dependency": "",
+    "cost": 0,
+    "contributers": [],
+    "comments": "",
+
   }
   // State to hold the data of the new task
   const [taskData, setTaskData] = useState(taskTemplate);
@@ -57,6 +61,9 @@ export default function TaskList({ addTask, tasks, projectID }) {
             <th>Start Date<span>*</span></th>
             <th>End Date<span>*</span></th>
             <th>Dependency</th>
+            <th>Cost</th>
+            <th>Contributers</th>
+            <th>Comments</th>
           </tr>
         </thead>
         {/* Table body */}
@@ -102,8 +109,17 @@ export default function TaskList({ addTask, tasks, projectID }) {
                 value={taskData.endDate}
                 onChange={handleChange}
               />
-             </td>
-            {/*<td>
+            </td>
+             <td>
+              <input
+                type="text"
+                name="dependency"
+                className="newDependency"
+                value={taskData.dependancy}
+                onChange={handleChange}
+              />
+            </td>
+            <td>
               <input
                 type="text"
                 name="cost"
@@ -111,25 +127,25 @@ export default function TaskList({ addTask, tasks, projectID }) {
                 value={taskData.cost}
                 onChange={handleChange}
               />
-            </td> */}
-            {/* <td>
+            </td>
+            <td>
               <input
                 type="text"
                 name="owner"
                 className="newOwner"
-                value={taskData.owner}
+                value={taskData.contributers}
                 onChange={handleChange}
               />
-            </td> */}
-            {/* <td>
+            </td>
+             <td>
               <input
                 type="text"
-                name="dependency"
+                name="comments"
                 className="newNotes"
-                value={taskData.dependency}
+                value={taskData.comments}
                 onChange={handleChange}
               />
-            </td> */}
+            </td>
           </tr>
           <tr>
             <td></td>
@@ -138,11 +154,8 @@ export default function TaskList({ addTask, tasks, projectID }) {
             <td></td>
             <td></td>
             <td></td>
-            <td>
-              <input type="submit" onClick={handleSubmit} value="Add"
-                
-              />
-            </td>
+            <td></td>
+            <input type="submit" onClick={handleSubmit} value="Add"/>
           </tr>
         </tbody>
       </table>

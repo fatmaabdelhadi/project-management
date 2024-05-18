@@ -39,7 +39,7 @@ export default function UserTasks() {
                 <p><GetForiegnData object={"projects"} method={"find"} id={task.project} attr={"projectName"} /></p>
             </div>
 
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                 <p><StatusBadge value={task.status} /></p>
                 <p>{fixDateFormat(task.endDate)}</p>
             </div>

@@ -3,8 +3,12 @@
 }
 .filtersRow{
     display: flex;
-    justify-content: space-between;
     position: relative;
+    width: 100%;
+}
+
+.filtersRow > * {
+    margin-right: 50px;
 }
 
 .filtersRow form{
@@ -19,14 +23,12 @@
 
 }
 
-/* .filtersRow button:hover .filtersRow form{
-
-} */
-
-.filtersRow button:hover .filtersRow form{
+.filtersRow button:focus + form, 
+.filtersRow button:hover + form,
+form:focus, 
+form:hover {
     display: block;
 }
-
 
 .btnDropFilterP, .btnDropFilterS {
     background: unset;
@@ -36,7 +38,14 @@
     padding: unset;
 }
 
+.searchBar {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-grow: 1;
+}
+
 .gg-search {
+    float: inline-end;
     box-sizing: border-box;
     position: relative;
     display: block;
@@ -173,7 +182,6 @@
 
 }
 .progressFill{
-    width: 50%;
     height: 100%;
     background-color: var(--teal);
 }

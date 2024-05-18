@@ -82,6 +82,7 @@ input[type=text]:focus, input[type=email]:focus {
   display: flex;
   background-color: var(--lightGrey);
   min-height: 100vh;
+  min-width: fit-content;
 
 }
 
@@ -98,7 +99,9 @@ input[type=text]:focus, input[type=email]:focus {
   border-radius: 23px;
   margin: auto 0;
   min-height: 400px;
-  box-shadow: var(--shadow)
+  box-shadow: var(--shadow);
+    /* max-width: 1024px; */
+
 }
 
 .userLayout {
@@ -106,7 +109,9 @@ input[type=text]:focus, input[type=email]:focus {
   flex-direction: column;
   flex-grow: 1;
   padding: 10px 10px;
+  width: 100%;
 }
+
 
 .guestLayout {
   height: 100vh;

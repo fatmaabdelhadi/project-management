@@ -9,7 +9,8 @@ export default function UserProjects() {
         setProjects([...projects, newProject]);
     };
 // GET Projects
-const url = 'https://pm-platform-backend.onrender.com/api/projects/user/6629442719d2130518b601a8'
+// const url = 'https://pm-platform-backend.onrender.com/api/projects/user/6629442719d2130518b601a8'
+const url = 'https://pm-platform-backend.onrender.com/api/projects/all'
 React.useEffect(() => {
 axios.get(url)
     .then((res) => {
@@ -32,31 +33,28 @@ const calculateDaysLeft = (dueDate) => {
 };
 return (
     <div className='row'>
-    { projects.map(project => {
-        // console.log(project)
-    return (
+        {projects.map(project => { 
+            return (
 
-        <div className='userProjects'>
-            <div className='content1'>
-                <h4 class="bold">{project.projectName}</h4>
-                <TimeBadge value={calculateDaysLeft(project.dueDate)}></TimeBadge>
-            </div>
-            <div>
-            <div className='progressBar'>
-            <div className="progressFill"></div>
-                <div className='progress' style={{innerWidth:'25%' }}></div>
-                <span class="progressPer">50%</span>
+                <div className='userProjects'>
+                    <div className='content1'>
+                        <h4 class="bold">{project.projectName}</h4>
+                        <TimeBadge value={calculateDaysLeft(project.endDate)}></TimeBadge>
+                    </div>
+                    <div>
+                        <div className='progressBar'>
+                            <div className="progressFill"  style={{width:`${project.progress? project.progress.completion_percentage : 0}%` }}></div>
+                            <div className='progress'></div>
+                            <span class="progressPer">{project.progress? project.progress.completion_percentage : 0}%</span>
+                        </div>
+                    </div>
+                {/* <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div> */}
+                <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
 
-            </div>
-        </div>
-        {/* <div className ="settings"> <h4 className="bold">Settings  View Dashboard</h4></div> */}
-        <div className ="settings"> <a href="/project-settings" className='link'>Settings</a>   &nbsp;<a href="/dashboard" className='link'>View Dashboard</a></div>
-
-        </div>
-        // </div>
-            )
-        })
-        }
+                </div>
+                // </div>
+                    )
+        })}
         <div className = "userProjects">
         <div className="projectName"><h4 className="bold">Smart Home</h4><TimeBadge></TimeBadge>
 
