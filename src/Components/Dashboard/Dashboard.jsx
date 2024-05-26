@@ -3,7 +3,10 @@ import QuickChart from "quickchart-js";
 import "./Dashboard.css";
 import Network from "./Network";
 import Gannt from "./Gannt";
+import { NavLink, useParams } from "react-router-dom";
+
 export default function Dashboard() {
+  const { projectID } = useParams();
 
   const statusDonut = new QuickChart();
   statusDonut.setConfig({
@@ -80,26 +83,53 @@ export default function Dashboard() {
     },
   });
 
-
   let data = [
-    { name: "Task Status", data: statusDonut.getUrl(), className: "statusDonut" },
-    { name: "Task Priority", data: priorityBar.getUrl(), className: "priorityBar" },
+    {
+      name: "Task Status",
+      data: statusDonut.getUrl(),
+      className: "statusDonut",
+    },
+    {
+      name: "Task Priority",
+      data: priorityBar.getUrl(),
+      className: "priorityBar",
+    },
   ];
 
-  const [diagrams, setDiagrams] = useState([...data])
+  const [diagrams, setDiagrams] = useState([...data]);
 
   return (
     <div className="dashboard">
-      
-      <Network></Network>
-      <Gannt></Gannt>
-      {diagrams.map(item => {
-        return <div>
-          <h3 className="bold">{item.name}</h3>
-          <img alt={item.name} className={`diagram ${item.className}`} src={item.data} />
+      <h3 className="bold">Project Network</h3>
+      <Network
+        projectID={projectID}
+        border={"1px solid var(--grey)"}
+        height={"400px"}
+        width={"100%"}
+      ></Network>
+      <Gannt
+        projectID={projectID}
+        border={"1px solid var(--grey)"}
+        height={"400px"}
+        width={"100%"}
+      ></Gannt>
+      {diagrams.map((item) => {
+        return (
+          <div>
+            <h3 className="bold">{item.name}</h3>
+            <img
+              alt={item.name}
+              className={`diagram ${item.className}`}
+              src={item.data}
+            />
           </div>
+        );
       })}
-                     
+      <div className="createNavigationButtons">
+        <NavLink to={`/create-network/${projectID}`} key="create-network">
+          <button>Prev</button>
+        </NavLink>
+      </div>
     </div>
   );
 }
