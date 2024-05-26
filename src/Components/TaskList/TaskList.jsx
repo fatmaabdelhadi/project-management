@@ -6,16 +6,15 @@ import { fixDateFormat } from "../../functions";
 export default function TaskList({ addTask, tasks, projectID }) {
   // Empty Task
   const taskTemplate = {
-    "taskName": "",
-    "startDate": "",
-    "endDate": "",
-    "project": projectID,
-    "dependency": "",
-    "cost": 0,
-    "contributers": [],
-    "comments": "",
-
-  }
+    taskName: "",
+    startDate: "",
+    endDate: "",
+    project: projectID,
+    dependency: "",
+    cost: 0,
+    contributers: [],
+    comments: "",
+  };
   // State to hold the data of the new task
   const [taskData, setTaskData] = useState(taskTemplate);
 
@@ -23,11 +22,10 @@ export default function TaskList({ addTask, tasks, projectID }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-      setTaskData((taskData) => ({
-        ...taskData,
-        [name]: value,
-      }));
-    
+    setTaskData((taskData) => ({
+      ...taskData,
+      [name]: value,
+    }));
   };
 
   // Function to handle form submission
@@ -38,17 +36,17 @@ export default function TaskList({ addTask, tasks, projectID }) {
     // Reset taskData to placeholder values
     // setTaskData(taskTemplate);
     if (taskData.startDate < taskData.endDate) {
-      const url = 'https://pm-platform-backend.onrender.com/api/tasks/create/'
-      axios.post(url, taskData)
+      const url = "https://pm-platform-backend.onrender.com/api/tasks/create/";
+      axios
+        .post(url, taskData)
         .then(console.log(taskData))
         .catch((err) => {
-          alert(err.message)
-        })
+          alert(err.message);
+        });
     } else {
-      alert("Start date must be later than end date")
+      alert("Start date must be later than end date");
     }
-  }
-
+  };
 
   return (
     <>
@@ -57,9 +55,15 @@ export default function TaskList({ addTask, tasks, projectID }) {
         <thead>
           <tr className="input-wrapper">
             <th>No.</th>
-            <th>Task Name<span>*</span></th>
-            <th>Start Date<span>*</span></th>
-            <th>End Date<span>*</span></th>
+            <th>
+              Task Name<span>*</span>
+            </th>
+            <th>
+              Start Date<span>*</span>
+            </th>
+            <th>
+              End Date<span>*</span>
+            </th>
             <th>Dependency</th>
             <th>Cost</th>
             <th>Contributers</th>
@@ -110,7 +114,7 @@ export default function TaskList({ addTask, tasks, projectID }) {
                 onChange={handleChange}
               />
             </td>
-             <td>
+            <td>
               <input
                 type="text"
                 name="dependency"
@@ -137,7 +141,7 @@ export default function TaskList({ addTask, tasks, projectID }) {
                 onChange={handleChange}
               />
             </td>
-             <td>
+            <td>
               <input
                 type="text"
                 name="comments"
@@ -155,7 +159,7 @@ export default function TaskList({ addTask, tasks, projectID }) {
             <td></td>
             <td></td>
             <td></td>
-            <input type="submit" onClick={handleSubmit} value="Add"/>
+            <input type="submit" onClick={handleSubmit} value="Add" />
           </tr>
         </tbody>
       </table>
