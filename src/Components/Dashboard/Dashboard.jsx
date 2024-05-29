@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import QuickChart from "quickchart-js";
 import "./Dashboard.css";
 import Network from "./Network";
-import Gannt from "./Gannt";
+import Gantt from "./Gantt";
 import { NavLink, useParams } from "react-router-dom";
 
 export default function Dashboard() {
@@ -107,12 +107,12 @@ export default function Dashboard() {
         height={"400px"}
         width={"100%"}
       ></Network>
-      <Gannt
+      <Gantt
         projectID={projectID}
         border={"1px solid var(--grey)"}
         height={"400px"}
         width={"100%"}
-      ></Gannt>
+      ></Gantt>
       {diagrams.map((item) => {
         return (
           <div>
