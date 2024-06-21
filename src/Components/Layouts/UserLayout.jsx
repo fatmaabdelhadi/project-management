@@ -1,35 +1,32 @@
-import React, { Children } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import Navbar from "../Navbar/Navbar";
 import SideMenu from "../SideMenu/SideMenu";
 
-export const UserLayout = ({ children, currentProject }) => {
+export const UserLayout = ({ children }) => {
+  const [currentProject, setCurrentProject] = useState(() => {
+    const savedProject = JSON.parse(localStorage.getItem("currentProject"));
+    return savedProject || { projectID: "", projectName: "" };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("currentProject", JSON.stringify(currentProject));
+  }, [currentProject]);
+
   return (
     <div className="App">
-      <SideMenu currentProject={currentProject}></SideMenu>
+      <SideMenu
+        currentProject={currentProject}
+        setCurrentProject={setCurrentProject}
+      />
+
       <div className="userLayout">
-        <Navbar></Navbar>
+        <Navbar currentProject={currentProject} />
         <div className="Content">
           {children}
-          <Outlet></Outlet>
+          <Outlet />
         </div>
       </div>
     </div>
   );
 };
-
-// export const UserLayout = ({children}) => {
-//   return (
-//  <div>
-//           <Navbar></Navbar>
-//           <div className='App'>
-//               <SideMenu></SideMenu>
-//               <div className='Content'>
-
-//                 {children}
-//               </div>
-//                <Outlet></Outlet>
-//           </div>
-
-//       </div>  )
-// }

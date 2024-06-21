@@ -1,52 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { getUserProjects } from "../../Services/UserModel";
+import { findProjectByID, setProjectData } from "../../Services/ProjectModel";
 
-export default function SideMenuProjects() {
-  // render projects from axios
+export default function SideMenuProjects({ setCurrentProject }) {
   const [projects, setProjects] = useState([]);
-  const addProject = (newProject) => {
-    setProjects([...projects, newProject]);
-  };
-
-  // change current project
-  const [currentProject, setCurrentProject] = useState({
-    projectID: "",
-    projectName: "",
-  });
-  //change current project in the url
   const navigate = useNavigate();
   const params = useParams();
 
-  const url =
-    "https://pm-platform-backend.onrender.com/api/projects/user/6629442719d2130518b601a8";
-  React.useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => {
-        const data = res.data;
-        if (data) {
-          setProjects(
-            data.map((project) => ({
-              projectID: project._id,
-              projectName: project.projectName,
-            }))
-          );
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  useEffect(() => {
+    setProjects(getUserProjects());
+    setProjects(
+      projects.map((project) => ({
+        projectID: project._id,
+        projectName: project.projectName,
+      }))
+    );
+  }, [projects]);
 
   const handleProjectClick = (project) => {
-    setCurrentProject({ ...project });
-    // save current url in local storage
-    localStorage.setItem("projectID", JSON.stringify(project.projectID));
-    localStorage.setItem("projectName", JSON.stringify(project.projectName));
+    setCurrentProject(project);
+    const fetchProjectData = async () => {
+      try {
+        const data = await findProjectByID(project.projectID); // Assuming projectID is already set or obtained
 
-    console.log(JSON.parse(localStorage.getItem("projectID")));
-    console.log(JSON.parse(localStorage.getItem("projectName")));
+        setProjectData(data); // Set project data in state
+        window.location.reload();
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+        // Handle error appropriately
+      }
+    };
+
+    if (project.projectID) {
+      fetchProjectData();
+    }
+    localStorage.setItem("currentProject", JSON.stringify(project));
     const currentPath = window.location.pathname;
     const newPath = currentPath.replace(params.projectID, project.projectID);
     navigate(newPath, { replace: true });

@@ -1,11 +1,12 @@
-import { React, useState } from "react";
+import { React, useEffect, useState, useMemo } from "react";
 import "./SideMenu.css";
 import { Link, NavLink } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { useLocation } from "react-router-dom";
 import SideMenuProjects from "./SideMenuProjects";
+import { getUserData } from "../../Services/UserModel";
 
-export default function SideMenu({ currentProject }) {
+export default function SideMenu({ currentProject, setCurrentProject }) {
   let ArrowImg = require("../../Assets/Arrow Flip.svg").default;
   let HomeImg = require("../../Assets/Home inactive.svg").default;
   let DashboardImg = require("../../Assets/Dashboard inactive.svg").default;
@@ -15,76 +16,83 @@ export default function SideMenu({ currentProject }) {
   let LogoutImg = require("../../Assets/Logout inactive.svg").default;
   let DotImg = require("../../Assets/Dot.svg").default;
 
-  let data = [
-    {
-      name: "Ganna Mohamed",
-      class: "header",
-      image: "",
-      url: "",
-    },
-    {
-      name: "Profile",
-      class: "link",
-      image: AccountImg,
-      url: "./account-settings",
-    },
-    {
-      name: "",
-      class: "divider",
-      image: "",
-      url: "",
-    },
-    {
-      name: "Home",
-      class: "link",
-      image: HomeImg,
-      url: "/home",
-    },
-    {
-      name: "Create",
-      class: "link",
-      image: CreateImg,
-      url: "/create-project",
-    },
-    {
-      name: "",
-      class: "divider",
-      image: "",
-      url: "",
-    },
-    {
-      name: currentProject.projectName + ">",
-      class: "dropdown",
-      image: "",
-      url: { useLocation },
-    },
-    {
-      name: "Dashboard",
-      class: "link",
-      image: DashboardImg,
-      url: "./dashboard",
-    },
-    {
-      name: "Project Settings",
-      class: "link",
-      image: SettingsImg,
-      url: "/project-settings",
-    },
-    {
-      name: "Logout",
-      class: "link",
-      image: LogoutImg,
-      url: "/logIn",
-    },
-  ];
+  const data = useMemo(
+    () => [
+      {
+        name: getUserData().user.username,
+        class: "header",
+        image: "",
+        url: "",
+      },
+      {
+        name: "Profile",
+        class: "link",
+        image: AccountImg,
+        url: "./account-settings",
+      },
+      {
+        name: "",
+        class: "divider",
+        image: "",
+        url: "",
+      },
+      {
+        name: "Home",
+        class: "link",
+        image: HomeImg,
+        url: "/home",
+      },
+      {
+        name: "Create",
+        class: "link",
+        image: CreateImg,
+        url: "/create-project",
+      },
+      {
+        name: "",
+        class: "divider",
+        image: "",
+        url: "",
+      },
+      {
+        name: currentProject.projectName + ">",
+        class: "dropdown",
+        image: "",
+        url: { useLocation },
+      },
+      {
+        name: "Dashboard",
+        class: "link",
+        image: DashboardImg,
+        url: "./dashboard",
+      },
+      {
+        name: "Project Settings",
+        class: "link",
+        image: SettingsImg,
+        url: "/project-settings",
+      },
+      {
+        name: "Logout",
+        class: "link",
+        image: LogoutImg,
+        url: "/logIn",
+      },
+    ],
+    [getUserData, currentProject]
+  );
 
-  const [navbarItems, setNavbarItems] = useState([...data]);
+  const [navbarItems, setNavbarItems] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-
   const [collapse, setCollapse] = useState(false);
+
   const toggleCollapse = () => {
     setCollapse(!collapse);
   };
+
+  useEffect(() => {
+    setNavbarItems([...data]);
+  }, [data]);
 
   const location = useLocation(); // Get the current location
   const isActive = (match, location) => {
@@ -102,12 +110,10 @@ export default function SideMenu({ currentProject }) {
             <img
               alt="Side menu button"
               src={ArrowImg}
-              onClick={() => {
-                toggleCollapse();
-              }}
+              onClick={toggleCollapse}
             />
           </div>
-          {navbarItems.map((item) => {
+          {navbarItems.map((item, index) => {
             const imgTag = item.image ? (
               <img alt={`${item.name}`} src={`${item.image}`} />
             ) : null;
@@ -116,16 +122,15 @@ export default function SideMenu({ currentProject }) {
             const isLink = item.class === "link";
 
             return (
-              <div className={`menuItem ${additionalClassName}`}>
+              <div className={`menuItem ${additionalClassName}`} key={index}>
                 {isLink ? (
                   <NavLink
                     className={`NavLink ${
                       location.pathname.startsWith(item.url) ? "activeLink" : ""
                     }`}
                     to={item.url}
-                    key={`navbar-${item}`}
                     activeClassName="activeLink"
-                    isActive={isActive(location.pathname)}
+                    isActive={() => isActive(location.pathname)}
                   >
                     <div className={`sideMenuItem`}>
                       <div className="sideMenuItemContent">
@@ -149,7 +154,7 @@ export default function SideMenu({ currentProject }) {
                     {imgTag}
                     {!collapse && <p>{item.name}</p>}
                     {!collapse && isDropdown && showDropdown && (
-                      <SideMenuProjects />
+                      <SideMenuProjects setCurrentProject={setCurrentProject} />
                     )}
                   </p>
                 )}
