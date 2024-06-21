@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { getUserProjects } from "../../Services/UserModel";
+import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { findProjectByID, setProjectData } from "../../Services/ProjectModel";
 
 export default function SideMenuProjects({ setCurrentProject }) {
@@ -10,32 +10,38 @@ export default function SideMenuProjects({ setCurrentProject }) {
   const params = useParams();
 
   useEffect(() => {
-    setProjects(getUserProjects());
-    setProjects(
-      projects.map((project) => ({
-        projectID: project._id,
-        projectName: project.projectName,
-      }))
-    );
-  }, [projects]);
+    const fetchProjects = async () => {
+      const userid = getUserID();
+      const projectsData = await getUserProjects(userid);
+      if (projectsData) {
+        const formattedProjects = projectsData.map((project) => ({
+          projectID: project._id,
+          projectName: project.projectName,
+        }));
+        setProjects(formattedProjects);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const handleProjectClick = (project) => {
     setCurrentProject(project);
+
     const fetchProjectData = async () => {
       try {
-        const data = await findProjectByID(project.projectID); // Assuming projectID is already set or obtained
-
+        const data = await findProjectByID(project.projectID);
         setProjectData(data); // Set project data in state
         window.location.reload();
       } catch (error) {
         console.error("Error fetching project data:", error);
-        // Handle error appropriately
       }
     };
 
     if (project.projectID) {
       fetchProjectData();
     }
+
     localStorage.setItem("currentProject", JSON.stringify(project));
     const currentPath = window.location.pathname;
     const newPath = currentPath.replace(params.projectID, project.projectID);

@@ -7,7 +7,7 @@ import {
   GetForiegnData,
   calculateDaysLeft,
 } from "../../functions";
-import { getUserTasks } from "../../Services/UserModel";
+import { getUserTasks, getUserID } from "../../Services/UserModel";
 export default function UserTasks() {
   const [tasks, setTasks] = useState([]);
   const addTask = (newTask) => {
@@ -16,16 +16,18 @@ export default function UserTasks() {
 
   // GET Tasks
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchTasks = async () => {
       try {
-        const userTasks = await getUserTasks();
-        setTasks(userTasks);
+        const userid = getUserID();
+
+        const userTasks = await getUserTasks(userid);
+        if (userTasks) setTasks(userTasks);
       } catch (error) {
         console.error("Error fetching user projects:", error);
       }
     };
 
-    fetchProjects();
+    fetchTasks();
   });
 
   if (tasks.length === 0) {

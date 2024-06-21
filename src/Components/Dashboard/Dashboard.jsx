@@ -13,11 +13,9 @@ import { statusDonut, priorityBar } from "./diagramsData";
 export default function Dashboard() {
   const [project_ID, setProjectID] = useState(null);
   const [projectData, setProjectData] = useState(null);
-
-  const projectID = useParams();
+  const { id: projectID } = useParams(); // Extract 'id' from useParams
 
   useEffect(() => {
-    // get the CURRENT project
     const fetchCurrentProjectData = async () => {
       try {
         const storedProjectData = getProjectData();
@@ -32,7 +30,6 @@ export default function Dashboard() {
       }
     };
 
-    // get any project from user's homepage
     const fetchProjectData = async (id) => {
       try {
         const projectData = await findProjectByID(id);
@@ -49,14 +46,12 @@ export default function Dashboard() {
     } else {
       fetchCurrentProjectData();
     }
-  });
+  }, [projectID]); // Added projectID as a dependency
 
-  // Render loading state or placeholder while waiting for projectData
   if (!projectData) {
-    return <div>Loading...</div>; // Or any other loading indicator
+    return <div>Loading...</div>; // Loading indicator
   }
 
-  // Define initial state for diagrams
   const diagrams = [
     {
       name: "Task Status",
@@ -99,11 +94,11 @@ export default function Dashboard() {
           />
         </div>
       ))}
-      {/* <div className="createNavigationButtons">
+      <div className="createNavigationButtons">
         <NavLink to={`/create-network/${projectID}`} key="create-network">
           <button>Prev</button>
         </NavLink>
-      </div> */}
+      </div>
     </div>
   );
 }

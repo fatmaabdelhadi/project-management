@@ -41,7 +41,7 @@ function App() {
           <Routes>
             {/* Guest Layout */}
             <Route element={<GuestLayout />}>
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/" element={<LogIn />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/logIn" element={<LogIn />} />
