@@ -17,7 +17,7 @@ import { LogIn } from "./Components/Sign/LogIn";
 import { UserLayout } from "./Components/Layouts/UserLayout";
 import { GuestLayout } from "./Components/Layouts/GuestLayout";
 import AccountSettings from "./Components/Account/AccountSettings";
-import ProjectSettings from "./Components/Project/ProjectSettings";
+import ProjectSettings from "./Components/Dashboard/ProjectSettings";
 import AccountHome from "./Components/Account/AccountHome";
 import LandingPage from "./Components/Landing/LandingPage";
 import ContactUs from "./Components/Landing/ContactUs";
@@ -66,7 +66,7 @@ function App() {
                 element={<CreateNetwork />}
               />
               <Route path="/create-project" element={<CreateProject />} />
-              <Route path="/account-settings/" element={<AccountSettings />} />
+              <Route path="/project-settings/" element={<ProjectSettings />} />
               <Route
                 path="/project-settings:projectID"
                 element={<ProjectSettings />}

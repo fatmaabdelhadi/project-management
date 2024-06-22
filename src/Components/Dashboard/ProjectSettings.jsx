@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./Dashboard.css";
-import Network from "./Network";
-import Gantt from "./Gantt";
+import "./Project.css";
 import { NavLink, useParams } from "react-router-dom";
 import {
   getProjectID,
   getProjectData,
   findProjectByID,
 } from "../../Services/ProjectModel";
-import { statusDonut, priorityBar } from "./diagramsData";
 
-export default function Dashboard() {
+export default function ProjectSettings() {
   const [project_ID, setProjectID] = useState(null);
   const [projectData, setProjectData] = useState(null);
   const { projectID } = useParams(); // Extract 'id' from useParams
@@ -52,53 +49,5 @@ export default function Dashboard() {
     return <div>Loading...</div>; // Loading indicator
   }
 
-  const diagrams = [
-    {
-      name: "Task Status",
-      data: statusDonut.getUrl(),
-      className: "statusDonut",
-    },
-    {
-      name: "Task Priority",
-      data: priorityBar.getUrl(),
-      className: "priorityBar",
-    },
-  ];
-
-  return (
-    <div className="dashboard">
-      <h2>{projectData.projectName}</h2>
-      <p>{projectData.description}</p>
-      <hr />
-      <br />
-      <h3 className="bold">Project Network</h3>
-      <Network
-        projectID={project_ID}
-        border={"1px solid var(--grey)"}
-        height={"400px"}
-        width={"100%"}
-      />
-      {/* <Gantt
-        projectID={project_ID}
-        border={"1px solid var(--grey)"}
-        height={"400px"}
-        width={"100%"}
-      /> */}
-      {diagrams.map((item, index) => (
-        <div key={index}>
-          <h3 className="bold">{item.name}</h3>
-          <img
-            alt={item.name}
-            className={`diagram ${item.className}`}
-            src={item.data}
-          />
-        </div>
-      ))}
-      <div className="createNavigationButtons">
-        <NavLink to={`/create-network/${projectID}`} key="create-network">
-          <button>Prev</button>
-        </NavLink>
-      </div>
-    </div>
-  );
+  return <div>Project's Settings</div>;
 }

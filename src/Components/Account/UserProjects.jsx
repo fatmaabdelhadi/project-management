@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Account.css";
 import { TimeBadge } from "./Badges";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
+import { useParams } from "react-router";
 
 export default function UserProjects() {
   const [projects, setProjects] = useState([]);

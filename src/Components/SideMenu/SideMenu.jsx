@@ -3,6 +3,7 @@ import "./SideMenu.css";
 import { NavLink, useLocation } from "react-router-dom";
 import SideMenuProjects from "./SideMenuProjects";
 import { getUserData } from "../../Services/UserModel";
+import { useCollapse } from "react-collapsed";
 
 export default function SideMenu({ currentProject, setCurrentProject }) {
   let ArrowImg = require("../../Assets/Arrow Flip.svg").default;
@@ -54,7 +55,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
       },
       {
         name: currentProject?.projectName
-          ? currentProject.projectName + ">"
+          ? currentProject.projectName
           : "Select Project",
         class: "dropdown",
         image: "",
@@ -79,12 +80,21 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
         url: "/login",
       },
     ],
-    [currentProject]
+    [
+      AccountImg,
+      CreateImg,
+      DashboardImg,
+      HomeImg,
+      LogoutImg,
+      SettingsImg,
+      currentProject.projectName,
+    ]
   );
 
   const [navbarItems, setNavbarItems] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [collapse, setCollapse] = useState(false);
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
   const toggleCollapse = () => {
     setCollapse(!collapse);
@@ -136,6 +146,38 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                 </NavLink>
               ) : (
                 <p
+                  className={`NavLink ${additionalClassName}`}
+                  {...getToggleProps()}
+                >
+                  {!collapse && !isDropdown && (
+                    <div className="sideMenuLabel">{item.name}</div>
+                  )}
+                  {imgTag}
+                  {!collapse && isDropdown && (
+                    <div>
+                      <p className="sideMenuLabel">
+                        {item.name} <span>{isExpanded ? "-" : "+"}</span>
+                      </p>
+                      <br />
+                      <div {...getCollapseProps()}>
+                        <SideMenuProjects
+                          setCurrentProject={setCurrentProject}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+{
+  /* <p
                   className={`NavLink ${additionalClassName} ${
                     isDropdown ? "dropdown" : ""
                   }`}
@@ -150,12 +192,5 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                   {!collapse && isDropdown && showDropdown && (
                     <SideMenuProjects setCurrentProject={setCurrentProject} />
                   )}
-                </p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+                </p> */
 }

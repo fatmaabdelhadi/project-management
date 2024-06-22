@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function Gantt() {
-  return (
-    <div>Gantt</div>
-  )
+  return <div>Gantt</div>;
 }

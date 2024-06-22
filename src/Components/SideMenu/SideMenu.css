@@ -105,19 +105,25 @@ filter: brightness(0) saturate(100%) invert(51%) sepia(0%) saturate(4%) hue-rota
     display: block;
 }
 
+.sideMenuLabel {
+    font-weight: 700;
+    color: var(--darkGrey);
+}
+
 
 .sideMenuProjects {
-    position:fixed;
-    left: 170px;
-    border: 1px solid var(--grey);
+    /* position:fixed;
+    left: 170px; */
+    /* border: 1px solid var(--grey);
     background: white;
     padding: 10px;
-    z-index: 1;
+    z-index: 1; */
 }
 
 /* overriding navlink hover for sidemenu */ 
 .sideMenuProjects:hover {
     filter: none;
+    color: none;
 }
 
 

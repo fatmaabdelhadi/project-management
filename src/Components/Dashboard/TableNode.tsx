@@ -1,21 +1,20 @@
 import React, { memo } from "react";
-import { NodeProps, Handle, Position } from "reactflow";
+import { Handle, Position } from "reactflow";
 import "./Network.css";
-// DESCRIPTION, COMMENTS ARE DISPLAYED WHEN HOVER ON NODE
 
-export default function TableNode({
+function TableNode({
   id,
   data: {
     taskId,
     taskName,
     description,
-    earlyStart = new Date(),
-    earlyFinish = new Date(),
-    lateStart = new Date(),
-    lateFinish = new Date(),
+    earlyStart,
+    earlyFinish,
+    lateStart,
+    lateFinish,
     duration,
     timeSlack,
-    dependancy,
+    dependencies,
     comments,
     taskCreator,
     assignedUsers,
@@ -24,16 +23,26 @@ export default function TableNode({
 }) {
   return (
     <div className="tableNodeContainer">
-      {id === "1" && <Handle type="source" position={Position.Right} />}
-      {id === "2" && <Handle type="target" position={Position.Left} />}
+      {/* {dependencies.length === 0 && ( */}
+      <Handle type="source" position={Position.Right} />
+      {/* )} */}
+      {/* {dependencies.length > 0 && ( */}
+      <Handle type="target" position={Position.Left} />
+      {/* )} */}
 
       <div className="table_component" role="region">
         <table>
           <tbody>
             <tr>
-              <td>{earlyStart.toLocaleDateString()}</td>
+              <td>
+                {earlyStart ? new Date(earlyStart).toLocaleDateString() : "N/A"}
+              </td>
               <td>{taskId}</td>
-              <td>{earlyFinish.toLocaleDateString()}</td>
+              <td>
+                {earlyFinish
+                  ? new Date(earlyFinish).toLocaleDateString()
+                  : "N/A"}
+              </td>
             </tr>
             <tr>
               <td>{timeSlack}</td>
@@ -41,24 +50,34 @@ export default function TableNode({
               <td></td>
             </tr>
             <tr>
-              <td>{lateStart.toLocaleDateString()}</td>
+              <td>
+                {lateStart ? new Date(lateStart).toLocaleDateString() : "N/A"}
+              </td>
               <td>{duration}</td>
-              <td>{lateFinish.toLocaleDateString()}</td>
+              <td>
+                {lateFinish ? new Date(lateFinish).toLocaleDateString() : "N/A"}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <MoreInfo description={description} />
+      <MoreInfo description={description} comments={comments} />
     </div>
   );
 }
 
-function MoreInfo({ description }) {
+function MoreInfo({ description, comments }) {
   return (
     <div className="moreInfo">
       <p>{description}</p>
-      <hr></hr>
-      <h6 className="bold"></h6>
+      {comments && (
+        <>
+          <hr />
+          <p>{comments}</p>
+        </>
+      )}
     </div>
   );
 }
+
+export default memo(TableNode);
