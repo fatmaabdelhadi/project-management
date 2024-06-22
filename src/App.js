@@ -68,7 +68,7 @@ function App() {
               <Route path="/create-project" element={<CreateProject />} />
               <Route path="/project-settings/" element={<ProjectSettings />} />
               <Route
-                path="/project-settings:projectID"
+                path="/project-settings/:projectID"
                 element={<ProjectSettings />}
               />
               <Route path="/account-settings/" element={<AccountSettings />} />

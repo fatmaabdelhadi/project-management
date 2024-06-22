@@ -92,7 +92,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
   );
 
   const [navbarItems, setNavbarItems] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+  // const [showDropdown, setShowDropdown] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
@@ -140,15 +140,12 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                       {!collapse && <p>{item.name}</p>}
                     </div>
                   </div>
-                  {isActive(item.url) && (
+                  {/* {isActive(item.url) && (
                     <img className="dot" src={DotImg} alt="Dot" />
-                  )}
+                  )} */}
                 </NavLink>
               ) : (
-                <p
-                  className={`NavLink ${additionalClassName}`}
-                  {...getToggleProps()}
-                >
+                <p className={`${additionalClassName}`} {...getToggleProps()}>
                   {!collapse && !isDropdown && (
                     <div className="sideMenuLabel">{item.name}</div>
                   )}
@@ -158,7 +155,6 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                       <p className="sideMenuLabel">
                         {item.name} <span>{isExpanded ? "-" : "+"}</span>
                       </p>
-                      <br />
                       <div {...getCollapseProps()}>
                         <SideMenuProjects
                           setCurrentProject={setCurrentProject}

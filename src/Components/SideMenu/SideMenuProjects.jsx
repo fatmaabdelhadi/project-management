@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { findProjectByID, setProjectData } from "../../Services/ProjectModel";
+import "./SideMenu.css";
 
 export default function SideMenuProjects({ setCurrentProject }) {
   const [projects, setProjects] = useState([]);
@@ -54,6 +55,7 @@ export default function SideMenuProjects({ setCurrentProject }) {
         <div
           key={project.projectID}
           onClick={() => handleProjectClick(project)}
+          className="sideMenuProjectsItem"
         >
           <p>{project.projectName}</p>
         </div>

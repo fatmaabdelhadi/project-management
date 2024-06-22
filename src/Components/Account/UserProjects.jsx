@@ -59,7 +59,7 @@ export default function UserProjects() {
             </span>
           </div>
           <div className="settings">
-            <a href="/project-settings" className="link">
+            <a href={`/project-settings/${project._id}`} className="link">
               Settings
             </a>{" "}
             &nbsp;
