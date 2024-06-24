@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import { NavLink, Redirect, Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./Create.css";
-import Input from "../Input/Input";
 import axios from "axios";
 import { getIdFromResponse } from "../../functions";
 import { getUserID } from "../../Services/UserModel";
 
 export default function CreateProject() {
-  const [userid, setuserid] = useState("");
-
   const projectTemplate = {
     projectName: "",
-    projectDescription: "",
-    status: "not started",
-    projectManager: userid,
+    description: "",
+    projectManager: getUserID(),
     teamMembers: [],
     tasks: [],
+    startDate: new Date(),
+    endDate: new Date(),
   };
-  const [projectData, setProjectDate] = useState(projectTemplate);
+
+  const [projectData, setProjectData] = useState(projectTemplate);
   const [projectID, setProjectID] = useState("");
   const {
+    register,
     formState: { errors },
   } = useForm();
   const [redirect, setRedirect] = useState(false);
@@ -28,8 +28,8 @@ export default function CreateProject() {
   // Function to handle changes in the input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setProjectDate((projectData) => ({
-      ...projectData,
+    setProjectData((prevProjectData) => ({
+      ...prevProjectData,
       [name]: value,
     }));
   };
@@ -70,11 +70,7 @@ export default function CreateProject() {
           className="createProject"
         >
           <div className="row">
-            <label
-              htmlFor="projectName"
-              onChange={handleChange}
-              className="bold"
-            >
+            <label htmlFor="projectName" className="bold">
               Project Name <span className="star">*</span>
             </label>
             <input
@@ -83,20 +79,18 @@ export default function CreateProject() {
               type="text"
               required
             />
-            {/* <Input onChange={handleChange}  id='projectName' type='text' required='required' errorMessage='Fill all required fields' /> */}
           </div>
           <div className="row">
-            <label htmlFor="projectDescription" className="bold">
+            <label htmlFor="description" className="bold">
               Project Description
             </label>
             <input
-              name="projectDescription"
+              name="description"
               type="text"
               style={{ height: "100px" }}
+              onChange={handleChange}
             ></input>
-            {/* <Input onChange={handleChange} inputStyle={{ height: '100px'}} id='projectDescription' type='text' required='required' /> */}
           </div>
-          {/* <input type='submit' form='createProjectForm' value='Next' onClick={handleSubmit} /> */}
         </form>
 
         <div className="createNavigationButtons">

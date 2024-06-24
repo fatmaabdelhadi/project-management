@@ -88,6 +88,7 @@ filter: brightness(0) saturate(100%) invert(51%) sepia(0%) saturate(4%) hue-rota
     display: block;
     margin-right: 30px;
     color: var(--darkGrey);
+    margin: auto;
 } 
 
 .menu.collapsed > .sideMenuHeader > img {

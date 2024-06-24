@@ -135,7 +135,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                   activeClassName="activeLink"
                 >
                   <div className={`sideMenuItem`}>
-                    <div className="sideMenuItemContent">
+                    <div className="sideMenuItemContent d-flex align-items-center justify-content-center">
                       {imgTag}
                       {!collapse && <p>{item.name}</p>}
                     </div>

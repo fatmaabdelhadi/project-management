@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import "./variables.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SideMenu from "./Components/SideMenu/SideMenu";
@@ -57,6 +59,7 @@ function App() {
               <Route path="/dashboard/" element={<Dashboard />} />
               <Route path="/dashboard/:projectID" element={<Dashboard />} />
 
+              <Route path="/create-tasks/" element={<CreateTasks />} />
               <Route
                 path="/create-tasks/:projectID"
                 element={<CreateTasks />}
@@ -76,6 +79,30 @@ function App() {
           </Routes>
         </div>
       </div>
+      <script
+        src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
+        crossorigin
+      ></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
+        crossorigin
+      ></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
+        crossorigin
+      ></script>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      />
     </BrowserRouter>
   );
 }
