@@ -23,12 +23,8 @@ function TableNode({
 }) {
   return (
     <div className="tableNodeContainer">
-      {/* {dependencies.length === 0 && ( */}
       <Handle type="source" position={Position.Right} />
-      {/* )} */}
-      {/* {dependencies.length > 0 && ( */}
       <Handle type="target" position={Position.Left} />
-      {/* )} */}
 
       <div className="table_component" role="region">
         <table>

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { fixDateFormat } from "../../functions";
 import { getUserID } from "../../Services/UserModel";
+import { getTaskByID } from "../../Services/TaskModel";
 import "./TaskList.css";
+import Multiselect from "multiselect-react-dropdown";
 
 export default function TaskList({ addTask, tasks, projectID }) {
   // Empty Task
@@ -17,17 +19,15 @@ export default function TaskList({ addTask, tasks, projectID }) {
     priority: "",
     dependency: [],
     cost: 0,
-    contributers: [],
-    // comments: "",
   };
 
   // State to hold the data of the new task
   const [taskData, setTaskData] = useState(taskTemplate);
   const [users, setUsers] = useState([]);
   const [dependencies, setDependencies] = useState([]);
-  const [selectedContributors, setSelectedContributors] = useState([]);
-  const [dependency, setDependeny] = useState([]);
-  const [contributers, setContributers] = useState([]);
+  const [selectedDependencies, setSelectedDependencies] = useState([]);
+  const [selectedAssignedUsers, setSelectedAssignedUsers] = useState([]);
+
   // Fetch users when the component mounts
   useEffect(() => {
     const fetchUsers = async () => {
@@ -44,6 +44,29 @@ export default function TaskList({ addTask, tasks, projectID }) {
     fetchUsers();
   }, []);
 
+  // Fetch task dependencies when the component mounts
+  useEffect(() => {
+    const fetchDependencies = async () => {
+      try {
+        const taskDependencies = await Promise.all(
+          tasks.map(async (task) => {
+            const taskDeps = await Promise.all(
+              task.dependency.map((depId) => getTaskByID(depId))
+            );
+            return { ...task, dependencyDetails: taskDeps };
+          })
+        );
+        setDependencies(taskDependencies);
+      } catch (error) {
+        console.error("Error fetching task dependencies:", error);
+      }
+    };
+
+    if (tasks.length > 0) {
+      fetchDependencies();
+    }
+  }, [tasks]);
+
   // Function to handle changes in the input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -55,31 +78,37 @@ export default function TaskList({ addTask, tasks, projectID }) {
   };
 
   // Function to handle multi-select changes for dependencies
-  const handleDependenciesChange = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
-    setDependencies(selectedOptions);
+  const handleDependenciesSelect = (selectedList, selectedItem) => {
+    setSelectedDependencies(selectedList);
   };
 
-  // Function to handle multi-select changes for contributors
-  const handleContributorsChange = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
-    setSelectedContributors(selectedOptions);
+  const handleDependenciesRemove = (selectedList, removedItem) => {
+    setSelectedDependencies(selectedList);
+  };
+
+  // Function to handle multi-select changes for assigned users
+  const handleAssignedUsersSelect = (selectedList, selectedItem) => {
+    setSelectedAssignedUsers(selectedList);
+  };
+
+  const handleAssignedUsersRemove = (selectedList, removedItem) => {
+    setSelectedAssignedUsers(selectedList);
   };
 
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     if (taskData.startDate && taskData.endDate && taskData.cost >= 0) {
-      console.log(taskData);
+      const taskToSubmit = {
+        ...taskData,
+        dependency: selectedDependencies.map((dep) => dep.id),
+        assignedUsers: selectedAssignedUsers.map((user) => user.id),
+      };
+
+      console.log(taskToSubmit);
       const url = "https://pm-platform-backend.onrender.com/api/tasks/create/";
       axios
-        .post(url, taskData)
+        .post(url, taskToSubmit)
         .then((response) => {
           console.log(response.data);
           // Handle successful task creation here
@@ -110,33 +139,55 @@ export default function TaskList({ addTask, tasks, projectID }) {
             <th>Priority</th>
             <th>Cost</th>
             <th>Dependencies</th>
-            <th>Contributors</th>
-            {/* <th>Comments</th> */}
+            <th>Assigned Users</th>
           </tr>
         </thead>
         {/* Table body */}
         <tbody>
           {tasks && tasks.length > 0 ? (
-            tasks.map((task, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{task.taskName}</td>
-                <td>{task.description}</td>
-                <td>{task.startDate}</td>
-                <td>{task.endDate}</td>
-                <td>{task.priority}</td>
-                <td>{task.cost}</td>
-                <td>
-                  {task.dependency.length > 0
-                    ? task.dependency.join(", ")
-                    : "-"}
-                </td>
-                <td>
-                  {task.contributers > 0 ? task.contributers.join(", ") : "-"}
-                </td>
-                {/* <td>{task.comments}</td> */}
-              </tr>
-            ))
+            tasks.map((task, index) => {
+              const taskWithDependencies = dependencies.find(
+                (depTask) => depTask._id === task._id
+              );
+
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{task.taskName}</td>
+                  <td>{task.description}</td>
+                  <td>{fixDateFormat(task.startDate)}</td>
+                  <td>{fixDateFormat(task.endDate)}</td>
+                  <td>{task.priority}</td>
+                  <td>{task.cost}EGP</td>
+                  <td>
+                    <ul>
+                      {taskWithDependencies?.dependencyDetails?.length > 0 ? (
+                        taskWithDependencies.dependencyDetails.map((dep) => (
+                          <li key={dep._id}>{dep.taskName}</li>
+                        ))
+                      ) : (
+                        <li>-</li>
+                      )}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      {task.assignedUsers?.length > 0 ? (
+                        users
+                          .filter((user) =>
+                            task.assignedUsers.includes(user._id)
+                          )
+                          .map((user) => (
+                            <li key={user._id}>{user.username}</li>
+                          ))
+                      ) : (
+                        <li>-</li>
+                      )}
+                    </ul>
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td colSpan="9">No tasks available</td>
@@ -212,47 +263,32 @@ export default function TaskList({ addTask, tasks, projectID }) {
               />
             </td>
             <td>
-              <select
-                name="dependency"
-                className="newDependencies"
-                multiple
-                value={dependencies}
-                onChange={handleDependenciesChange}
-              >
-                {tasks.map((task, index) => (
-                  <option key={index} value={task.taskName}>
-                    {task.taskName}
-                  </option>
-                ))}
-              </select>
+              <Multiselect
+                options={tasks.map((task) => ({
+                  name: task.taskName,
+                  id: task._id,
+                }))}
+                selectedValues={selectedDependencies}
+                onSelect={handleDependenciesSelect}
+                onRemove={handleDependenciesRemove}
+                displayValue="name"
+              />
             </td>
             <td>
-              <select
-                name="contributers"
-                className="newContributers"
-                multiple
-                value={selectedContributors}
-                onChange={handleContributorsChange}
-              >
-                {users.map((user) => (
-                  <option key={user._id} value={user.username}>
-                    {user.username}
-                  </option>
-                ))}
-              </select>
-            </td>
-            {/* <td>
-              <input
-                type="text"
-                name="comments"
-                className="newComments"
-                value={taskData.comments}
-                onChange={handleChange}
+              <Multiselect
+                options={users.map((user) => ({
+                  username: user.username,
+                  id: user._id,
+                }))}
+                selectedValues={selectedAssignedUsers}
+                onSelect={handleAssignedUsersSelect}
+                onRemove={handleAssignedUsersRemove}
+                displayValue="username"
               />
-            </td> */}
+            </td>
           </tr>
           <tr>
-            <td colSpan="10" style={{ textAlign: "center" }}>
+            <td colSpan="9" style={{ textAlign: "center" }}>
               <button onClick={handleSubmit}>Add Task</button>
             </td>
           </tr>

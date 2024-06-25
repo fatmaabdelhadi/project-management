@@ -14,3 +14,14 @@ export async function getProjectTasks(projectId) {
     }
   }
 }
+export const getTaskByID = async (id) => {
+  try {
+    const response = await axios.get(
+      `https://pm-platform-backend.onrender.com/api/tasks/find/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching task by ID:", error);
+    throw error;
+  }
+};
