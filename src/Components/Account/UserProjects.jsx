@@ -61,7 +61,7 @@ export default function UserProjects() {
           <div className="settings">
             <a href={`/project-settings/${project._id}`} className="link">
               Settings
-            </a>{" "}
+            </a>
             &nbsp;
             <a href={`/dashboard/${project._id}`} className="link">
               View Dashboard

@@ -8,38 +8,15 @@ import {
   findProjectByID,
 } from "../../Services/ProjectModel";
 import { getProjectTasks } from "../../Services/TaskModel";
-import { PieChart, BarChart } from "@mui/x-charts";
-import TaskStatusStackedBar from "./TaskPriority";
+import { PieChart } from "@mui/x-charts";
 import AssignedUsersPieChart from "./AccountPie";
-
 const taskStatusColors = {
-  Late: "rgb(255, 99, 132)",
-  "Not Started": "rgb(75, 192, 192)",
-  "In Progress": "rgb(255, 205, 86)",
-  Completed: "rgb(75, 192, 192)",
+  Late: "#C74857",
+  "Not Started": "#FF7F00",
+  "In Progress": "#82B83D",
+  Completed: "#83BCCD",
+  Others: "gray",
 };
-
-const seriesA = {
-  name: "Low",
-  data: [5, 8, 10, 3], // Example data for statuses: [Late, Not Started, In Progress, Completed]
-};
-
-const seriesB = {
-  name: "Medium",
-  data: [3, 6, 7, 2],
-};
-
-const seriesC = {
-  name: "Urgent",
-  data: [2, 4, 5, 1],
-};
-
-const seriesD = {
-  name: "Important",
-  data: [1, 2, 3, 0],
-};
-
-const series = [seriesA, seriesB, seriesC, seriesD];
 
 export default function Dashboard() {
   const [project_ID, setProjectID] = useState(null);
@@ -104,16 +81,10 @@ export default function Dashboard() {
           />
           <div key="PieChart">
             <TaskStatusPie tasks={tasks} />
-            {/* <LabelGuide data={taskStatusColors} /> */}
           </div>
           <div>
             <AssignedUsersPieChart tasks={tasks} />
-            {/* <TaskStatusStackedBar tasks={tasks} /> */}
           </div>
-          {/* <div key="StackedBar">
-            <h3 className="bold">Task Priority</h3>
-            <TaskPriorityBarChart tasks={tasks} />
-          </div> */}
           <div className="createNavigationButtons">
             <NavLink
               to={`/create-tasks/${projectID ? projectID : getProjectID()}`}
@@ -137,59 +108,6 @@ export default function Dashboard() {
   );
 }
 
-function StackedBarChart({ series }) {
-  return (
-    <BarChart
-      width={600}
-      height={300}
-      series={series.map((s) => ({ ...s, stack: "total" }))}
-    />
-  );
-}
-
-// const TaskPriorityBarChart = ({ tasks }) => {
-//   const taskPriorityData = tasks.reduce((acc, task) => {
-//     const priority = task.priority;
-//     const status = task.status;
-
-//     if (!acc[priority]) {
-//       acc[priority] = {
-//         Late: 0,
-//         "Not Started": 0,
-//         "In Progress": 0,
-//         Completed: 0,
-//       };
-//     }
-
-//     if (acc[priority][status] !== undefined) {
-//       acc[priority][status]++;
-//     } else {
-//       acc[priority][status] = 1;
-//     }
-
-//     return acc;
-//   }, {});
-
-//   console.log("Task Priority Data:", taskPriorityData); // Log for debugging
-
-//   return (
-//     <BarChart
-//       series={Object.keys(taskPriorityData).map((priority) => ({
-//         data: Object.keys(taskPriorityData[priority]).map(
-//           (status) => taskPriorityData[priority][status]
-//         ),
-//         stack: priority,
-//         label: priority,
-//         color: Object.keys(taskPriorityData[priority]).map(
-//           (status) => taskStatusColors[status]
-//         ),
-//       }))}
-//       width={600}
-//       height={350}
-//     />
-//   );
-// };
-
 function TaskStatusPie({ tasks }) {
   const [taskStatusData, setTaskStatusData] = useState([]);
 
@@ -197,7 +115,7 @@ function TaskStatusPie({ tasks }) {
     const fetchData = () => {
       try {
         const statusCounts = tasks.reduce((acc, task) => {
-          const status = task.status;
+          const status = task.status || "Others"; // Default to "Others" if status is undefined
           acc[status] = (acc[status] || 0) + 1;
           return acc;
         }, {});
@@ -207,7 +125,7 @@ function TaskStatusPie({ tasks }) {
             id: index,
             value: statusCounts[status],
             label: status,
-            color: taskStatusColors[status] || "gray",
+            color: taskStatusColors[status] || taskStatusColors["Others"], // Use specified colors or default to "Others" color
           })
         );
 
@@ -223,7 +141,6 @@ function TaskStatusPie({ tasks }) {
   return (
     <div className="TaskStatusPie d-flex flex-column align-items-around">
       <TaskStatusPieChart data={taskStatusData} />
-      {/* <LabelGuide data={taskStatusData} /> */}
     </div>
   );
 }
@@ -237,10 +154,11 @@ function TaskStatusPieChart({ data }) {
           {
             data: data.map((d) => ({
               ...d,
-              color: taskStatusColors[d.label] || "gray",
+              color: d.color,
             })),
             highlightScope: { faded: "global", highlighted: "item" },
             faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+            label: { visible: true, formatter: (name) => name },
           },
         ]}
         height={200}
@@ -248,27 +166,3 @@ function TaskStatusPieChart({ data }) {
     </div>
   );
 }
-
-// function LabelGuide({ data }) {
-//   return (
-//     <div className="label-guide">
-//       <h4>Label Guide</h4>
-//       <ul>
-//         {data.map((item) => (
-//           <li key={item.id}>
-//             <span
-//               style={{
-//                 display: "inline-block",
-//                 width: "12px",
-//                 height: "12px",
-//                 backgroundColor: item.color,
-//                 marginRight: "8px",
-//               }}
-//             ></span>
-//             {item.label}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }

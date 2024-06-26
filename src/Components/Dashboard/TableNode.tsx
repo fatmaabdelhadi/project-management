@@ -66,12 +66,12 @@ function MoreInfo({ description, comments }) {
   return (
     <div className="moreInfo">
       <p>{description}</p>
-      {comments && (
+      {/* {comments && (
         <>
           <hr />
           <p>{comments}</p>
         </>
-      )}
+      )} */}
     </div>
   );
 }

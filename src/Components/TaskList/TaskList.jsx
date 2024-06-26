@@ -11,8 +11,8 @@ export default function TaskList({ addTask, tasks, projectID }) {
   const taskTemplate = {
     taskName: "",
     description: "",
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date().toISOString().split("T")[0], // Set to current date
+    endDate: new Date().toISOString().split("T")[0], // Set to current date
     project: projectID,
     taskCreator: getUserID(),
     assignedUsers: [],
@@ -96,31 +96,34 @@ export default function TaskList({ addTask, tasks, projectID }) {
   };
 
   // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (taskData.startDate && taskData.endDate && taskData.cost >= 0) {
       const taskToSubmit = {
         ...taskData,
+        status: "Not Started", // Add default status if not present
         dependency: selectedDependencies.map((dep) => dep.id),
         assignedUsers: selectedAssignedUsers.map((user) => user.id),
       };
 
       console.log(taskToSubmit);
       const url = "https://pm-platform-backend.onrender.com/api/tasks/create/";
-      axios
-        .post(url, taskToSubmit)
-        .then((response) => {
-          console.log(response.data);
-          // Handle successful task creation here
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
+
+      try {
+        const response = await axios.post(url, taskToSubmit);
+        console.log(response.data);
+        // Handle successful task creation here
+        addTask(response.data); // Add the new task to the task list
+        setTaskData(taskTemplate); // Reset the form
+        setSelectedDependencies([]); // Clear selected dependencies
+        setSelectedAssignedUsers([]); // Clear selected assigned users
+      } catch (err) {
+        alert(err.message);
+      }
     } else {
       alert("Start Date, End Date, and Cost must be provided and non-negative");
     }
   };
-
   return (
     <div className="task-list-container">
       <table className="task-list-table">

@@ -3,6 +3,7 @@
 }
 .filtersRow{
     display: flex;
+    align-items: center;
     position: relative;
     width: 100%;
 }
@@ -20,6 +21,7 @@
     position: absolute;
     top: 20px;
     display: none;
+    z-index: 1;
 
 }
 
@@ -38,10 +40,42 @@ form:hover {
     padding: unset;
 }
 
-.searchBar {
+/* .searchBar {
     display: flex;
     flex-direction: row-reverse;
     flex-grow: 1;
+} */
+
+#btnShowAll {
+  height: fit-content;
+  padding: unset unset !important;
+  padding: 5px 10px;
+  border-radius: 50px;
+  
+}
+
+#applyFilters {
+  height: fit-content;
+  padding: unset unset !important;
+  padding: 5px 10px;
+}
+
+.allOn {
+  background-color: var(--teal);
+  color: white;
+}
+
+.allOff {
+  background-color: white;
+  font-weight: 100;
+  color: var(--darkGrey);
+  
+}
+
+.allOff:hover {
+  background-color: var(--teal);
+  opacity: 0.7;
+  color: white;
 }
 
 .gg-search {
@@ -50,12 +84,13 @@ form:hover {
     position: relative;
     display: block;
     transform: scale(var(--ggs,1));
-    width: 16px;
-    height: 16px;
+    width: 200px;
+    height: 30px;
     border: 2px solid;
     border-radius: 100%;
     margin-left: -4px;
     margin-top: -4px
+
     }
 
     .gg-search::after {
@@ -82,6 +117,12 @@ form:hover {
     box-shadow: var(--shadow);
     width: 30%;
     margin: 10px 0;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;      
+  transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
+}
+
+.userTasks:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /* Updated box-shadow on hover */
 }
 
 .userTasks > * {
@@ -100,8 +141,8 @@ form:hover {
 }
 
 .timeBadge {
-    border: var(--red) solid 2px;
-    background-color: var(--red);
+    /* border: var(--red) solid 2px;
+    background-color: var(--red); */
     border-radius: 25px;
     padding: 0 10px;
     color: white;
@@ -122,9 +163,15 @@ form:hover {
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;      
+  transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
     width: 70%;
     margin: 10px 0;
+}
+
+.userProjects:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /* Updated box-shadow on hover */
 }
 .userProjects .content1 {
     display: flex;
@@ -275,4 +322,10 @@ select {
 .delete-account-button:hover {
     background-color: #da190b;
 }
+
+
+.userTasks > a {
+    text-decoration: unset;
+}
+
 

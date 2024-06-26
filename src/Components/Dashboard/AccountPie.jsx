@@ -4,10 +4,11 @@ import axios from "axios";
 
 // Sample task status colors
 const taskStatusColors = {
-  Late: "rgb(255, 99, 132)",
-  "Not Started": "rgb(75, 192, 192)",
-  "In Progress": "rgb(255, 205, 86)",
-  Completed: "rgb(75, 192, 192)",
+  Late: "#C74857",
+  "Not Started": "#FF7F00",
+  "In Progress": "#82B83D",
+  Completed: "#83BCCD",
+  Others: "gray", // Default color for undefined statuses
 };
 
 export default function AssignedUsersPieChart({ tasks }) {
@@ -40,9 +41,16 @@ export default function AssignedUsersPieChart({ tasks }) {
             "Not Started": 0,
             "In Progress": 0,
             Completed: 0,
+            Others: 0, // Initialize count for "Others"
           };
         }
-        userStatusCounts[userId][task.status]++;
+
+        // Increment the count for the corresponding status or "Others"
+        if (task.status in taskStatusColors) {
+          userStatusCounts[userId][task.status]++;
+        } else {
+          userStatusCounts[userId]["Others"]++;
+        }
       });
     });
 
@@ -119,7 +127,8 @@ export default function AssignedUsersPieChart({ tasks }) {
                 data: Object.keys(selectedUserData.statusCounts).map(
                   (status) => ({
                     value: selectedUserData.statusCounts[status],
-                    color: taskStatusColors[status] || "gray",
+                    color:
+                      taskStatusColors[status] || taskStatusColors["Others"],
                     label: status,
                   })
                 ),
@@ -129,6 +138,7 @@ export default function AssignedUsersPieChart({ tasks }) {
                   additionalRadius: -30,
                   color: "gray",
                 },
+                label: { visible: true, formatter: (name) => name },
               },
             ]}
           />

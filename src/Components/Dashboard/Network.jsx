@@ -5,10 +5,17 @@ import React, {
   useRef,
   useMemo,
 } from "react";
-import ReactFlow, { useNodesState, useEdgesState, addEdge } from "reactflow";
+import ReactFlow, {
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Background,
+  BackgroundVariant,
+} from "reactflow";
 import "reactflow/dist/style.css";
 import TableNode from "./TableNode.tsx";
 import { getProjectTasks } from "../../Services/TaskModel.jsx";
+import "reactflow/dist/style.css";
 
 const nodeTypes = { TableNode: TableNode };
 
@@ -108,20 +115,8 @@ export default function Network({ projectID, height, width, border }) {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-        />
+        ></ReactFlow>
       </div>
-      {/* ) : (
-        <h4 style={{ margin: "20px" }}>
-          No tasks found!
-          <a
-            href="https://www.retrogames.cc/genesis-games/sonic-the-hedgehog-3-europe.html"
-            className="bold"
-            style={{ color: "var(--teal)", fontSize: "20px" }}
-          >
-            Play a game
-          </a>
-        </h4>
-      )} */}
     </div>
   );
 }

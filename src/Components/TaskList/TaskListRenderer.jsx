@@ -21,7 +21,7 @@ export default function TaskListRenderer({ projectID }) {
           console.log(data);
           const updatedTasks = data.map((task) => ({
             ...task,
-            status: task.status || "Not Started", // Add default status if not present
+            status: "Not Started", // Add default status if not present
           }));
           setTasks(updatedTasks);
         }

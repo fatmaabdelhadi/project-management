@@ -29,7 +29,7 @@ export const calculateDaysLeft = (endDate) => {
   const dueDateTime = new Date(endDate).getTime();
   const differenceInMs = dueDateTime - currentDate.getTime();
   const daysLeft = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
-  if (daysLeft < 0) return 0;
+  if (daysLeft < 0) return -1;
   return daysLeft;
 };
 
@@ -37,7 +37,7 @@ export const calculateDaysLeft = (endDate) => {
 export function GetForiegnData({ object, method, id, attr }) {
   // Destructure projectId from props
   const [projectName, setProjectName] = useState(null);
-  id = "6629441119d2130518b601a4";
+  // id = "6629441119d2130518b601a4";
   useEffect(() => {
     const getDataFromProject = async () => {
       // No need to modify projectId within the component
@@ -86,3 +86,38 @@ export const getUserByID = async (API, userid) => {
       return null;
     });
 };
+
+export const taskStatusColors = {
+  Late: "#C74857",
+  "Not Started": "#FF7F00",
+  "In Progress": "#82B83D",
+  Completed: "#83BCCD",
+};
+
+export const taskPriorityColors = {
+  Urgent: "#C74857",
+  Important: "#FF7F00",
+  Medium: "#82B83D",
+  Low: "#83BCCD",
+};
+
+export function getColorByStatus(status) {
+  return taskStatusColors[status] || "gray";
+}
+
+// Function to get color by priority
+export function getColorByPriority(priority) {
+  return taskPriorityColors[priority] || "gray";
+}
+
+export function getColorByDaysLeft(daysLeft) {
+  if (daysLeft <= 5) {
+    return "#C74857";
+  } else if (daysLeft <= 14) {
+    return "#FF7F00";
+  } else if (daysLeft <= 30) {
+    return "#82B83D";
+  } else {
+    return "#83BCCD";
+  }
+}
