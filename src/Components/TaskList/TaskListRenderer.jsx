@@ -11,6 +11,7 @@ export default function TaskListRenderer({ projectID }) {
   // GET Tasks
   console.log(projectID);
   const tasksUrl = `https://pm-platform-backend.onrender.com/api/tasks/project/${projectID}`;
+
   React.useEffect(() => {
     axios
       .get(tasksUrl)
@@ -18,7 +19,11 @@ export default function TaskListRenderer({ projectID }) {
         const data = res.data;
         if (data) {
           console.log(data);
-          setTasks(data);
+          const updatedTasks = data.map((task) => ({
+            ...task,
+            status: task.status || "Not Started", // Add default status if not present
+          }));
+          setTasks(updatedTasks);
         }
       })
       .catch((error) => {

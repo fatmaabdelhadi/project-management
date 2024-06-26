@@ -68,3 +68,16 @@ export async function getUserTasks(userid) {
 // Example usage:
 // const userProjects = await getUserProjects(userID);
 // console.log(userProjects);
+
+// Function to fetch username by ID
+export async function getUsernameById(userId) {
+  try {
+    const response = await axios.get(
+      `https://pm-platform-backend.onrender.com/api/users/find/${userId}`
+    );
+    return response.data.username; // Assuming the response data structure has a 'username' field
+  } catch (error) {
+    console.error(`Error fetching username for user ID ${userId}:`, error);
+    return ""; // Return an empty string or handle the error as needed
+  }
+}
