@@ -3,9 +3,11 @@ import "./Account.css";
 import { TimeBadge } from "./Badges";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function UserProjects() {
   const [projects, setProjects] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -24,6 +26,10 @@ export default function UserProjects() {
     fetchProjects();
   }, []);
 
+  const redirectToProject = (projectId) => {
+    navigate(`/dashboard/${projectId}`);
+  };
+
   const calculateDaysLeft = (dueDate) => {
     const currentDate = new Date();
     const dueDateTime = new Date(dueDate).getTime();
@@ -39,7 +45,11 @@ export default function UserProjects() {
   return (
     <div className="row">
       {projects.map((project) => (
-        <div className="userProjects" key={project._id}>
+        <div
+          className="userProjects"
+          key={project._id}
+          onClick={() => redirectToProject(project._id)}
+        >
           <div className="content1">
             <h4 className="bold">{project.projectName}</h4>
             <TimeBadge value={calculateDaysLeft(project.endDate)}></TimeBadge>

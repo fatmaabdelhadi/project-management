@@ -3,8 +3,10 @@ import "./Account.css";
 import UserTasks from "./UserTasks";
 import UserProjects from "./UserProjects";
 import { getUserTasks, getUserID } from "../../Services/UserModel";
+import { NavLink } from "react-router-dom";
 
 export default function AccountHome() {
+  const [userId, setUserId] = useState("");
   const [tasks, setTasks] = useState([]);
   const [priorityFilters, setPriorityFilters] = useState({
     Urgent: false,
@@ -24,8 +26,9 @@ export default function AccountHome() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const userid = getUserID();
-        const userTasks = await getUserTasks(userid);
+        const id = getUserID() ? getUserID() : "";
+        setUserId(id);
+        const userTasks = await getUserTasks(id);
         if (userTasks) setTasks(userTasks);
       } catch (error) {
         console.error("Error fetching user tasks:", error);
@@ -98,89 +101,91 @@ export default function AccountHome() {
 
   return (
     <div>
-      <div className="tasks">
-        <h3>Your Tasks</h3>
-      </div>
-      <div className="filtersRow">
-        <button
-          className={`${showAll ? "allOn" : "allOff"}`}
-          id="btnShowAll"
-          onClick={handleShowAll}
-        >
-          All
-        </button>
-        <div className="filterP">
-          <button className="btnDropFilterP">
-            Filter By Priority
-            {/* Replace with your dropdown icon */}
+      <>
+        <div className="tasks">
+          <h3>Your Tasks</h3>
+        </div>
+        <div className="filtersRow">
+          <button
+            className={`${showAll ? "allOn" : "allOff"}`}
+            id="btnShowAll"
+            onClick={handleShowAll}
+          >
+            All
           </button>
-          <form>
-            {Object.keys(priorityFilters).map((priority) => (
-              <div key={priority}>
-                <input
-                  type="checkbox"
-                  checked={priorityFilters[priority]}
-                  onChange={() => handlePriorityFilterChange(priority)}
-                />
-                <label>{priority}</label>
-                <br />
-              </div>
-            ))}
-          </form>
-        </div>
-        <div className="filterS">
-          <button className="btnDropFilterS">
-            Filter By Status
-            {/* Replace with your dropdown icon */}
+          <div className="filterP">
+            <button className="btnDropFilterP">
+              Filter By Priority
+              {/* Replace with your dropdown icon */}
+            </button>
+            <form>
+              {Object.keys(priorityFilters).map((priority) => (
+                <div key={priority}>
+                  <input
+                    type="checkbox"
+                    checked={priorityFilters[priority]}
+                    onChange={() => handlePriorityFilterChange(priority)}
+                  />
+                  <label>{priority}</label>
+                  <br />
+                </div>
+              ))}
+            </form>
+          </div>
+          <div className="filterS">
+            <button className="btnDropFilterS">
+              Filter By Status
+              {/* Replace with your dropdown icon */}
+            </button>
+            <form>
+              {Object.keys(statusFilters).map((status) => (
+                <div key={status}>
+                  <input
+                    type="checkbox"
+                    checked={statusFilters[status]}
+                    onChange={() => handleStatusFilterChange(status)}
+                  />
+                  <label>{status}</label>
+                  <br />
+                </div>
+              ))}
+            </form>
+          </div>
+          <div className="searchBar">
+            <input
+              type="text"
+              className="gg-search"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
+          <button
+            className="btnApplyFilters"
+            id="applyFilters"
+            style={{ marginLeft: "10px" }}
+            onClick={handleApplyFilters}
+          >
+            Apply Filters
           </button>
-          <form>
-            {Object.keys(statusFilters).map((status) => (
-              <div key={status}>
-                <input
-                  type="checkbox"
-                  checked={statusFilters[status]}
-                  onChange={() => handleStatusFilterChange(status)}
-                />
-                <label>{status}</label>
-                <br />
-              </div>
-            ))}
-          </form>
         </div>
-        <div className="searchBar">
-          <input
-            type="text"
-            className="gg-search"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </div>
-        <button
-          className="btnApplyFilters"
-          id="applyFilters"
-          style={{ marginLeft: "10px" }}
-          onClick={handleApplyFilters}
-        >
-          Apply Filters
-        </button>
-      </div>
 
-      <hr />
-
-      <div className="userTasksLayout">
-        <UserTasks displayedTasks={filteredTasks} />
-      </div>
-      <br />
-
-      <div className="projects">
-        <h3> Projects</h3>
-        <div className="searchBar">
-          <input type="text" className="gg-search" placeholder="Search" />
-        </div>
         <hr />
-        <UserProjects />
-      </div>
+
+        <div className="userTasksLayout">
+          <UserTasks displayedTasks={filteredTasks} />
+        </div>
+        <br />
+
+        <div className="projects">
+          <h3> Projects</h3>
+          <div className="searchBar">
+            <input type="text" className="gg-search" placeholder="Search" />
+          </div>
+          <hr />
+          <UserProjects />
+        </div>
+      </>
     </div>
   );
 }

@@ -62,6 +62,7 @@ export default function Network({ projectID, height, width, border }) {
           //   earliestStartDateRef.current
           // ),
           x: index * 300,
+          // x: task.EF *20 * (index === 0 ? 0 : 1),
           y: Math.floor(Math.random() * 350) + 1,
         },
         type: "TableNode",

@@ -18,7 +18,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
   const data = useMemo(
     () => [
       {
-        name: getUserData().user.username,
+        name: getUserData() ? getUserData().user.username : "",
         class: "header",
         image: "",
         url: "",

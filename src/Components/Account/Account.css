@@ -111,6 +111,7 @@ form:hover {
 
 
 .userTasks{
+    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
@@ -317,6 +318,7 @@ select {
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
+    
 }
 
 .delete-account-button:hover {
@@ -329,3 +331,32 @@ select {
 }
 
 
+
+.complete-task-button, .completed-task-icon {
+    position: absolute;
+    right: 0;
+        padding: unset;
+    width: 20px;
+    height: 20px;
+   margin: 30px;
+}
+
+.complete-task-button {
+    background-color: white;
+    transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
+  background: none;
+  opacity: 0.5;
+}
+
+
+.complete-task-button:hover {
+box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 2px inset;
+}
+
+ .completed-task-icon  {
+    filter: brightness(0) saturate(100%) invert(51%) sepia(41%) saturate(654%) hue-rotate(73deg) brightness(96%) contrast(85%);
+    width:max-content;
+ }
+
+
+ 

@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./Account.css";
+import axios from "axios";
 import PriorityBadge, { TimeBadge, StatusBadge } from "./Badges";
 import {
   fixDateFormat,
   GetForiegnData,
   calculateDaysLeft,
 } from "../../functions";
+import { useNavigate } from "react-router";
 import { getUserTasks, getUserID } from "../../Services/UserModel";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import CheckIcon from "@mui/icons-material/Check";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 
 export default function UserTasks({ displayedTasks }) {
   const [tasks, setTasks] = useState([]);
+  const [hoveredTask, setHoveredTask] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch tasks for the logged-in user
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const userid = getUserID();
+        const userid = await getUserID();
         const userTasks = await getUserTasks(userid);
         if (userTasks) {
           setTasks(userTasks);
@@ -27,36 +33,68 @@ export default function UserTasks({ displayedTasks }) {
     };
 
     fetchTasks();
-  }, []); // Run once on component mount
+  }, []);
 
-  const redirectToProject = (projectId) => {};
-  // Display message when no tasks are available
-  if (tasks.length === 0) {
-    return (
-      <div className="userTasks">
-        <h4 style={{ margin: "20px" }}>
-          Congrats, you're out of tasks!{" "}
-          <a
-            href="https://www.retrogames.cc/genesis-games/sonic-the-hedgehog-3-europe.html"
-            className="bold"
-            style={{ color: "var(--teal)", fontSize: "20px" }}
-          >
-            Take some rest
-          </a>
-        </h4>
-      </div>
-    );
-  }
+  const updateCompletedTaskStatus = async (taskId) => {
+    try {
+      await axios.put(
+        `https://pm-platform-backend.onrender.com/api/tasks/update/${taskId}`,
+        { status: "Completed" }
+      );
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
+  };
 
-  // Render tasks when available
+  const redirectToProject = (projectId) => {
+    navigate(`/dashboard/${projectId}`);
+  };
+
+  const handleMouseEnter = (taskId) => {
+    setHoveredTask(taskId);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredTask(null);
+  };
+
+  const handleCompleteTask = async (taskId) => {
+    console.log(taskId);
+    try {
+      await axios.put(
+        `https://pm-platform-backend.onrender.com/api/tasks/update/${taskId}`,
+        { status: "Completed" }
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Error completing task:", error);
+    }
+  };
+
   return (
     <div className="row">
       {tasks.map((task) => (
         <div
           key={task.id}
           className="userTasks"
-          onClick={redirectToProject(task.project)}
+          onMouseEnter={() => handleMouseEnter(task.id)}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => redirectToProject(task.project)}
         >
+          {hoveredTask === task.id && task.status !== "Completed" && (
+            <button
+              className="complete-task-button"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent redirect
+                handleCompleteTask(task._id);
+              }}
+            >
+              <CheckIcon />
+            </button>
+          )}
+          {task.status === "Completed" && (
+            <DoneAllIcon className="completed-task-icon" />
+          )}
           <div className="d-flex flex-column">
             <h4 className="bold">{task.taskName}</h4>
             <div className="d-flex gap-2 flex-wrap">
@@ -86,9 +124,15 @@ export default function UserTasks({ displayedTasks }) {
           </div>
           <hr />
           <div className="d-flex gap-2">
-            <InfoOutlinedIcon />
-            <p>{task.description}</p>
+            {task.description && (
+              <>
+                <InfoOutlinedIcon />
+                <p>{task.description}</p>
+              </>
+            )}
           </div>
+
+          <div className="task-overlay" />
         </div>
       ))}
     </div>
