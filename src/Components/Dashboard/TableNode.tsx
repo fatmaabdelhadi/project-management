@@ -1,24 +1,27 @@
 import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
 import "./Network.css";
-
+import PriorityBadge, { TimeBadge, StatusBadge } from "../Account/Badges";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { calculateDaysLeft } from "../../functions";
 function TableNode({
   id,
   data: {
     taskId,
     taskName,
     description,
-    earlyStart,
-    earlyFinish,
-    lateStart,
-    lateFinish,
+    ES,
+    EF,
+    LS,
+    LF,
     duration,
-    timeSlack,
+    // timeSlack,
     dependencies,
     comments,
-    taskCreator,
-    assignedUsers,
-    cost,
+    priority,
+    status,
+    startDate,
+    endDate,
   },
 }) {
   return (
@@ -30,48 +33,71 @@ function TableNode({
         <table>
           <tbody>
             <tr>
-              <td>
-                {earlyStart ? new Date(earlyStart).toLocaleDateString() : "N/A"}
-              </td>
+              {/* <td>{ES ? new Date(ES).toLocaleDateString() : "N/A"}</td>
               <td>{taskId}</td>
-              <td>
-                {earlyFinish
-                  ? new Date(earlyFinish).toLocaleDateString()
-                  : "N/A"}
-              </td>
+              <td>{EF ? new Date(EF).toLocaleDateString() : "N/A"}</td> */}
+              <td>{ES}</td>
+              <td>No.{taskId}</td>
+              <td>{EF}</td>
             </tr>
             <tr>
-              <td>{timeSlack}</td>
-              <td>{taskName}</td>
               <td></td>
+              <td>{taskName}</td>
+              <td>
+                <StatusBadge value={status} />
+              </td>
             </tr>
             <tr>
-              <td>
-                {lateStart ? new Date(lateStart).toLocaleDateString() : "N/A"}
-              </td>
+              {/* <td>{LS ? new Date(LS).toLocaleDateString() : "N/A"}</td>
               <td>{duration}</td>
-              <td>
-                {lateFinish ? new Date(lateFinish).toLocaleDateString() : "N/A"}
-              </td>
+              <td>{LF ? new Date(LF).toLocaleDateString() : "N/A"}</td> */}
+              <td>{LS}</td>
+              <td>{duration} days</td>
+              <td>{LF}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <MoreInfo description={description} comments={comments} />
+      <MoreInfo
+        description={description}
+        comments={comments}
+        priority={priority}
+        status={status}
+        endDate={endDate}
+        id={id}
+        // timeSlack={timeSlack}
+      />
     </div>
   );
 }
 
-function MoreInfo({ description, comments }) {
+function MoreInfo({
+  description,
+  comments,
+  priority,
+  status,
+  endDate,
+  id,
+  // , timeSlack
+}) {
   return (
-    <div className="moreInfo">
-      <p>{description}</p>
-      {/* {comments && (
+    <div className="moreInfo d-flex flex-column gap-2">
+      <div className="badges d-flex gap-2">
+        {priority && <PriorityBadge value={priority} />}
+        <TimeBadge taskId={id} value={calculateDaysLeft(endDate)} />
+        {/* <StatusBadge value={status} /> */}
+      </div>
+
+      <p className="moreInfoDesc">
+        <InfoOutlinedIcon></InfoOutlinedIcon> {description}
+      </p>
+      {/* <hr /> */}
+
+      {comments && (
         <>
-          <hr />
           <p>{comments}</p>
         </>
-      )} */}
+      )}
     </div>
   );
 }

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Account.css";
-import {
-  getColorByDaysLeft,
-  getColorByPriority,
-  getColorByStatus,
-} from "../../functions";
+import { getColorByPriority } from "../../functions";
+import { getColorByStatus } from "../../functions";
+import { getColorByDaysLeft } from "../../functions";
 
 export default function PriorityBadge({ value }) {
   return (
@@ -21,9 +20,37 @@ export default function PriorityBadge({ value }) {
   );
 }
 
-export function TimeBadge({ value }) {
-  let clockImg = require("../../Assets/Time.svg").default;
+export function TimeBadge({ taskId, value }) {
+  const [clockImg, setClockImg] = useState(
+    require("../../Assets/Time.svg").default
+  );
   const isValueNaN = isNaN(value);
+
+  const updateLateTaskStatus = async () => {
+    try {
+      await axios.put(
+        `https://pm-platform-backend.onrender.com/api/tasks/update/${taskId}`,
+        { status: "Late" }
+      );
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
+  };
+
+  const printValue = () => {
+    if (isValueNaN) {
+      return "Not Determined";
+    } else {
+      return value >= 0 ? `${value} days left` : "Post Deadline";
+    }
+  };
+
+  useEffect(() => {
+    if (printValue() === "Post Deadline") {
+      updateLateTaskStatus();
+      setClockImg(require("../../Assets/Warning.svg").default);
+    }
+  }, [value]);
 
   return (
     <div
@@ -33,11 +60,7 @@ export function TimeBadge({ value }) {
         backgroundColor: getColorByDaysLeft(value),
       }}
     >
-      {isValueNaN
-        ? "Not Determined"
-        : value >= 0
-        ? `${value} days left`
-        : "Post Deadline"}
+      {printValue()}
       &nbsp; <img src={clockImg} alt="deadline" />
     </div>
   );
@@ -48,8 +71,6 @@ export function StatusBadge({ value }) {
     <div
       className="statusBadge bold"
       style={{
-        // border: `2px solid ${getColorByStatus(value)}`,
-        // backgroundColor: getColorByStatus(value),
         color: getColorByStatus(value),
       }}
     >

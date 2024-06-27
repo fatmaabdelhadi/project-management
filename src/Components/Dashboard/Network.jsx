@@ -19,10 +19,10 @@ import "reactflow/dist/style.css";
 
 const nodeTypes = { TableNode: TableNode };
 
-const calculateNodeXPosition = (taskStartDate, earliestDate) => {
-  const daysDifference = (taskStartDate - earliestDate) / (1000 * 3600 * 24); // Difference in days
-  return daysDifference * 50;
-};
+// const calculateNodeXPosition = (taskStartDate, earliestDate) => {
+//   const daysDifference = (taskStartDate - earliestDate) / (1000 * 3600 * 24); // Difference in days
+//   return daysDifference * 50;
+// };
 
 export default function Network({ projectID, height, width, border }) {
   const [tasks, setTasks] = useState([]);
@@ -37,9 +37,7 @@ export default function Network({ projectID, height, width, border }) {
         console.log("Fetched tasks:", projTasks);
 
         if (projTasks.length > 0) {
-          // remove the first task (it's not workable)
-          const filteredTasks = projTasks;
-          setTasks(filteredTasks);
+          setTasks(projTasks);
         }
       } catch (error) {
         console.error("Error fetching project tasks:", error);
@@ -59,23 +57,29 @@ export default function Network({ projectID, height, width, border }) {
       const newNodes = tasks.map((task, index) => ({
         id: task._id,
         position: {
-          x: calculateNodeXPosition(
-            new Date(task.startDate),
-            earliestStartDateRef.current
-          ),
-          y: index * 100,
+          // x: calculateNodeXPosition(
+          //   new Date(task.startDate),
+          //   earliestStartDateRef.current
+          // ),
+          x: index * 300,
+          y: Math.floor(Math.random() * 350) + 1,
         },
         type: "TableNode",
         data: {
           taskId: index + 1,
           taskName: task.taskName,
           description: task.description,
-          earlyStart: new Date(task.startDate),
-          earlyFinish: new Date(task.endDate),
-          lateStart: task.lateStart ? new Date(task.lateStart) : null,
-          lateFinish: task.lateFinish ? new Date(task.lateFinish) : null,
+          // earlyStart: new Date(task.startDate),
+          // earlyFinish: new Date(task.endDate),
+          // lateStart: task.lateStart ? new Date(task.lateStart) : null,
+          // lateFinish: task.lateFinish ? new Date(task.lateFinish) : null,
+          ES: task.ES,
+          EF: task.EF,
+          LS: task.LS,
+          LF: task.LF,
+
           duration: task.duration,
-          timeSlack: task.timeSlack || 0,
+          // timeSlack: task.timeSlack || 0,
           dependencies: task.dependency || [], // Default to empty array if undefined
           comments: task.comments.length
             ? task.comments[0].text
@@ -83,6 +87,10 @@ export default function Network({ projectID, height, width, border }) {
           taskCreator: task.taskCreator,
           assignedUsers: task.assignedUsers,
           cost: task.cost,
+          priority: task.priority,
+          status: task.status,
+          startDate: task.startDate,
+          endDate: task.endDate,
         },
       }));
 
@@ -106,7 +114,6 @@ export default function Network({ projectID, height, width, border }) {
 
   return (
     <div>
-      {/* {tasks.length > 0 ? ( */}
       <div style={{ width: width, height: height, border: border }}>
         <ReactFlow
           nodes={nodes}

@@ -7,6 +7,7 @@ import {
   calculateDaysLeft,
 } from "../../functions";
 import { getUserTasks, getUserID } from "../../Services/UserModel";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export default function UserTasks({ displayedTasks }) {
   const [tasks, setTasks] = useState([]);
@@ -60,7 +61,10 @@ export default function UserTasks({ displayedTasks }) {
             <h4 className="bold">{task.taskName}</h4>
             <div className="d-flex gap-2 flex-wrap">
               {task.priority && <PriorityBadge value={task.priority} />}
-              <TimeBadge value={calculateDaysLeft(task.endDate)} />
+              <TimeBadge
+                taskId={task.id}
+                value={calculateDaysLeft(task.endDate)}
+              />
             </div>
           </div>
           <div>
@@ -81,7 +85,8 @@ export default function UserTasks({ displayedTasks }) {
             <p>{fixDateFormat(task.endDate)}</p>
           </div>
           <hr />
-          <div>
+          <div className="d-flex gap-2">
+            <InfoOutlinedIcon />
             <p>{task.description}</p>
           </div>
         </div>
