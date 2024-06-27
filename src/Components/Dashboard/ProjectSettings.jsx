@@ -38,30 +38,48 @@ function ProjectSettings() {
   });
 
   const handleEditClick = (id) => {
+
     setEditingRow(id);
   };
 
   const handleSaveClick = async (id) => {
     try {
-      const updatedTask = rows.find((task) => task.id === id);
-      if (!updatedTask) {
+      const updatedTaskIndex = rows.findIndex((task) => task.id === id);
+      if (updatedTaskIndex === -1) {
         console.error('Task not found for id:', id);
         return;
       }
+
+      const updatedTask = { ...rows[updatedTaskIndex] }; // Create a copy of the updated task
+      // Optionally, modify updatedTask properties here if needed based on UI changes
+
       const apiUrl = `https://pm-platform-backend.onrender.com`; // Adjust to your API base URL
-      await axios.put(`${apiUrl}/api/tasks/${id}`, updatedTask);
-      setEditingRow(null);
-      // Optionally handle success feedback or update local state if needed
+      await axios.put(`${apiUrl}/api/tasks/update/${id}`, updatedTask);
+
+      // Update the state with the edited task
+      setRows((prevRows) => {
+        const updatedRows = [...prevRows];
+        updatedRows[updatedTaskIndex] = updatedTask;
+        return updatedRows;
+      });
+
+      setEditingRow(null); // Exit editing mode
     } catch (error) {
       console.error('Error saving task:', error);
     }
   };
 
+
+
   const handleDeleteClick = async (id) => {
     try {
-      const apiUrl = `https://pm-platform-backend.onrender.com`; // Adjust to your API base URL
-      await axios.delete(`${apiUrl}/api/tasks/${id}`);
+      const apiUrl = `https://pm-platform-backend.onrender.com`;
+      const catchProjectID = getProjectID();
+
+      await axios.delete(`${apiUrl}/api/tasks/delete/${id}`);
       setRows((prevRows) => prevRows.filter((task) => task.id !== id));
+      await axios.post(`${apiUrl}/api/calculateEarly/${catchProjectID}`);
+      await axios.post(`${apiUrl}/api/calculateLate/${catchProjectID}`);
     } catch (error) {
       console.error('Error deleting task:', error);
     }
