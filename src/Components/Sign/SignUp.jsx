@@ -5,12 +5,12 @@ import { loginUser } from "../../Services/UserModel"
 import "./Sign.css"
 
 export default function SignUp() {
-  const [fullName, setFullName] = useState("") // State for full name
+  const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [repeatPassword, setRepeatPassword] = useState("")
-  const [jobTitle, setJobTitle] = useState("") // State for job title
+  const [jobTitle, setJobTitle] = useState("")
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -32,7 +32,7 @@ export default function SignUp() {
           password,
           profile: {
             fullName,
-            jobTitle // Include jobTitle in the profile object
+            jobTitle
           }
         }
       )
