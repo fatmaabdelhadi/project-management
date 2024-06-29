@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import SideMenuProjects from "./SideMenuProjects";
 import { getUserData } from "../../Services/UserModel";
 import { useCollapse } from "react-collapsed";
+import Logo from "../Logo/Logo";
 
 export default function SideMenu({ currentProject, setCurrentProject }) {
   let ArrowImg = require("../../Assets/Arrow Flip.svg").default;
@@ -113,6 +114,8 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
   return (
     <div className="sideMenu">
       <div className={`menu ${collapse ? "collapsed" : ""}`}>
+        <Logo />
+
         <div className="sideMenuHeader">
           <img alt="Side menu button" src={ArrowImg} onClick={toggleCollapse} />
         </div>
