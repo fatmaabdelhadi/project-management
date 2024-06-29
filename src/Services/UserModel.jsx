@@ -33,6 +33,7 @@ export function getUserID() {
 
 export function logoutUser() {
   localStorage.removeItem("PMLogin");
+  localStorage.removeItem("currentProject");
 }
 
 export async function getUserProjects(userid) {
