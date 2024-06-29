@@ -1,141 +1,145 @@
 .sideMenu {
-  box-shadow: var(--shadow);
-    min-width: 30px;
-    height: 100%;
-    background-color: var(--lightGrey);
-    border-right: 2px var(--teal) solid !important;
-}
-
-.menu {
-    height: inherit;
-}
-
-.sideMenuHeader {
-    padding: 30px 10px;
-
-}
-.sideMenuHeader > img {
-    float: inline-end;
-}
-
-.dropdown-container {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  background-color: #fff; /* or any other background color you want */
-  border: 1px solid #ddd; /* or any other border style you want */
-  padding: 10px;
-  z-index: 1; /* make sure it's on top of other elements */
-}
-.divider {
-  width: 80%;
-  height: 1px;
-  background-color: #D9D9D9;
-  padding: 0 10px; /* add padding to the divider */
-  margin: 10px auto;
-}
-
-.collapsed-divider {
-  width: 40px; /* or any other width you want when the menu is collapsed */
-}
-
-.expanded-divider {
-  width: 200px; /* or any other width you want when the menu is expanded */
-}
-
-.sideMenuItem, .menuItem {
-    display: flex;
-    align-items: center;
-    
-    position: relative;
-}
-
-.sideMenuItemContent {
-    display: flex;
-    align-items: center;
-}
-
-.sideMenuItemContent > img {
-    margin: 0px 10px;
-
-}
-
-.ps-menu-button {
-    padding-right: 0 !important;
-}
-
-.dot {
-    display: none;
-}
-
-.NavLink {
-    text-decoration: none;
-    margin-top: 20px;
-    margin-left: 10px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-.NavLink :hover {
-filter: brightness(0) saturate(100%) invert(51%) sepia(0%) saturate(4%) hue-rotate(214deg) brightness(94%) contrast(86%);}
-
-.NavLink .active {
-    color: var(--teal);
-}
-
-/* Menu Collapsing */
-.sideMenuItemContent > p {
-    display: block;
-    margin-right: 30px;
-    color: var(--darkGrey);
-    margin: auto;
-} 
-
-.menu.collapsed > .sideMenuHeader > img {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-}
-
-.active > * > * > * {
-    color: var(--teal) !important;
-    font-weight: 700;
-    filter: brightness(0) saturate(100%) invert(65%) sepia(10%) saturate(2377%) hue-rotate(119deg) brightness(109%) contrast(74%);
-}
-
-.active .dot {
-    display: block;
-}
-
-.sideMenuLabel {
-    font-weight: 700;
-    color: var(--darkGrey);
-       margin-top: 20px;
-    margin-left: 10px;
-}
-
-/* Side Menu Projects Section */
-.sideMenuProjects {
-    margin-left: 20px;
-}
-
-.sideMenuProjects > * {
-    background-color: var(--lightGrey);
-    margin: 5px;
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    padding: 5px 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.sideMenuProjects > *:hover {
-    background-color: var(--darkGrey);
-    color: white;
-    transform: scale(1.05);
-}
-
-
-
-/* Solving a glitch */
-.menuItem .divider {
-    display: none;
-}
+    box-shadow: var(--shadow);
+      min-width: 30px;
+      height: 100%;
+      background-color: var(--lightGrey);
+      /* border-right: 2px var(--teal) solid !important; */
+  }
+  
+  .menu {
+      height: inherit;
+  }
+  
+  .sideMenuHeader {
+      padding: 30px 10px;
+      /* padding-top: 30px; */
+  
+  }
+  .sideMenuHeader > img {
+      margin-bottom: 100px;
+      float: inline-end;
+  }
+  
+  .dropdown-container {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #fff; /* or any other background color you want */
+    border: 1px solid #ddd; /* or any other border style you want */
+    padding: 10px;
+    z-index: 1; /* make sure it's on top of other elements */
+  }
+  .divider {
+    width: 80%;
+    height: 1px;
+    background-color: #D9D9D9;
+    padding: 0 10px; /* add padding to the divider */
+    margin: 10px auto;
+  }
+  
+  .collapsed-divider {
+    width: 40px; /* or any other width you want when the menu is collapsed */
+  }
+  
+  .expanded-divider {
+    width: 200px; /* or any other width you want when the menu is expanded */
+  }
+  
+  .sideMenuItem, .menuItem {
+      display: flex;
+      align-items: center;
+      
+      position: relative;
+  }
+  
+  .sideMenuItemContent {
+      display: flex;
+      align-items: center;
+  }
+  
+  .sideMenuItemContent > img {
+      margin: 0px 10px;
+  
+  }
+  
+  .ps-menu-button {
+      padding-right: 0 !important;
+  }
+  
+  .dot {
+      display: none;
+  }
+  
+  .NavLink {
+      text-decoration: none;
+      margin-top: 20px;
+      margin-left: 10px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+  
+      transition: filter 0.3 ease;
+  }
+  .NavLink :hover {
+  filter: brightness(0) saturate(100%) invert(51%) sepia(0%) saturate(4%) hue-rotate(214deg) brightness(94%) contrast(86%);}
+  
+  .NavLink .active {
+      color: var(--teal);
+  }
+  
+  /* Menu Collapsing */
+  .sideMenuItemContent > p {
+      display: block;
+      margin-right: 30px;
+      color: var(--darkGrey);
+      margin: auto;
+  } 
+  
+  .menu.collapsed > .sideMenuHeader > img {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+  }
+  
+  .active > * > * > * {
+      color: var(--teal) !important;
+      font-weight: 700;
+  filter: brightness(0) saturate(100%) invert(64%) sepia(100%) saturate(263%) hue-rotate(91deg) brightness(84%) contrast(83%);    /* filter: brightness(0) saturate(100%) invert(65%) sepia(10%) saturate(2377%) hue-rotate(119deg) brightness(109%) contrast(74%); */
+  }
+  
+  .active .dot {
+      display: block;
+  }
+  
+  .sideMenuLabel {
+      font-weight: 700;
+      color: var(--darkGrey);
+         margin-top: 20px;
+      margin-left: 10px;
+  }
+  
+  /* Side Menu Projects Section */
+  .sideMenuProjects {
+      margin-left: 20px;
+  }
+  
+  .sideMenuProjects > * {
+      background-color: var(--lightGrey);
+      margin: 5px;
+      transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      padding: 5px 5px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+  
+  .sideMenuProjects > *:hover {
+      background-color: var(--darkGrey);
+      color: white;
+      transform: scale(1.05);
+  }
+  
+  
+  
+  /* Solving a glitch */
+  .menuItem .divider {
+      display: none;
+  }

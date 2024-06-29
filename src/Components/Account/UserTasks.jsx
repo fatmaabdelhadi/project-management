@@ -12,39 +12,16 @@ import { getUserTasks, getUserID } from "../../Services/UserModel";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CheckIcon from "@mui/icons-material/Check";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { Tooltip } from "@mui/material";
 
 export default function UserTasks({ displayedTasks }) {
   const [tasks, setTasks] = useState([]);
   const [hoveredTask, setHoveredTask] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch tasks for the logged-in user
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const userid = await getUserID();
-        const userTasks = await getUserTasks(userid);
-        if (userTasks) {
-          setTasks(userTasks);
-        }
-      } catch (error) {
-        console.error("Error fetching user tasks:", error);
-      }
-    };
-
-    fetchTasks();
-  }, []);
-
-  const updateCompletedTaskStatus = async (taskId) => {
-    try {
-      await axios.put(
-        `https://pm-platform-backend.onrender.com/api/tasks/update/${taskId}`,
-        { status: "Completed" }
-      );
-    } catch (error) {
-      console.error("Error updating task status:", error);
-    }
-  };
+    setTasks(displayedTasks);
+  }, [displayedTasks]);
 
   const redirectToProject = (projectId) => {
     navigate(`/dashboard/${projectId}`);
@@ -82,15 +59,17 @@ export default function UserTasks({ displayedTasks }) {
           onClick={() => redirectToProject(task.project)}
         >
           {hoveredTask === task.id && task.status !== "Completed" && (
-            <button
-              className="complete-task-button"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent redirect
-                handleCompleteTask(task._id);
-              }}
-            >
-              <CheckIcon />
-            </button>
+            <Tooltip title="Mark as Completed">
+              <button
+                className="complete-task-button"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent redirect
+                  handleCompleteTask(task._id);
+                }}
+              >
+                <CheckIcon />
+              </button>
+            </Tooltip>
           )}
           {task.status === "Completed" && (
             <DoneAllIcon className="completed-task-icon" />
