@@ -1,0 +1,35 @@
+/* Logo Actions */
+.logoContainer {
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+
+.FullLogoContainer {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.logo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.logoA {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.logoContainer:hover .logoA, .FullLogoContainer:hover .logoA {
+    opacity: 1;
+}
+
+.logoContainer:hover .logo, .FullLogoContainer:hover .logo {
+    opacity: 0;
+}
