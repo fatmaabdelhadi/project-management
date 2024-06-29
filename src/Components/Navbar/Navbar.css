@@ -1,0 +1,47 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.BreadCrumb {
+    color: var(--darkGrey);
+}
+
+.BreadCrumb a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+.BreadCrumb a:hover {
+    text-decoration: underline;
+}
+
+.guestNavbarContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.guestNavbar {
+    margin-top: 20px;
+    padding: 10px 10px;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    color: var(--lightGrey);
+    font-weight: 700;
+}
+
+.guestNavbar .NavLink {
+    color: var(--lightGrey);
+    font-weight: 700;
+}
+
+.guestNavbar .NavLink:hover {
+    color: var(--teal);
+}

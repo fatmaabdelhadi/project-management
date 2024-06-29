@@ -1,0 +1,12 @@
+.searchProject .projectSelect {
+    width: 20%;
+    margin-bottom: 10px;
+
+}
+
+.selectLabel {
+    color: var(--black) !important;
+    font-weight: bold;
+    margin-left: 10px;
+
+}
