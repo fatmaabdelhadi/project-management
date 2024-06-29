@@ -1,12 +1,60 @@
+.projectSelect{
+    margin-left: 40px;
+}
 .searchProject .projectSelect {
     width: 20%;
     margin-bottom: 10px;
 
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .selectLabel {
-    color: var(--black) !important;
+    color: var(--black);
     font-weight: bold;
     margin-left: 10px;
+    margin-top: 15px;
+}
 
+.projectTable{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.projectTable thead tr{
+    background-color: var(--teal);
+    color: var(--lightGrey);
+    text-align: left;
+    font-weight: bold;
+}
+.projectTable th,
+.projectTable td {
+    padding: 12px 15px;
+}
+
+.projectTable th{
+    color: var(--lightGrey);
+}
+
+.projectTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.projectTable tbody tr:nth-of-type(even) {
+    background-color: var(--lightGrey);
+}
+
+.projectTable tbody tr:last-of-type {
+    border-bottom: 2px solid var(--teal);
+}
+
+.projectTable tbody tr.active-row {
+    font-weight: bold;
+    color: var(--teal);
 }
