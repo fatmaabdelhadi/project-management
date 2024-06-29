@@ -1,28 +1,28 @@
-.tasks{
+.tasks {
     color: #A7A7A7;
 }
-.filtersRow{
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
+
+.filtersRow {
+
+    margin-bottom: 20px;
+
 }
 
 .filtersRow > * {
-    margin-right: 50px;
+    margin-right: 20px;
+    flex: 1;
 }
 
-.filtersRow form{
+.filtersRow form {
     background-color: #fff;
     border: var(--grey) solid 1px;
     border-end-start-radius: 20px;
     border-end-end-radius: 20px;
     padding: 5px;
     position: absolute;
-    top: 20px;
+    top: 40px;
     display: none;
     z-index: 1;
-
 }
 
 .filtersRow button:focus + form, 
@@ -40,40 +40,43 @@ form:hover {
     padding: unset;
 }
 
-/* .searchBar {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-grow: 1;
-} */
-
-#btnShowAll {
-  height: fit-content;
-  padding: unset unset !important;
-  padding: 5px 10px;
-  border-radius: 50px;
-  
+#btnShowAll, #btnCompletedTasks, #btnUrgentTasks, #applyFilters {
+    height: fit-content;
+    padding: 5px 10px;
+    border-radius: 50px;
+    margin-right: 10px;
 }
 
-#applyFilters {
-  height: fit-content;
-  padding: unset unset !important;
-  padding: 5px 10px;
+.allOn, .completedOn {
+    background-color: var(--teal);
+    color: white;
 }
 
-.allOn {
-  background-color: var(--teal);
+.allOff, .completedOff, .urgentOff {
+    background-color: white;
+    font-weight: 100;
+    color: var(--darkGrey);
+}
+
+.allOff:hover, .completedOff:hover {
+    background-color: var(--teal);
+    opacity: 0.7;
+    color: white;
+}
+
+.urgentOn {
+  background-color: var(--red); /* Red background for urgent button when active */
   color: white;
 }
 
-.allOff {
+.urgentOff {
   background-color: white;
   font-weight: 100;
   color: var(--darkGrey);
-  
 }
 
-.allOff:hover {
-  background-color: var(--teal);
+.urgentOff:hover {
+  background-color: var(--red); /* Red background on hover for inactive urgent button */
   opacity: 0.7;
   color: white;
 }
@@ -89,11 +92,10 @@ form:hover {
     border: 2px solid;
     border-radius: 100%;
     margin-left: -4px;
-    margin-top: -4px
+    margin-top: -4px;
+}
 
-    }
-
-    .gg-search::after {
+.gg-search::after {
     content: "";
     display: block;
     box-sizing: border-box;
@@ -104,13 +106,10 @@ form:hover {
     background: currentColor;
     transform: rotate(-45deg);
     top: 10px;
-    left: 12px
-    }
+    left: 12px;
+}
 
-
-
-
-.userTasks{
+.userTasks {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -118,21 +117,20 @@ form:hover {
     box-shadow: var(--shadow);
     width: 30%;
     margin: 10px 0;
-      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;      
-  transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 .userTasks:hover {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /* Updated box-shadow on hover */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .userTasks > * {
     display: flex;
     margin: 10px 10px;
-    /* padding: 5px; */
-
 }
-.priorityBadge{
+
+.priorityBadge {
     border: var(--red) solid 2px;
     border-radius: 25px;
     padding: 0 10px;
@@ -142,84 +140,76 @@ form:hover {
 }
 
 .timeBadge {
-    /* border: var(--red) solid 2px;
-    background-color: var(--red); */
     border-radius: 25px;
     padding: 0 10px;
     color: white;
     display: flex;
     align-items: right;
-
 }
 
 .timeBadge img {
     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(351deg) brightness(104%) contrast(103%);
-
 }
-.userTasks  p{
+
+.userTasks p {
     color: #A7A7A7;
 }
-.userProjects{
 
+.userProjects {
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-    /* box-shadow: var(--shadow); */
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;      
-  transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: box-shadow 0.3s ease-in-out;
     width: 70%;
     margin: 10px 0;
 }
 
 .userProjects:hover {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /* Updated box-shadow on hover */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .userProjects .content1 {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
+
 .userProjects .settings {
     display: flex;
 }
-.userProjects .settings .linkContainer{
+
+.userProjects .settings .linkContainer {
     display: flex;
     justify-content: flex-end;
-
 }
-.userProjects .settings .link{
+
+.userProjects .settings .link {
     display: inline-block;
-    color : var(--grey);
+    color: var(--grey);
     font-weight: bold;
     padding: 20px 20px;
     text-decoration: none;
     font-size: 16px;
-
 }
-.userProjects .timeBadge{
+
+.userProjects .timeBadge {
     display: inline-flex;
     align-items: center;
     margin: 10px 0;
 }
-.projectName{
-    display: flex;
-    padding: 20px 20px;
-    /* align-items: center; */
-
-}
-.projectName h4{
-    margin-right: 40px;
-}
-
 
 .projectName {
     display: flex;
     flex-direction: row;
+    padding: 20px 20px;
 }
 
+.projectName h4 {
+    margin-right: 40px;
+}
 
-.progressBar{
-
+.progressBar {
     position: relative;
     width: 70%;
     height: 20px;
@@ -227,13 +217,14 @@ form:hover {
     border-radius: 10px;
     overflow: hidden;
     margin-left: 10px;
-
 }
-.progressFill{
+
+.progressFill {
     height: 100%;
     background-color: var(--teal);
 }
-.progressPer{
+
+.progressPer {
     position: absolute;
     right: 5px;
     top: 50%;
@@ -242,11 +233,7 @@ form:hover {
     font: bold 14px;
 }
 
-
-/*
-.   Mohamed Abdo part
-    AccountSetting
-*/
+/* Mohamed Abdo part - AccountSetting */
 
 .account-settings {
     width: 100%;
@@ -257,7 +244,8 @@ form:hover {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+}
 
 .user-info,
 .preferences,
@@ -287,7 +275,6 @@ form:hover {
     font-weight: bold;
 }
 
-  /* input, */
 select {
     width: 100%;
     padding: 10px;
@@ -318,45 +305,37 @@ select {
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
-    
 }
 
 .delete-account-button:hover {
     background-color: #da190b;
 }
 
-
 .userTasks > a {
     text-decoration: unset;
 }
 
-
-
 .complete-task-button, .completed-task-icon {
     position: absolute;
     right: 0;
-        padding: unset;
+    padding: unset;
     width: 20px;
     height: 20px;
-   margin: 30px;
+    margin: 30px;
 }
 
 .complete-task-button {
     background-color: white;
-    transition: box-shadow 0.3s ease-in-out; /* Add transition for box-shadow */
-  background: none;
-  opacity: 0.5;
+    transition: box-shadow 0.3s ease-in-out;
+    background: none;
+    opacity: 0.2;
 }
-
 
 .complete-task-button:hover {
-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 2px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px 2px inset;
 }
 
- .completed-task-icon  {
+.completed-task-icon {
     filter: brightness(0) saturate(100%) invert(51%) sepia(41%) saturate(654%) hue-rotate(73deg) brightness(96%) contrast(85%);
-    width:max-content;
- }
-
-
- 
+    width: max-content;
+}
