@@ -38,7 +38,7 @@ function ProjectSettings() {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `https://pm-platform-backend.onrender.com`
+    const apiUrl = `https://pm-platform-backend.onrender.com`;
     if (selectedProject) {
       const fetchTasks = async () => {
         try {
@@ -48,8 +48,8 @@ function ProjectSettings() {
           const tasksWithId = response.data.map((task) => ({
             ...task,
             id: task._id,
-            startDate: new Date(task.startDate),
-            endDate: new Date(task.endDate),
+            startDate: task.startDate ? new Date(task.startDate) : null,
+            endDate: task.endDate ? new Date(task.endDate) : null,
           }));
           setRows(tasksWithId);
         } catch (error) {
@@ -89,8 +89,8 @@ function ProjectSettings() {
 
       const updatedTask = { ...rows[updatedTaskIndex], ...editedTask };
 
-      const apiUrl = `https://pm-platform-backend.onrender.com`
-      await axios.put(`${apiUrl}/api/tasks/update/${id}`, updatedTask)
+      const apiUrl = `https://pm-platform-backend.onrender.com`;
+      await axios.put(`${apiUrl}/api/tasks/update/${id}`, updatedTask);
 
       setRows((prevRows) =>
         prevRows.map((task) => (task.id === id ? updatedTask : task))
@@ -98,6 +98,9 @@ function ProjectSettings() {
 
       setEditingRow(null);
       setEditedTask({});
+      // const projectId = getProjectID();
+      // await axios.post(`${apiUrl}/api/calculateEarly/${projectId}`);
+      // await axios.post(`${apiUrl}/api/calculateLate/${projectId}`);
     } catch (error) {
       console.error("Error saving task:", error);
     }
@@ -105,7 +108,7 @@ function ProjectSettings() {
 
   const handleDeleteClick = async (id) => {
     try {
-      const apiUrl = `https://pm-platform-backend.onrender.com`
+      const apiUrl = `https://pm-platform-backend.onrender.com`;
       await axios.delete(`${apiUrl}/api/tasks/delete/${id}`);
       setRows((prevRows) => prevRows.filter((task) => task.id !== id));
 
@@ -176,26 +179,38 @@ function ProjectSettings() {
                 {editingRow === row.id ? (
                   <TextField
                     type="date"
-                    value={editedTask.startDate ? editedTask.startDate.toISOString().split('T')[0] : row.startDate.toISOString().split('T')[0]}
+                    value={
+                      editedTask.startDate
+                        ? editedTask.startDate.toISOString().split("T")[0]
+                        : row.startDate
+                        ? row.startDate.toISOString().split("T")[0]
+                        : ""
+                    }
                     onChange={(e) =>
                       handleFieldChange(row.id, "startDate", new Date(e.target.value))
                     }
                   />
                 ) : (
-                  row.startDate.toDateString()
+                  row.startDate ? row.startDate.toDateString() : ""
                 )}
               </td>
               <td>
                 {editingRow === row.id ? (
                   <TextField
                     type="date"
-                    value={editedTask.endDate ? editedTask.endDate.toISOString().split('T')[0] : row.endDate.toISOString().split('T')[0]}
+                    value={
+                      editedTask.endDate
+                        ? editedTask.endDate.toISOString().split("T")[0]
+                        : row.endDate
+                        ? row.endDate.toISOString().split("T")[0]
+                        : ""
+                    }
                     onChange={(e) =>
                       handleFieldChange(row.id, "endDate", new Date(e.target.value))
                     }
                   />
                 ) : (
-                  row.endDate.toDateString()
+                  row.endDate ? row.endDate.toDateString() : ""
                 )}
               </td>
               <td>
@@ -245,7 +260,9 @@ function ProjectSettings() {
                 {editingRow === row.id ? (
                   <TextField
                     value={editedTask.description || row.description}
-                    onChange={(e) => handleFieldChange(row.id, "description", e.target.value)}
+                    onChange={(e) =>
+                      handleFieldChange(row.id, "description", e.target.value)
+                    }
                   />
                 ) : (
                   row.description
