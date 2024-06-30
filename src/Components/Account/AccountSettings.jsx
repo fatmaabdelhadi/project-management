@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import "./Account.css"
 import { getUserID } from "../../Services/UserModel"
+import { Modal, Button } from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function AccountSettings() {
   const [editMode, setEditMode] = useState(false)
@@ -9,10 +12,12 @@ export default function AccountSettings() {
   const [updatedUserData, setUpdatedUserData] = useState(null) // State to hold updated user data
   const [userID, setUserID] = useState("")
   const [newPassword, setNewPassword] = useState("") // State to hold the new password
+  const [showDeleteModal, setShowDeleteModal] = useState(false) // State to control the modal visibility
+  const navigate = useNavigate()
 
   useEffect(() => {
     setUserID(getUserID())
-    
+
     axios
       .get(`https://pm-platform-backend.onrender.com/api/users/find/${userID}`)
       .then((response) => {
@@ -45,21 +50,24 @@ export default function AccountSettings() {
   }
 
   const handleDeleteAccount = () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete your account?"
-    )
-    if (confirmDelete) {
-      axios
-        .delete(
-          `https://pm-platform-backend.onrender.com/api/users/delete/${userID}`
-        )
-        .then((response) => {
-          console.log("User deleted successfully:", response.data)
-        })
-        .catch((error) => {
-          console.error("Error deleting user:", error)
-        })
-    }
+    setShowDeleteModal(true)
+
+  }
+
+  const confirmDeleteAccount = () => {
+    axios
+      .delete(
+        `https://pm-platform-backend.onrender.com/api/users/delete/${userID}`
+      )
+      .then((response) => {
+        console.log("User deleted successfully:", response.data)
+        setShowDeleteModal(false)
+        navigate("/signup") // Redirect to the sign-up screen after deleting the account
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error)
+        navigate("/SignUp")
+      })
   }
 
   const handleInputChange = (e) => {
@@ -191,6 +199,23 @@ export default function AccountSettings() {
           </div>
         </>
       )}
+
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this account?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDeleteAccount}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }
