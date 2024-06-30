@@ -4,7 +4,7 @@ import "./Account.css"
 import { getUserID } from "../../Services/UserModel"
 import { Modal, Button } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountSettings() {
   const [editMode, setEditMode] = useState(false)
@@ -21,17 +21,17 @@ export default function AccountSettings() {
     axios
       .get(`https://pm-platform-backend.onrender.com/api/users/find/${userID}`)
       .then((response) => {
-        setUserData(response.data)
-        setUpdatedUserData({ ...response.data }) // Initialize updatedUserData with all nested properties
+        setUserData(response.data);
+        setUpdatedUserData({ ...response.data }); // Initialize updatedUserData with all nested properties
       })
       .catch((error) => {
-        console.error("Error fetching user data:", error)
-      })
-  }, [userID]) // Empty dependency array ensures this effect runs only once
+        console.error("Error fetching user data:", error);
+      });
+  }, [userID]); // Empty dependency array ensures this effect runs only once
 
   const handleEditClick = () => {
-    setEditMode(true)
-  }
+    setEditMode(true);
+  };
 
   const handleSaveChanges = () => {
     axios
@@ -40,18 +40,17 @@ export default function AccountSettings() {
         updatedUserData
       )
       .then((response) => {
-        console.log("Changes saved successfully:", response.data)
-        setUserData(response.data) // Update userData with the updatedUserData
-        setEditMode(false) // Exit edit mode after saving changes
+        console.log("Changes saved successfully:", response.data);
+        setUserData(response.data); // Update userData with the updatedUserData
+        setEditMode(false); // Exit edit mode after saving changes
       })
       .catch((error) => {
-        console.error("Error saving changes:", error)
-      })
-  }
+        console.error("Error saving changes:", error);
+      });
+  };
 
   const handleDeleteAccount = () => {
     setShowDeleteModal(true)
-
   }
 
   const confirmDeleteAccount = () => {
@@ -71,39 +70,42 @@ export default function AccountSettings() {
   }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     // If the property name includes a dot, it indicates a nested property
     if (name.includes(".")) {
-      const [parentProperty, nestedProperty] = name.split(".") // Split the property name
+      const [parentProperty, nestedProperty] = name.split("."); // Split the property name
       setUpdatedUserData((prevUserData) => ({
         ...prevUserData,
         profile: {
           ...prevUserData.profile, // Preserve other properties in the profile object
           [nestedProperty]: value, // Update the nested property
         },
-      }))
+      }));
     } else {
       // If not a nested property, update directly
       setUpdatedUserData((prevUserData) => ({
         ...prevUserData,
         [name]: value,
-      }))
+      }));
     }
-  }
+  };
 
   const handlePasswordChange = () => {
     axios
-      .put(`https://pm-platform-backend.onrender.com/api/users/changepassword/${userID}`, {
-        password: newPassword,
-      })
+      .put(
+        `https://pm-platform-backend.onrender.com/api/users/changepassword/${userID}`,
+        {
+          password: newPassword,
+        }
+      )
       .then((response) => {
-        console.log("Password changed successfully:", response.data)
-        setNewPassword("") // Clear the password input field
+        console.log("Password changed successfully:", response.data);
+        setNewPassword(""); // Clear the password input field
       })
       .catch((error) => {
-        console.error("Error changing password:", error)
-      })
-  }
+        console.error("Error changing password:", error);
+      });
+  };
 
   return (
     <div className="account-settings">
@@ -160,16 +162,27 @@ export default function AccountSettings() {
               />
             </div>
             {editMode && (
-              <div className="form-group">
-                <label>New Password:</label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <button onClick={handlePasswordChange}>Change Password</button>
-              </div>
+              <>
+                {/* <div className="form-group w-100 d-flex justify-content-between"> */}
+                <div className="form-group">
+                  <label>New Password:</label>
+                  <input
+                    className="inputField"
+                    type="password"
+                    name="newPassword"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+                <div className="d-flex align-items-center">
+                  <button
+                    style={{ padding: "5px 10px", borderRadius: "20px" }}
+                    onClick={handlePasswordChange}
+                  >
+                    Change Password
+                  </button>
+                </div>
+              </>
             )}
           </div>
           <div className="other-options">
@@ -219,3 +232,4 @@ export default function AccountSettings() {
     </div>
   )
 }
+

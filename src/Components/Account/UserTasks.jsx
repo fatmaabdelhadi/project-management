@@ -35,14 +35,31 @@ export default function UserTasks({ displayedTasks }) {
     setHoveredTask(null);
   };
 
-  const handleCompleteTask = async (taskId) => {
+  const handleCompleteTask = async (taskId, projectId) => {
     console.log(taskId);
     try {
+      // Update the task status to "Completed"
       await axios.put(
         `https://pm-platform-backend.onrender.com/api/tasks/update/${taskId}`,
         { status: "Completed" }
       );
+
+      // Fetch the updated list of tasks for the project
+      const projectResponse = await axios.get(
+        `https://pm-platform-backend.onrender.com/api/projects/find/${projectId}`
+      );
+      const projectTasks = projectResponse.data.tasks;
+
+      // Update the project with the new task list
+      await axios.put(
+        `https://pm-platform-backend.onrender.com/api/projects/update/${projectId}`,
+        { tasks: projectTasks }
+      );
       window.location.reload();
+
+      // Reload or update state to reflect changes without full page reload
+      // You can call a function to refresh the state or use a state update here instead of window.location.reload()
+      // refreshProjectData(); // Example function to refresh project data
     } catch (error) {
       console.error("Error completing task:", error);
     }
@@ -64,7 +81,7 @@ export default function UserTasks({ displayedTasks }) {
                 className="complete-task-button"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent redirect
-                  handleCompleteTask(task._id);
+                  handleCompleteTask(task._id, task.project);
                 }}
               >
                 <CheckIcon />
