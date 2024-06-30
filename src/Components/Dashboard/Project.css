@@ -15,7 +15,7 @@
     font-weight: bold;
     font-size: 20px;
     margin-left: 10px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .projectTable{
@@ -58,4 +58,22 @@
 .projectTable tbody tr.active-row {
     font-weight: bold;
     color: var(--teal);
+}
+
+.projectTable{
+    margin: 0 auto;
+}
+.searchProject .selectBar{
+    width: 300px;
+    height: 30px;
+    margin-top: 20px;
+}
+.searchProject{
+    display: inline;
+
+}
+
+.searchProject .projectSelect{
+    width: 35%;
+    margin-left: 50px;
 }

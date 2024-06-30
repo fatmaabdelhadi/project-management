@@ -8,7 +8,6 @@ import axios from "axios"
 import { getProjectID } from "../../Services/ProjectModel"
 import { getUserID, getUserProjects } from "../../Services/UserModel"
 import FormControl from "@mui/material/FormControl"
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
@@ -77,6 +76,7 @@ function ProjectSettings() {
       ...prevTask,
       [field]: value,
     }))
+
   }
 
   const handleSaveClick = async (id) => {
@@ -95,7 +95,10 @@ function ProjectSettings() {
       setRows((prevRows) =>
         prevRows.map((task) => (task.id === id ? updatedTask : task))
       )
-
+      if (updatedTask.status === "Completed") {
+        const projectId = getProjectID()
+        await axios.put(`${apiUrl}/api/projects/percentage/${projectId}`)
+      }
       setEditingRow(null)
       setEditedTask({})
     } catch (error) {
@@ -121,9 +124,10 @@ function ProjectSettings() {
     <div>
       <div className="searchProject">
         <FormControl className="projectSelect">
-          <InputLabel id="projectSelectLabel"></InputLabel>
-          <label className="selectLabel"> Project Name</label>
+        <label className="selectLabel"> Project Name &nbsp;&nbsp;&nbsp;</label>
+          {/* <InputLabel id="projectSelectLabel"></InputLabel> */}
           <Select
+            className="selectBar"
             labelId="projectSelectLabel"
             id="projectSelect"
             value={selectedProject || ""}
@@ -231,6 +235,7 @@ function ProjectSettings() {
                   <Select
                     value={editedTask.status || row.status}
                     onChange={(e) => handleFieldChange(row.id, "status", e.target.value)}
+
                   >
                     {statusOptions.map((option) => (
                       <MenuItem key={option} value={option}>
