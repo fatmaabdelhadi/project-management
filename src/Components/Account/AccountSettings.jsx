@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import "./Account.css"
-import { getUserID } from "../../Services/UserModel"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Account.css";
+import { getUserID } from "../../Services/UserModel";
 
 export default function AccountSettings() {
-  const [editMode, setEditMode] = useState(false)
-  const [userData, setUserData] = useState(null) // State to hold user data
-  const [updatedUserData, setUpdatedUserData] = useState(null) // State to hold updated user data
-  const [userID, setUserID] = useState("")
-  const [newPassword, setNewPassword] = useState("") // State to hold the new password
+  const [editMode, setEditMode] = useState(false);
+  const [userData, setUserData] = useState(null); // State to hold user data
+  const [updatedUserData, setUpdatedUserData] = useState(null); // State to hold updated user data
+  const [userID, setUserID] = useState("");
+  const [newPassword, setNewPassword] = useState(""); // State to hold the new password
 
   useEffect(() => {
-    setUserID(getUserID())
-    
+    setUserID(getUserID());
+
     axios
       .get(`https://pm-platform-backend.onrender.com/api/users/find/${userID}`)
       .then((response) => {
-        setUserData(response.data)
-        setUpdatedUserData({ ...response.data }) // Initialize updatedUserData with all nested properties
+        setUserData(response.data);
+        setUpdatedUserData({ ...response.data }); // Initialize updatedUserData with all nested properties
       })
       .catch((error) => {
-        console.error("Error fetching user data:", error)
-      })
-  }, [userID]) // Empty dependency array ensures this effect runs only once
+        console.error("Error fetching user data:", error);
+      });
+  }, [userID]); // Empty dependency array ensures this effect runs only once
 
   const handleEditClick = () => {
-    setEditMode(true)
-  }
+    setEditMode(true);
+  };
 
   const handleSaveChanges = () => {
     axios
@@ -35,67 +35,70 @@ export default function AccountSettings() {
         updatedUserData
       )
       .then((response) => {
-        console.log("Changes saved successfully:", response.data)
-        setUserData(response.data) // Update userData with the updatedUserData
-        setEditMode(false) // Exit edit mode after saving changes
+        console.log("Changes saved successfully:", response.data);
+        setUserData(response.data); // Update userData with the updatedUserData
+        setEditMode(false); // Exit edit mode after saving changes
       })
       .catch((error) => {
-        console.error("Error saving changes:", error)
-      })
-  }
+        console.error("Error saving changes:", error);
+      });
+  };
 
   const handleDeleteAccount = () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account?"
-    )
+    );
     if (confirmDelete) {
       axios
         .delete(
           `https://pm-platform-backend.onrender.com/api/users/delete/${userID}`
         )
         .then((response) => {
-          console.log("User deleted successfully:", response.data)
+          console.log("User deleted successfully:", response.data);
         })
         .catch((error) => {
-          console.error("Error deleting user:", error)
-        })
+          console.error("Error deleting user:", error);
+        });
     }
-  }
+  };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     // If the property name includes a dot, it indicates a nested property
     if (name.includes(".")) {
-      const [parentProperty, nestedProperty] = name.split(".") // Split the property name
+      const [parentProperty, nestedProperty] = name.split("."); // Split the property name
       setUpdatedUserData((prevUserData) => ({
         ...prevUserData,
         profile: {
           ...prevUserData.profile, // Preserve other properties in the profile object
           [nestedProperty]: value, // Update the nested property
         },
-      }))
+      }));
     } else {
       // If not a nested property, update directly
       setUpdatedUserData((prevUserData) => ({
         ...prevUserData,
         [name]: value,
-      }))
+      }));
     }
-  }
+  };
 
   const handlePasswordChange = () => {
     axios
-      .put(`https://pm-platform-backend.onrender.com/api/users/changepassword/${userID}`, {
-        password: newPassword,
-      })
+      .put(
+        `https://pm-platform-backend.onrender.com/api/users/changepassword/${userID}`,
+        {
+          password: newPassword,
+        }
+      )
       .then((response) => {
-        console.log("Password changed successfully:", response.data)
-        setNewPassword("") // Clear the password input field
+        console.log("Password changed successfully:", response.data);
+        setNewPassword(""); // Clear the password input field
       })
       .catch((error) => {
-        console.error("Error changing password:", error)
-      })
-  }
+        console.error("Error changing password:", error);
+      });
+  };
 
   return (
     <div className="account-settings">
@@ -152,16 +155,27 @@ export default function AccountSettings() {
               />
             </div>
             {editMode && (
-              <div className="form-group">
-                <label>New Password:</label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <button onClick={handlePasswordChange}>Change Password</button>
-              </div>
+              <>
+                {/* <div className="form-group w-100 d-flex justify-content-between"> */}
+                <div className="form-group">
+                  <label>New Password:</label>
+                  <input
+                    className="inputField"
+                    type="password"
+                    name="newPassword"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+                <div className="d-flex align-items-center">
+                  <button
+                    style={{ padding: "5px 10px", borderRadius: "20px" }}
+                    onClick={handlePasswordChange}
+                  >
+                    Change Password
+                  </button>
+                </div>
+              </>
             )}
           </div>
           <div className="other-options">
@@ -192,5 +206,5 @@ export default function AccountSettings() {
         </>
       )}
     </div>
-  )
+  );
 }

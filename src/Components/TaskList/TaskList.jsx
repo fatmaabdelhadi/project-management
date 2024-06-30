@@ -117,6 +117,7 @@ export default function TaskList({ addTask, tasks, projectID }) {
         setTaskData(taskTemplate); // Reset the form
         setSelectedDependencies([]); // Clear selected dependencies
         setSelectedAssignedUsers([]); // Clear selected assigned users
+        window.location.reload();
       } catch (err) {
         alert(err.message);
       }

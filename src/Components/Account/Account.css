@@ -240,9 +240,9 @@ form:hover {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     display: flex;
     flex-wrap: wrap;
 }
@@ -284,10 +284,9 @@ select {
 }
 
 .edit-account-button {
-    background-color: #4CAF50;
+    background-color: var(--teal);
     color: white;
     padding: 10px 20px;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
@@ -298,10 +297,9 @@ select {
 }
 
 .delete-account-button {
-    background-color: #f44336;
+    background-color: var(--red);
     color: white;
     padding: 10px 20px;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
@@ -325,6 +323,8 @@ select {
 }
 
 .complete-task-button {
+    padding-right: 20px;
+    padding-bottom: 20px;
     background-color: white;
     transition: box-shadow 0.3s ease-in-out;
     background: none;
