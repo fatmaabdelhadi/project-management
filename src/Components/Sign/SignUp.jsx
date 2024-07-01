@@ -85,6 +85,14 @@ export default function SignUp() {
               required
             />
             <input
+              type="text"
+              id="job_title"
+              placeholder="Job Title"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+              required
+            />
+            <input
               type="email"
               id="email"
               placeholder="Email Address"
@@ -105,14 +113,6 @@ export default function SignUp() {
               placeholder="Repeat Password"
               value={repeatPassword}
               onChange={(e) => setRepeatPassword(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              id="job_title"
-              placeholder="Job Title"
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
               required
             />
           </div>
