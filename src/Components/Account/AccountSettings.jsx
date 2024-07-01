@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { useNavigate } from "react-router-dom";
 
 export default function AccountSettings() {
+  document.title = "Account Settings"
+
   const [editMode, setEditMode] = useState(false)
   const [userData, setUserData] = useState(null) // State to hold user data
   const [updatedUserData, setUpdatedUserData] = useState(null) // State to hold updated user data

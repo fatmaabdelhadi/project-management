@@ -42,7 +42,7 @@
 .moreInfo {
     visibility: hidden;;
     position: absolute;
-    top: 100px;
+    top: 100%;
     padding: 5px;
     background-color: var(--lightGrey);
     box-shadow: var(--shadow);

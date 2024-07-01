@@ -1,9 +1,12 @@
-import React, { memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Handle, Position } from "reactflow";
 import "./Network.css";
 import PriorityBadge, { TimeBadge, StatusBadge } from "../Account/Badges";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { calculateDaysLeft } from "../../functions";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { getUsernameById } from "../../Services/UserModel";
+
 function TableNode({
   id,
   data: {
@@ -15,13 +18,13 @@ function TableNode({
     LS,
     LF,
     duration,
-    // timeSlack,
     dependencies,
     comments,
     priority,
     status,
     startDate,
     endDate,
+    assignedUsers,
   },
 }) {
   return (
@@ -33,9 +36,6 @@ function TableNode({
         <table>
           <tbody>
             <tr>
-              {/* <td>{ES ? new Date(ES).toLocaleDateString() : "N/A"}</td>
-              <td>{taskId}</td>
-              <td>{EF ? new Date(EF).toLocaleDateString() : "N/A"}</td> */}
               <td>{ES}</td>
               <td>No.{taskId}</td>
               <td>{EF}</td>
@@ -48,9 +48,6 @@ function TableNode({
               </td>
             </tr>
             <tr>
-              {/* <td>{LS ? new Date(LS).toLocaleDateString() : "N/A"}</td>
-              <td>{duration}</td>
-              <td>{LF ? new Date(LF).toLocaleDateString() : "N/A"}</td> */}
               <td>{LS}</td>
               <td>{duration} days</td>
               <td>{LF}</td>
@@ -65,7 +62,7 @@ function TableNode({
         status={status}
         endDate={endDate}
         id={id}
-        // timeSlack={timeSlack}
+        assignedUsers={assignedUsers}
       />
     </div>
   );
@@ -78,8 +75,25 @@ function MoreInfo({
   status,
   endDate,
   id,
-  // , timeSlack
+  assignedUsers,
 }) {
+  const [usernames, setUsernames] = useState({});
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      const usernameMap = {};
+      for (const userId of assignedUsers) {
+        if (!usernameMap[userId]) {
+          const username = await getUsernameById(userId);
+          usernameMap[userId] = username;
+        }
+      }
+      setUsernames(usernameMap);
+    };
+
+    fetchUsernames();
+  }, [assignedUsers]);
+
   return (
     <div className="moreInfo d-flex flex-column gap-2">
       <div className="badges d-flex gap-2">
@@ -99,11 +113,17 @@ function MoreInfo({
         )}
       </div>
 
+      <div className="d-flex gap-2 align-items-center">
+        <AccountCircleIcon style={{ opacity: "0.5" }} />
+        <p className="bold">
+          {assignedUsers
+            .map((userId) => usernames[userId])
+            .join(", ")}
+        </p>
+      </div>
       <p className="moreInfoDesc">
-        <InfoOutlinedIcon></InfoOutlinedIcon> {description}
+        <InfoOutlinedIcon /> {description}
       </p>
-      {/* <hr /> */}
-
       {/* {comments && (
         <>
           <p>{comments}</p>

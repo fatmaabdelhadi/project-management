@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
+// import Navbar from "../Navbar/Navbar";
 import SideMenu from "../SideMenu/SideMenu";
 import { getUserID } from "../../Services/UserModel";
 
 export const UserLayout = ({ children }) => {
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const [currentProject, setCurrentProject] = useState(() => {
-    const savedProject = JSON.parse(localStorage.getItem("currentProject"));
-    return savedProject || { projectID: "", projectName: "" };
-  });
+  // const [currentProject, setCurrentProject] = useState(() => {
+  //   const savedProject = JSON.parse(localStorage.getItem("currentProject"));
+  //   return savedProject || { projectID: "", projectName: "" };
+  // });
 
   const unauthorizedImg = require("../../Assets/unauthorized.png");
 
@@ -23,9 +23,9 @@ export const UserLayout = ({ children }) => {
     fetchUserId();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("currentProject", JSON.stringify(currentProject));
-  }, [currentProject]);
+  // useEffect(() => {
+  //   localStorage.setItem("currentProject", JSON.stringify(currentProject));
+  // }, [currentProject]);
 
   if (isLoading) {
     // Display a loading indicator while fetching user ID
@@ -54,12 +54,13 @@ export const UserLayout = ({ children }) => {
         </div>
       ) : (
         <div className="App">
-          <SideMenu
+          {/* <SideMenu
             currentProject={currentProject}
             setCurrentProject={setCurrentProject}
-          />
+          /> */}
+              <SideMenu/>
           <div className="userLayout">
-            <Navbar currentProject={currentProject} />
+            {/* <Navbar currentProject={currentProject} /> */}
             <div className="Content">
               {children}
               <Outlet />

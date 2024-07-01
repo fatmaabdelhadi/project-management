@@ -27,14 +27,14 @@ import CreateProject from "./Components/Create/CreateProject";
 
 function App() {
   const [isSigned, setSignStatus] = useState(false);
-  const [currentProject, setCurrentProject] = useState(() => {
-    const savedProject = JSON.parse(localStorage.getItem("currentProject"));
-    return savedProject || { projectID: "", projectName: "" };
-  });
+  // const [currentProject, setCurrentProject] = useState(() => {
+  //   const savedProject = JSON.parse(localStorage.getItem("currentProject"));
+  //   return savedProject || { projectID: "", projectName: "" };
+  // });
 
-  useEffect(() => {
-    localStorage.setItem("currentProject", JSON.stringify(currentProject));
-  }, [currentProject]);
+  // useEffect(() => {
+  //   localStorage.setItem("currentProject", JSON.stringify(currentProject));
+  // }, [currentProject]);
 
   return (
     <BrowserRouter>
@@ -51,7 +51,8 @@ function App() {
 
             {/* User Layout */}
             <Route
-              element={<UserLayout currentProject={currentProject} />}
+              // element={<UserLayout currentProject={currentProject} />}
+              element={<UserLayout />}
               className="Content"
             >
               <Route path="/:username" element={<AccountHome />} />
@@ -69,7 +70,7 @@ function App() {
                 element={<CreateNetwork />}
               />
               <Route path="/create-project" element={<CreateProject />} />
-              <Route path="/project-settings/" element={<ProjectSettings />} />
+              {/* <Route path="/project-settings/" element={<ProjectSettings />} /> */}
               <Route
                 path="/project-settings/:projectID"
                 element={<ProjectSettings />}

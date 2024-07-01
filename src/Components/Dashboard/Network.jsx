@@ -92,6 +92,7 @@ export default function Network({ projectID, height, width, border }) {
           status: task.status,
           startDate: task.startDate,
           endDate: task.endDate,
+          assignedUsers: task.assignedUsers || [],
         },
       }));
 

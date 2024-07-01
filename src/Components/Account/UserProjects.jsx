@@ -102,10 +102,6 @@ export default function UserProjects() {
 
   return (
     <div className="row">
-      <h3 className="HomeLabel">My Projects</h3>
-      <p className="bold" style={{ color: "var(--grey)" }}>
-        Projects that you've created and can manage
-      </p>
 
       <div className="filtersRow d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div className="filterButtons">
@@ -180,14 +176,18 @@ export default function UserProjects() {
                   }}
                 ></div>
                 <div className="progress"></div>
-                <span className="progressPer bold">
+                <span className="progressPer bold"               
+                style={{
+                color: project.progress?.completionPercentage === 100 ? "white" : "",
+              }}
+>
                   {project.progress ? project.progress.completionPercentage : 0}
                   %
                 </span>
               </>
             )}
           </div>
-          <div className="settings">
+          {/* <div className="settings">
             <a href={`/project-settings/${project._id}`} className="link">
               Settings
             </a>
@@ -195,7 +195,7 @@ export default function UserProjects() {
             <a href={`/dashboard/${project._id}`} className="link">
               View Dashboard
             </a>
-          </div>
+          </div> */}
         </div>
       ))}
     </div>

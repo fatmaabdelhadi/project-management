@@ -4,6 +4,8 @@ import axios from "axios";
 import { loginUser, logoutUser } from "../../Services/UserModel";
 
 export function LogIn() {
+  document.title = "Log In"
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);

@@ -103,11 +103,12 @@ export default function AssignedUsersPieChart({ tasks }) {
 
   return (
     <div style={{ width: "100%", maxWidth: 600 }}>
-      <div style={{ marginBottom: "20px" }}>
-        <h3>Select User:</h3>
+      <div style={{ marginBottom: "20px" }} className="d-flex gap-2 align-items-center justify-content-center">
+        <p className="bold">Select a user</p>
         <select
           value={selectedUserId || ""}
           onChange={handleUserSelectionChange}
+          style={{width: "200px"}}
         >
           <option value="">Select User</option>
           {aggregatedData.map((userData) => (
@@ -119,7 +120,7 @@ export default function AssignedUsersPieChart({ tasks }) {
       </div>
       {selectedUserData && (
         <div style={{ marginBottom: "20px" }}>
-          <h3>User: {selectedUserData.username}</h3>
+          {/* <h3>User: {selectedUserData.username}</h3> */}
           <PieChart
             height={200}
             series={[

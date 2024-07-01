@@ -1,3 +1,40 @@
 .diagram{
     height: 50vh;
 }
+
+/* Existing styles */
+.progressBar {
+    position: relative;
+    height: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  .progressFill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 2s ease-in-out; /* Smooth transition */
+  }
+  
+  .progress {
+    height: 20px;
+    border-radius: 8px;
+    background-color: transparent;
+  }
+  
+  .progressPer {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-weight: bold;
+    transition: color 0.5s ease-in-out;
+    color: var(--darkGrey);
+  }
+  
+  @keyframes count-up {
+    from { content: "0%"; }
+    to { content: attr(data-progress) "%"; }
+  }
+  

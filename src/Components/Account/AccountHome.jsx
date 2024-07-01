@@ -6,6 +6,8 @@ import { getUserTasks, getUserID } from "../../Services/UserModel";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 export default function AccountHome() {
+  document.title = "Home"
+
   const [userId, setUserId] = useState("");
   const [tasks, setTasks] = useState([]);
   const [priorityFilter, setPriorityFilter] = useState("");
@@ -40,7 +42,7 @@ export default function AccountHome() {
       case "current":
         return task.status !== "Completed" && isSearchMatch;
       case "urgent":
-        return task.priority === "Urgent" && isSearchMatch;
+        return task.priority === "Urgent" && isSearchMatch && task.status !== "Completed";
       case "completed":
         return task.status === "Completed" && isSearchMatch;
       case "all":
@@ -83,7 +85,9 @@ export default function AccountHome() {
     <div>
       <div>
         <h3 className="HomeLabel">My Tasks</h3>
-        <p></p>
+        <p className="bold" style={{ color: "var(--grey)" }}>
+        Tasks that are assigned to you
+      </p>
       </div>
       <div className="filtersRow d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div className="filterButtons">
@@ -122,7 +126,8 @@ export default function AccountHome() {
         </div>
 
         <div className="d-flex gap-3">
-          <FormControl>
+          
+          {/* <FormControl>
             <InputLabel id="priority-filter-label">By Priority</InputLabel>
             <Select
               labelId="priority-filter-label"
@@ -153,7 +158,7 @@ export default function AccountHome() {
               <MenuItem value="In Progress">In Progress</MenuItem>
               <MenuItem value="Completed">Completed</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </div>
         <div className="searchBar">
           <input
@@ -173,8 +178,16 @@ export default function AccountHome() {
       <hr />
 
       <div className="projects">
+      <div className="row">
+
+      <h3 className="HomeLabel">My Projects</h3>
+      <p className="bold" style={{ color: "var(--grey)" }}>
+        Projects that you've created and can manage
+      </p>
         <UserProjects />
       </div>
+      </div>
+
     </div>
   );
 }

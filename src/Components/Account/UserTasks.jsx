@@ -21,7 +21,7 @@ export default function UserTasks({ displayedTasks }) {
 
   useEffect(() => {
     setTasks(displayedTasks);
-  }, [displayedTasks]);
+  }, [displayedTasks]); 
 
   const redirectToProject = (projectId) => {
     navigate(`/dashboard/${projectId}`);

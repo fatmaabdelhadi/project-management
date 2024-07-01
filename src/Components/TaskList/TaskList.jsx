@@ -7,6 +7,8 @@ import "./TaskList.css";
 import Multiselect from "multiselect-react-dropdown";
 
 export default function TaskList({ addTask, tasks, projectID }) {
+  document.title = `Create Tasks`
+
   // Empty Task
   const taskTemplate = {
     taskName: "",

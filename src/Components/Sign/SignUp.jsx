@@ -5,6 +5,8 @@ import { loginUser } from "../../Services/UserModel"
 import "./Sign.css"
 
 export default function SignUp() {
+  document.title = "Sign Up"
+
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
