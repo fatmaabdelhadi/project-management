@@ -43,6 +43,10 @@
   background: linear-gradient(120deg, rgba(60,60,60,1) 25%, rgba(73,124,145,0.8380602240896359) 60%, rgba(54,162,172,0.6055672268907564) 82%, rgba(72,199,176,0.5243347338935574) 100%);
 }
 
+.signUp .inputs{
+  padding-bottom: 20px;
+}
+
 .signUp input {
     border-radius: 10px;
     border: #686868 solid 1px;
