@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function UserProjects() {
   const [projects, setProjects] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("current");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,10 +20,11 @@ export default function UserProjects() {
           setProjects(userProjects);
 
           for (const project of userProjects) {
-            if (project._id)
+            if (project._id) {
               await axios.put(
                 `https://pm-platform-backend.onrender.com/api/projects/percentage/${project._id}`
               );
+            }
           }
         }
       } catch (error) {
@@ -30,7 +33,47 @@ export default function UserProjects() {
     };
 
     fetchProjects();
-  }, []); // Removed `projects` from the dependency array
+  }, []);
+
+  const filteredProjects = projects.filter((project) => {
+    const isSearchMatch = project.projectName
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    if (filterType === "all") {
+      return isSearchMatch;
+    }
+
+    if (
+      !project.progress ||
+      project.progress.completionPercentage === undefined
+    ) {
+      return false;
+    }
+
+    switch (filterType) {
+      case "current":
+        return (
+          project.progress.completionPercentage > 0 &&
+          project.progress.completionPercentage < 100 &&
+          isSearchMatch
+        );
+      case "not started":
+        return project.progress.completionPercentage === 0 && isSearchMatch;
+      case "completed":
+        return project.progress.completionPercentage === 100 && isSearchMatch;
+      default:
+        return false;
+    }
+  });
+
+  const sortedProjects = [...filteredProjects].sort((a, b) => {
+    if (filterType === "all" || filterType === "current") {
+      if (a.status === "Completed") return 1;
+      if (b.status === "Completed") return -1;
+    }
+    return 0;
+  });
 
   const redirectToProject = (projectId) => {
     navigate(`/dashboard/${projectId}`);
@@ -48,13 +91,71 @@ export default function UserProjects() {
     return <h4>You don't have any projects.</h4>;
   }
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleFilterTypeChange = (type) => {
+    setFilterType(type);
+    setSearchTerm("");
+  };
+
   return (
     <div className="row">
       <h3 className="HomeLabel">My Projects</h3>
       <p className="bold" style={{ color: "var(--grey)" }}>
         Projects that you've created and can manage
       </p>
-      {projects.map((project) => (
+
+      <div className="filtersRow d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div className="filterButtons">
+          <button
+            className={`${filterType === "all" ? "allOn" : "allOff"}`}
+            id="btnShowAll"
+            onClick={() => handleFilterTypeChange("all")}
+          >
+            All
+          </button>
+          <button
+            className={`${
+              filterType === "current" ? "currentOn" : "currentOff"
+            }`}
+            id="btnCurrentTasks"
+            onClick={() => handleFilterTypeChange("current")}
+          >
+            Current Projects
+          </button>
+          <button
+            className={`${
+              filterType === "completed" ? "completedOn" : "completedOff"
+            }`}
+            id="btnCompletedTasks"
+            onClick={() => handleFilterTypeChange("completed")}
+          >
+            Completed
+          </button>
+          <button
+            className={`${
+              filterType === "not started" ? "notStartedOn" : "notStartedOff"
+            }`}
+            id="btnNotStartedTasks"
+            onClick={() => handleFilterTypeChange("not started")}
+          >
+            Not Started
+          </button>
+        </div>
+        <div className="searchBar">
+          <input
+            type="text"
+            className="gg-search"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+      </div>
+
+      {sortedProjects.map((project) => (
         <div
           className="userProjects"
           key={project._id}
@@ -62,22 +163,29 @@ export default function UserProjects() {
         >
           <div className="content1">
             <h4 className="bold">{project.projectName}</h4>
-            <TimeBadge value={calculateDaysLeft(project.endDate)}></TimeBadge>
+            <TimeBadge value={calculateDaysLeft(project.endDate)} />
           </div>
           <div className="progressBar">
-            <div
-              className="progressFill"
-              style={{
-                width: `${
-                  project.progress ? project.progress.completionPercentage : 0
-                }%`,
-                borderRadius: "8px",
-              }}
-            ></div>
-            <div className="progress"></div>
-            <span className="progressPer bold">
-              {project.progress ? project.progress.completionPercentage : 0}%
-            </span>
+            {project.progress && (
+              <>
+                <div
+                  className="progressFill"
+                  style={{
+                    width: `${
+                      project.progress
+                        ? project.progress.completionPercentage
+                        : 0
+                    }%`,
+                    borderRadius: "8px",
+                  }}
+                ></div>
+                <div className="progress"></div>
+                <span className="progressPer bold">
+                  {project.progress ? project.progress.completionPercentage : 0}
+                  %
+                </span>
+              </>
+            )}
           </div>
           <div className="settings">
             <a href={`/project-settings/${project._id}`} className="link">

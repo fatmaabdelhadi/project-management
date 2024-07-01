@@ -104,11 +104,11 @@ function MoreInfo({
       </p>
       {/* <hr /> */}
 
-      {comments && (
+      {/* {comments && (
         <>
           <p>{comments}</p>
         </>
-      )}
+      )} */}
     </div>
   );
 }

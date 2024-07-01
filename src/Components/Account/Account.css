@@ -46,18 +46,18 @@ form:hover {
     margin-right: 10px;
 }
 
-.allOn, .completedOn, .currentOn {
+.allOn, .completedOn, .currentOn, .notStartedOn {
     background-color: var(--teal);
     color: white;
 }
 
-.allOff, .completedOff, .urgentOff, .currentOff {
+.allOff, .completedOff, .urgentOff, .currentOff, .notStartedOff {
     background-color: white;
     font-weight: 100;
     color: var(--darkGrey);
 }
 
-.allOff:hover, .completedOff:hover, .currentOff:hover {
+.allOff:hover, .completedOff:hover, .currentOff:hover, .notStartedOff:hover {
     background-color: var(--teal);
     opacity: 0.7;
     color: white;

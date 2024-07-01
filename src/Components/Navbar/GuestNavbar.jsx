@@ -1,13 +1,9 @@
 import { React, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import Logo from "../Logo/Logo";
 export default function GuestNavbar() {
   let data = [
-    {
-      name: "PM",
-      url: "/",
-    },
     {
       name: "Contact Us",
       url: "/contact",
@@ -32,7 +28,10 @@ export default function GuestNavbar() {
   };
   return (
     <div className="guestNavbarContainer">
-      <div className="guestNavbar">
+      <div className="guestNavbar d-flex align-items-center">
+        <NavLink className="LogoNavlink" to={"/"} key="focushive home logo">
+          <Logo isFull={true} isWhite={true} />
+        </NavLink>
         {navbarItems.map((item) => {
           return (
             <div className="navItem">

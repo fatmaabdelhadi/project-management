@@ -47,7 +47,6 @@ export function TimeBadge({ taskId, value, isCompleted }) {
     } else if (isCompleted) {
       return "Completed";
     } else {
-      console.log("POST DEADLINE: " + taskId + isCompleted);
       return value >= 0 ? `${value} days left` : "Post Deadline";
     }
   };
