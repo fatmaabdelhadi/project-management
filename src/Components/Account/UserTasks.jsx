@@ -94,14 +94,16 @@ export default function UserTasks({ displayedTasks }) {
           <div className="d-flex flex-column">
             <h4 className="bold">{task.taskName}</h4>
             <div className="d-flex gap-2 flex-wrap">
-              {task.priority && <PriorityBadge value={task.priority} />}
-              {
+              {task.status !== "Completed" && task.priority && (
+                <PriorityBadge value={task.priority} />
+              )}
+              {task.status !== "Completed" && (
                 <TimeBadge
                   taskId={task.id}
                   value={calculateDaysLeft(task.endDate)}
                   isCompleted={task.status === "Completed" ? true : false}
                 />
-              }
+              )}
             </div>
           </div>
           <div>

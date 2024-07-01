@@ -83,9 +83,20 @@ function MoreInfo({
   return (
     <div className="moreInfo d-flex flex-column gap-2">
       <div className="badges d-flex gap-2">
-        {priority && <PriorityBadge value={priority} />}
-        <TimeBadge taskId={id} value={calculateDaysLeft(endDate)} />
-        {/* <StatusBadge value={status} /> */}
+        {status !== "Completed" && priority && (
+          <PriorityBadge
+            isCompleted={status === "Completed" ? true : false}
+            value={priority}
+          />
+        )}
+
+        {status !== "Completed" && (
+          <TimeBadge
+            isCompleted={status === "Completed" ? true : false}
+            taskId={id}
+            value={calculateDaysLeft(endDate)}
+          />
+        )}
       </div>
 
       <p className="moreInfoDesc">

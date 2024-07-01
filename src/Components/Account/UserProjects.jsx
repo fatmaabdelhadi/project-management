@@ -18,9 +18,10 @@ export default function UserProjects() {
           setProjects(userProjects);
 
           for (const project of userProjects) {
-            await axios.put(
-              `https://pm-platform-backend.onrender.com/api/projects/percentage/${project._id}`
-            );
+            if (project._id)
+              await axios.put(
+                `https://pm-platform-backend.onrender.com/api/projects/percentage/${project._id}`
+              );
           }
         }
       } catch (error) {

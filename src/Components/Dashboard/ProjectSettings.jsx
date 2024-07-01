@@ -1,130 +1,133 @@
-import React, { useState, useEffect } from "react"
-import EditIcon from "@mui/icons-material/Edit"
-import DeleteIcon from "@mui/icons-material/DeleteOutlined"
-import SaveIcon from "@mui/icons-material/Save"
-import CancelIcon from "@mui/icons-material/Close"
+import React, { useState, useEffect } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
 
-import axios from "axios"
-import { getProjectID } from "../../Services/ProjectModel"
-import { getUserID, getUserProjects } from "../../Services/UserModel"
-import FormControl from "@mui/material/FormControl"
-import MenuItem from "@mui/material/MenuItem"
-import Select from "@mui/material/Select"
-import TextField from "@mui/material/TextField"
-import "./Project.css"
+import axios from "axios";
+import { getProjectID } from "../../Services/ProjectModel";
+import { getUserID, getUserProjects } from "../../Services/UserModel";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import "./Project.css";
 
 function ProjectSettings() {
-  const [rows, setRows] = useState([])
-  const [editingRow, setEditingRow] = useState(null)
-  const [editedTask, setEditedTask] = useState({})
-  const [projects, setProjects] = useState([])
-  const [selectedProject, setSelectedProject] = useState(null)
-  const priorityOptions = ["Urgent", "Important", "Medium", "Low"]
-  const statusOptions = ["Late", "Not Started", "In Progress", "Completed"]
+  const [rows, setRows] = useState([]);
+  const [editingRow, setEditingRow] = useState(null);
+  const [editedTask, setEditedTask] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const priorityOptions = ["Urgent", "Important", "Medium", "Low"];
+  const statusOptions = ["Late", "Not Started", "In Progress", "Completed"];
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const userid = await getUserID()
-        const userProjects = await getUserProjects(userid)
-        setProjects(userProjects)
+        const userid = await getUserID();
+        const userProjects = await getUserProjects(userid);
+        setProjects(userProjects);
       } catch (error) {
-        console.error("Error fetching projects:", error)
+        console.error("Error fetching projects:", error);
       }
-    }
+    };
 
-    fetchProjects()
-  }, [])
+    fetchProjects();
+  }, []);
 
   useEffect(() => {
-    const apiUrl = `https://pm-platform-backend.onrender.com`
+    const apiUrl = `https://pm-platform-backend.onrender.com`;
     if (selectedProject) {
       const fetchTasks = async () => {
         try {
           const response = await axios.get(
             `${apiUrl}/api/tasks/project/${selectedProject}`
-          )
+          );
           const tasksWithId = response.data.map((task) => ({
             ...task,
             id: task._id,
             startDate: task.startDate ? new Date(task.startDate) : null,
             endDate: task.endDate ? new Date(task.endDate) : null,
-          }))
-          setRows(tasksWithId)
+          }));
+          setRows(tasksWithId);
         } catch (error) {
-          console.error("Error fetching tasks:", error)
+          console.error("Error fetching tasks:", error);
         }
-      }
+      };
 
-      fetchTasks()
+      fetchTasks();
     }
-  }, [selectedProject])
+  }, [selectedProject]);
 
   const handleEditClick = (id) => {
-    const taskToEdit = rows.find((task) => task.id === id)
-    setEditingRow(id)
-    setEditedTask(taskToEdit)
-  }
+    const taskToEdit = rows.find((task) => task.id === id);
+    setEditingRow(id);
+    setEditedTask(taskToEdit);
+  };
 
   const handleFieldChange = (id, field, value) => {
     setRows((prevRows) =>
       prevRows.map((task) =>
         task.id === id ? { ...task, [field]: value } : task
       )
-    )
+    );
     setEditedTask((prevTask) => ({
       ...prevTask,
       [field]: value,
-    }))
-
-  }
+    }));
+  };
 
   const handleSaveClick = async (id) => {
     try {
-      const updatedTaskIndex = rows.findIndex((task) => task.id === id)
+      const updatedTaskIndex = rows.findIndex((task) => task.id === id);
       if (updatedTaskIndex === -1) {
-        console.error("Task not found for id:", id)
-        return
+        console.error("Task not found for id:", id);
+        return;
       }
 
-      const updatedTask = { ...rows[updatedTaskIndex], ...editedTask }
+      const updatedTask = { ...rows[updatedTaskIndex], ...editedTask };
 
-      const apiUrl = `https://pm-platform-backend.onrender.com`
-      await axios.put(`${apiUrl}/api/tasks/update/${id}`, updatedTask)
+      const apiUrl = `https://pm-platform-backend.onrender.com`;
+      await axios.put(`${apiUrl}/api/tasks/update/${id}`, updatedTask);
 
       setRows((prevRows) =>
         prevRows.map((task) => (task.id === id ? updatedTask : task))
-      )
+      );
       if (updatedTask.status === "Completed") {
-        const projectId = getProjectID()
-        await axios.put(`${apiUrl}/api/projects/percentage/${projectId}`)
+        await axios.put(
+          `${apiUrl}/api/projects/percentage/${updatedTask.project}`
+        );
       }
-      setEditingRow(null)
-      setEditedTask({})
+      setEditingRow(null);
+      setEditedTask({});
     } catch (error) {
-      console.error("Error saving task:", error)
+      console.error("Error saving task:", error);
     }
-  }
+  };
 
   const handleDeleteClick = async (id) => {
     try {
-      const apiUrl = `https://pm-platform-backend.onrender.com`
-      await axios.delete(`${apiUrl}/api/tasks/delete/${id}`)
-      setRows((prevRows) => prevRows.filter((task) => task.id !== id))
+      const apiUrl = `https://pm-platform-backend.onrender.com`;
+      await axios.delete(`${apiUrl}/api/tasks/delete/${id}`);
+      setRows((prevRows) => prevRows.filter((task) => task.id !== id));
 
-      const projectId = getProjectID()
-      await axios.post(`${apiUrl}/api/calculateEarly/${projectId}`)
-      await axios.post(`${apiUrl}/api/calculateLate/${projectId}`)
+      const projectId = getProjectID();
+      await axios.post(`${apiUrl}/api/calculateEarly/${projectId}`);
+      await axios.post(`${apiUrl}/api/calculateLate/${projectId}`);
     } catch (error) {
-      console.error("Error deleting task:", error)
+      console.error("Error deleting task:", error);
     }
-  }
+  };
 
   return (
     <div>
       <div className="searchProject">
         <FormControl className="projectSelect">
-        <label className="selectLabel"> Project Name &nbsp;&nbsp;&nbsp;</label>
+          <label className="selectLabel">
+            {" "}
+            Project Name &nbsp;&nbsp;&nbsp;
+          </label>
           {/* <InputLabel id="projectSelectLabel"></InputLabel> */}
           <Select
             className="selectBar"
@@ -188,11 +191,17 @@ function ProjectSettings() {
                         : ""
                     }
                     onChange={(e) =>
-                      handleFieldChange(row.id, "startDate", new Date(e.target.value))
+                      handleFieldChange(
+                        row.id,
+                        "startDate",
+                        new Date(e.target.value)
+                      )
                     }
                   />
+                ) : row.startDate ? (
+                  row.startDate.toDateString()
                 ) : (
-                  row.startDate ? row.startDate.toDateString() : ""
+                  ""
                 )}
               </td>
               <td>
@@ -207,18 +216,26 @@ function ProjectSettings() {
                         : ""
                     }
                     onChange={(e) =>
-                      handleFieldChange(row.id, "endDate", new Date(e.target.value))
+                      handleFieldChange(
+                        row.id,
+                        "endDate",
+                        new Date(e.target.value)
+                      )
                     }
                   />
+                ) : row.endDate ? (
+                  row.endDate.toDateString()
                 ) : (
-                  row.endDate ? row.endDate.toDateString() : ""
+                  ""
                 )}
               </td>
               <td>
                 {editingRow === row.id ? (
                   <Select
                     value={editedTask.priority || row.priority}
-                    onChange={(e) => handleFieldChange(row.id, "priority", e.target.value)}
+                    onChange={(e) =>
+                      handleFieldChange(row.id, "priority", e.target.value)
+                    }
                   >
                     {priorityOptions.map((option) => (
                       <MenuItem key={option} value={option}>
@@ -234,8 +251,9 @@ function ProjectSettings() {
                 {editingRow === row.id ? (
                   <Select
                     value={editedTask.status || row.status}
-                    onChange={(e) => handleFieldChange(row.id, "status", e.target.value)}
-
+                    onChange={(e) =>
+                      handleFieldChange(row.id, "status", e.target.value)
+                    }
                   >
                     {statusOptions.map((option) => (
                       <MenuItem key={option} value={option}>
@@ -252,7 +270,9 @@ function ProjectSettings() {
                   <TextField
                     type="number"
                     value={editedTask.cost || row.cost}
-                    onChange={(e) => handleFieldChange(row.id, "cost", e.target.value)}
+                    onChange={(e) =>
+                      handleFieldChange(row.id, "cost", e.target.value)
+                    }
                   />
                 ) : (
                   row.cost
@@ -288,7 +308,7 @@ function ProjectSettings() {
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default ProjectSettings
+export default ProjectSettings;

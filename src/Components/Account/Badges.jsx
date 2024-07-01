@@ -5,18 +5,22 @@ import { getColorByPriority } from "../../functions";
 import { getColorByStatus } from "../../functions";
 import { getColorByDaysLeft } from "../../functions";
 
-export default function PriorityBadge({ value }) {
+export default function PriorityBadge({ value, isCompleted }) {
   return (
-    <div
-      className="priorityBadge bold"
-      style={{
-        border: `2px solid ${getColorByPriority(value)}`,
-        backgroundColor: "white",
-        color: getColorByPriority(value),
-      }}
-    >
-      {value}
-    </div>
+    <>
+      {!isCompleted && (
+        <div
+          className="priorityBadge bold"
+          style={{
+            border: `2px solid ${getColorByPriority(value)}`,
+            backgroundColor: "white",
+            color: getColorByPriority(value),
+          }}
+        >
+          {value}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -43,6 +47,7 @@ export function TimeBadge({ taskId, value, isCompleted }) {
     } else if (isCompleted) {
       return "Completed";
     } else {
+      console.log("POST DEADLINE: " + taskId + isCompleted);
       return value >= 0 ? `${value} days left` : "Post Deadline";
     }
   };
@@ -55,16 +60,20 @@ export function TimeBadge({ taskId, value, isCompleted }) {
   }, [value]);
 
   return (
-    <div
-      className="timeBadge bold"
-      style={{
-        border: `2px solid ${getColorByDaysLeft(value)}`,
-        backgroundColor: getColorByDaysLeft(value),
-      }}
-    >
-      {printValue()}
-      &nbsp; <img src={clockImg} alt="deadline" />
-    </div>
+    <>
+      {!isCompleted && (
+        <div
+          className="timeBadge bold"
+          style={{
+            border: `2px solid ${getColorByDaysLeft(value)}`,
+            backgroundColor: getColorByDaysLeft(value),
+          }}
+        >
+          {printValue()}
+          &nbsp; <img src={clockImg} alt="deadline" />
+        </div>
+      )}
+    </>
   );
 }
 
