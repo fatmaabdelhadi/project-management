@@ -63,7 +63,7 @@ button, input[type=button], input[type=submit] {
     box-shadow: none;
     color: white;
     font-weight: 700;
-    border-radius: 20px;
+    border-radius: 10px !important;
     padding: 10px 40px;
 }
 
