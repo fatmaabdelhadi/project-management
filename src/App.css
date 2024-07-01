@@ -79,6 +79,10 @@ input[type=text]:focus, input[type=email]:focus {
     border: var(--teal) solid 4px;
 }
 
+.MuiInputBase-root  {
+  min-width: 150px;
+}
+
 .App {
   display: flex;
   background-color: var(--lightGrey);
@@ -120,3 +124,12 @@ input[type=text]:focus, input[type=email]:focus {
 
 }
 
+a {
+  transition: filter 300ms ease-out;
+}
+
+a:hover {
+      cursor: pointer;
+
+  filter: brightness(0.8); /* Increase brightness by 20% */
+}

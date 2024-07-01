@@ -7,9 +7,12 @@ import {
   getProjectData,
   findProjectByID,
 } from "../../Services/ProjectModel";
+import { getUsernameById } from "../../Services/UserModel";
 import { getProjectTasks } from "../../Services/TaskModel";
 import { PieChart } from "@mui/x-charts";
 import AssignedUsersPieChart from "./AccountPie";
+import { getUserData } from "../../Services/UserModel";
+
 const taskStatusColors = {
   Late: "#C74857",
   "Not Started": "#FF7F00",
@@ -19,10 +22,11 @@ const taskStatusColors = {
 };
 
 export default function Dashboard() {
-  const [project_ID, setProjectID] = useState(null);
+  const [projectID, setProjectID] = useState(null);
+  const [projectManager, setProjectManager] = useState(null);
   const [projectData, setProjectData] = useState(null);
   const [tasks, setTasks] = useState([]);
-  const { projectID } = useParams(); // Extract 'projectID' from useParams
+  const { projectID: routeProjectID } = useParams(); // Extract 'projectID' from useParams
 
   useEffect(() => {
     const fetchCurrentProjectData = async () => {
@@ -48,25 +52,30 @@ export default function Dashboard() {
 
         const projectTasks = await getProjectTasks(id);
         setTasks(projectTasks);
+
+        const managerName = await getUsernameById(projectData.projectManager);
+        setProjectManager(managerName);
       } catch (error) {
         console.error("Error fetching project data:", error);
       }
     };
 
-    if (projectID) {
-      fetchProjectData(projectID);
+    if (routeProjectID) {
+      fetchProjectData(routeProjectID);
     } else {
       fetchCurrentProjectData();
     }
-  }, [projectID]); // Added projectID as a dependency
+  }, [routeProjectID]); // Added projectID as a dependency
 
   if (!projectData) {
-    return <div>Loading...</div>; // Loading indicator
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="dashboard">
       <h2>{projectData.projectName}</h2>
+      <h6>{projectManager}</h6>
+
       <p>{projectData.description}</p>
       <hr />
       <br />
@@ -74,7 +83,7 @@ export default function Dashboard() {
         <>
           <h3 className="bold">Project Network</h3>
           <Network
-            projectID={project_ID}
+            projectID={projectID}
             border={"1px solid var(--grey)"}
             height={"500px"}
             width={"100%"}
@@ -87,7 +96,9 @@ export default function Dashboard() {
           </div>
           <div className="createNavigationButtons">
             <NavLink
-              to={`/create-tasks/${projectID ? projectID : getProjectID()}`}
+              to={`/create-tasks/${
+                routeProjectID ? routeProjectID : getProjectID()
+              }`}
               key="create-tasks"
             >
               <button>Prev</button>
@@ -98,7 +109,9 @@ export default function Dashboard() {
         <div>
           <p>No tasks yet, add one.</p>
           <NavLink
-            to={`/create-tasks/${projectID ? projectID : getProjectID()}`}
+            to={`/create-tasks/${
+              routeProjectID ? routeProjectID : getProjectID()
+            }`}
           >
             <button>Add Task</button>
           </NavLink>

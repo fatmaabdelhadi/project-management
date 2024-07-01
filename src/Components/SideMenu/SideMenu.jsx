@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./SideMenu.css";
 import { NavLink, useLocation } from "react-router-dom";
-import SideMenuProjects from "./SideMenuProjects";
+// import SideMenuProjects from "./SideMenuProjects";
 import { getUserData } from "../../Services/UserModel";
 import { useCollapse } from "react-collapsed";
 import Logo from "../Logo/Logo";
@@ -13,6 +13,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
   let CreateImg = require("../../Assets/Create inactive.svg").default;
   let AccountImg = require("../../Assets/Account inactive.svg").default;
   let SettingsImg = require("../../Assets/Settings inactive.svg").default;
+  let TasksImg = require("../../Assets/list.svg").default;
   let LogoutImg = require("../../Assets/Logout inactive.svg").default;
   let DotImg = require("../../Assets/Dot.svg").default;
 
@@ -54,19 +55,26 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
         image: "",
         url: "",
       },
-      {
-        name: currentProject?.projectName
-          ? currentProject.projectName
-          : "Select Project",
-        class: "dropdown",
-        image: "",
-        url: "",
-      },
+      // {
+      //   name: currentProject?.projectName
+      //     ? currentProject.projectName
+      //     : "Select Project",
+      //   class: "dropdown",
+      //   image: "",
+      //   url: "",
+      // },
+
       {
         name: "Dashboard",
         class: "link",
         image: DashboardImg,
         url: "/dashboard",
+      },
+      {
+        name: "Tasks",
+        class: "link",
+        image: TasksImg,
+        url: "/create-tasks",
       },
       {
         name: "Project Settings",
@@ -88,7 +96,7 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
       HomeImg,
       LogoutImg,
       SettingsImg,
-      currentProject.projectName,
+      // currentProject.projectName,
     ]
   );
 
@@ -158,11 +166,11 @@ export default function SideMenu({ currentProject, setCurrentProject }) {
                       <p className="sideMenuLabel">
                         {item.name} <span>{isExpanded ? "-" : "+"}</span>
                       </p>
-                      <div {...getCollapseProps()}>
+                      {/* <div {...getCollapseProps()}>
                         <SideMenuProjects
                           setCurrentProject={setCurrentProject}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   )}
                 </p>

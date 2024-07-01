@@ -1,16 +1,15 @@
-.tasks {
+.HomeLabel {
     color: #A7A7A7;
 }
 
 .filtersRow {
-
     margin-bottom: 20px;
 
 }
 
 .filtersRow > * {
     margin-right: 20px;
-    flex: 1;
+
 }
 
 .filtersRow form {
@@ -40,25 +39,25 @@ form:hover {
     padding: unset;
 }
 
-#btnShowAll, #btnCompletedTasks, #btnUrgentTasks, #applyFilters {
+.filterButtons > button {
     height: fit-content;
     padding: 5px 10px;
     border-radius: 50px;
     margin-right: 10px;
 }
 
-.allOn, .completedOn {
+.allOn, .completedOn, .currentOn {
     background-color: var(--teal);
     color: white;
 }
 
-.allOff, .completedOff, .urgentOff {
+.allOff, .completedOff, .urgentOff, .currentOff {
     background-color: white;
     font-weight: 100;
     color: var(--darkGrey);
 }
 
-.allOff:hover, .completedOff:hover {
+.allOff:hover, .completedOff:hover, .currentOff:hover {
     background-color: var(--teal);
     opacity: 0.7;
     color: white;
@@ -80,6 +79,7 @@ form:hover {
   opacity: 0.7;
   color: white;
 }
+
 
 .gg-search {
     float: inline-end;
@@ -110,6 +110,7 @@ form:hover {
 }
 
 .userTasks {
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -122,6 +123,7 @@ form:hover {
 }
 
 .userTasks:hover {
+    cursor: pointer;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -131,6 +133,7 @@ form:hover {
 }
 
 .priorityBadge {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     border: var(--red) solid 2px;
     border-radius: 25px;
     padding: 0 10px;
@@ -140,6 +143,7 @@ form:hover {
 }
 
 .timeBadge {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     border-radius: 25px;
     padding: 0 10px;
     color: white;
@@ -163,6 +167,8 @@ form:hover {
     transition: box-shadow 0.3s ease-in-out;
     width: 70%;
     margin: 10px 0;
+        cursor: pointer;
+
 }
 
 .userProjects:hover {
@@ -213,13 +219,16 @@ form:hover {
     position: relative;
     width: 70%;
     height: 20px;
-    background-color: var(--grey);
+    box-shadow: rgba(50, 50, 93, 0.1) 0px 30px 60px -12px inset, rgba(191, 191, 191, 0.1) 0px 18px 36px -18px inset;    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
     border-radius: 10px;
     overflow: hidden;
     margin-left: 10px;
+    padding: 2px;
 }
 
 .progressFill {
+        box-shadow: rgba(50, 50, 93, 0.1) 0px 50px 100px -20px, rgba(0, 0, 0, 0.) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
     height: 100%;
     background-color: var(--teal);
 }
@@ -229,7 +238,7 @@ form:hover {
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--black);
+    color: var(--darkGrey);
     font: bold 14px;
 }
 

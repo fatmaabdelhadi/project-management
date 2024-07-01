@@ -20,7 +20,7 @@ export default function PriorityBadge({ value }) {
   );
 }
 
-export function TimeBadge({ taskId, value }) {
+export function TimeBadge({ taskId, value, isCompleted }) {
   const [clockImg, setClockImg] = useState(
     require("../../Assets/Time.svg").default
   );
@@ -40,13 +40,15 @@ export function TimeBadge({ taskId, value }) {
   const printValue = () => {
     if (isValueNaN) {
       return "Not Determined";
+    } else if (isCompleted) {
+      return "Completed";
     } else {
       return value >= 0 ? `${value} days left` : "Post Deadline";
     }
   };
 
   useEffect(() => {
-    if (printValue() === "Post Deadline") {
+    if (printValue() === "Post Deadline" && !isCompleted) {
       updateLateTaskStatus();
       setClockImg(require("../../Assets/Warning.svg").default);
     }

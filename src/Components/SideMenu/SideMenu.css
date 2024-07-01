@@ -77,11 +77,13 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-  
-      transition: filter 0.3 ease;
+      opacity: 0.9;
+    transition: filter 300ms ease-out;
   }
-  .NavLink :hover {
-  filter: brightness(0) saturate(100%) invert(51%) sepia(0%) saturate(4%) hue-rotate(214deg) brightness(94%) contrast(86%);}
+
+  .NavLink:hover {
+  filter: brightness(0.8); /* Increase brightness by 20% */
+}
   
   .NavLink .active {
       color: var(--teal);

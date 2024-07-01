@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Account.css";
 import { TimeBadge } from "./Badges";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
-import { useParams } from "react-router";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 export default function UserProjects() {
   const [projects, setProjects] = useState([]);
@@ -15,8 +15,13 @@ export default function UserProjects() {
         const id = getUserID();
         const userProjects = await getUserProjects(id);
         if (userProjects) {
-          console.log(userProjects);
           setProjects(userProjects);
+
+          for (const project of userProjects) {
+            await axios.put(
+              `https://pm-platform-backend.onrender.com/api/projects/percentage/${project._id}`
+            );
+          }
         }
       } catch (error) {
         console.error("Error fetching user projects:", error);
@@ -24,7 +29,7 @@ export default function UserProjects() {
     };
 
     fetchProjects();
-  }, []);
+  }, []); // Removed `projects` from the dependency array
 
   const redirectToProject = (projectId) => {
     navigate(`/dashboard/${projectId}`);
@@ -44,6 +49,10 @@ export default function UserProjects() {
 
   return (
     <div className="row">
+      <h3 className="HomeLabel">My Projects</h3>
+      <p className="bold" style={{ color: "var(--grey)" }}>
+        Projects that you've created and can manage
+      </p>
       {projects.map((project) => (
         <div
           className="userProjects"
@@ -59,13 +68,14 @@ export default function UserProjects() {
               className="progressFill"
               style={{
                 width: `${
-                  project.progress ? project.progress.completion_percentage : 0
+                  project.progress ? project.progress.completionPercentage : 0
                 }%`,
+                borderRadius: "8px",
               }}
             ></div>
             <div className="progress"></div>
-            <span className="progressPer">
-              {project.progress ? project.progress.completion_percentage : 0}%
+            <span className="progressPer bold">
+              {project.progress ? project.progress.completionPercentage : 0}%
             </span>
           </div>
           <div className="settings">
