@@ -9,7 +9,7 @@ export default function SignUp() {
 
   let showPass = require("../../Assets/eye.png")
   let hidePass = require("../../Assets/hidden.png")
-  
+
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -19,14 +19,17 @@ export default function SignUp() {
   const [showRepeatPassword, setShowRepeatPassword] = useState(false)
   const [jobTitle, setJobTitle] = useState("")
   const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
+    setIsLoading(true)
 
     if (password !== repeatPassword) {
       setError("Passwords do not match.")
+      setIsLoading(false)
       return
     }
 
@@ -57,13 +60,18 @@ export default function SignUp() {
         "Error signing up:",
         error.response ? error.response.data : error
       )
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="background">
-      <div className="filter"></div>
-      <div className="formLayout">
+      {isLoading && <div className="loader"></div>}
+      <div className={`filter ${isLoading ? "disabled" : ""}`}></div>
+      <div className={`formLayout ${isLoading ? "disabled" : ""}`}>
+      {/* <div className="filter"></div> */}
+      {/* <div className="formLayout"> */}
         <form className="signUp form" onSubmit={handleSubmit}>
           <div>
             <h2>Create New Account</h2>
@@ -80,6 +88,7 @@ export default function SignUp() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
+              disabled={isLoading}
             />
             <input
               type="text"
@@ -88,6 +97,7 @@ export default function SignUp() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              disabled={isLoading}
             />
             <input
               type="text"
@@ -96,6 +106,7 @@ export default function SignUp() {
               value={jobTitle}
               onChange={(e) => setJobTitle(e.target.value)}
               required
+              disabled={isLoading}
             />
             <input
               type="email"
@@ -104,6 +115,7 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
             <div className="signUpPasswordField">
               <input
@@ -113,6 +125,7 @@ export default function SignUp() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={isLoading}
               />
               <img
                 src={showPassword ? showPass : hidePass}
@@ -122,14 +135,15 @@ export default function SignUp() {
               />
             </div>
             <div className="signUpPasswordField">
-            <input
-              type={showRepeatPassword ? "text" : "password"}
-              placeholder="Repeat Password"
-              value={repeatPassword}
-              onChange={(e) => setRepeatPassword(e.target.value)}
-              required
-            />
-            <img
+              <input
+                type={showRepeatPassword ? "text" : "password"}
+                placeholder="Repeat Password"
+                value={repeatPassword}
+                onChange={(e) => setRepeatPassword(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+              <img
                 src={showRepeatPassword ? showPass : hidePass}
                 alt="Toggle Password Visibility"
                 className="signUp-password-toggle"
@@ -137,7 +151,7 @@ export default function SignUp() {
               />
             </div>
           </div>
-          <button type="submit">Create Account</button>
+          <button type="submit" disabled={isLoading}>Create Account</button>
 
           {error && <p className="error">{error}</p>}
         </form>
