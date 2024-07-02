@@ -74,6 +74,7 @@ export default function SideMenu() {
 
   const [navbarItems, setNavbarItems] = useState([]);
   const [collapse, setCollapse] = useState(false);
+  const openMenuStyle = !collapse ? { minWidth: "150px" } : {};
 
   const toggleCollapse = () => {
     setCollapse(!collapse);
@@ -91,7 +92,7 @@ export default function SideMenu() {
 
   return (
     <div className={`sideMenu ${collapse ? "collapsed" : "expanded"}`}>
-      <div className="menu">
+      <div className="menu" style={openMenuStyle}>
         <NavLink className="LogoNavlink" to={"/home"} key="focushive home logo">
           <Logo />
         </NavLink>
@@ -99,7 +100,7 @@ export default function SideMenu() {
         <div className="sideMenuHeader">
           <img
             alt="Side menu button"
-            src={collapse ? ArrowImg : ArrowFlipImg}
+            src={collapse ? ArrowFlipImg : ArrowImg}
             onClick={toggleCollapse}
           />
         </div>
