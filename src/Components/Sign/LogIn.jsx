@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { loginUser, logoutUser } from "../../Services/UserModel";
+import React, { useState, useEffect } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { loginUser, logoutUser } from "../../Services/UserModel"
 
 export function LogIn() {
   document.title = "Log In"
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    logoutUser();
-  }, []);
+    logoutUser()
+  }, [])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     try {
       const response = await axios.post(
@@ -26,25 +26,25 @@ export function LogIn() {
           email,
           password,
         }
-      );
+      )
 
       // Store the token in localStorage
-      loginUser(response.data);
+      loginUser(response.data)
 
       // Redirect to the Account Home page
-      navigate("/accountHome");
+      navigate("/accountHome")
     } catch (error) {
       if (error.response) {
-        setError(error.response.data);
+        setError(error.response.data)
       } else {
-        setError("Login failed. Please try again.");
+        setError("Login failed. Please try again.")
       }
       console.error(
         "Error logging in:",
         error.response ? error.response.data : error
-      );
+      )
     }
-  };
+  }
 
   return (
     <div className="background loginPage">
@@ -82,5 +82,5 @@ export function LogIn() {
         </form>
       </div>
     </div>
-  );
+  )
 }
