@@ -9,12 +9,14 @@ export default function SignUp() {
 
   let showPass = require("../../Assets/eye.png")
   let hidePass = require("../../Assets/hidden.png")
-
+  
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [repeatPassword, setRepeatPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false)
   const [jobTitle, setJobTitle] = useState("")
   const [error, setError] = useState(null)
   const navigate = useNavigate()
@@ -103,7 +105,7 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <div className="passwordField">
+            <div className="signUpPasswordField">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -115,17 +117,25 @@ export default function SignUp() {
               <img
                 src={showPassword ? showPass : hidePass}
                 alt="Toggle Password Visibility"
-                className="password-toggle"
+                className="signUp-password-toggle"
                 onClick={() => setShowPassword((prev) => !prev)}
               />
             </div>
+            <div className="signUpPasswordField">
             <input
-              type="password"
+              type={showRepeatPassword ? "text" : "password"}
               placeholder="Repeat Password"
               value={repeatPassword}
               onChange={(e) => setRepeatPassword(e.target.value)}
               required
             />
+            <img
+                src={showRepeatPassword ? showPass : hidePass}
+                alt="Toggle Password Visibility"
+                className="signUp-password-toggle"
+                onClick={() => setShowRepeatPassword((prev) => !prev)}
+              />
+            </div>
           </div>
           <button type="submit">Create Account</button>
 
