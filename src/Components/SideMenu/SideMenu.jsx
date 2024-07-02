@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useMemo } from "react";
-import "./SideMenu.css";
-import { NavLink, useLocation } from "react-router-dom";
-import SideMenuProjects from "./SideMenuProjects";
-import { getUserData } from "../../Services/UserModel";
-import Logo from "../Logo/Logo";
+import React, { useEffect, useState, useMemo } from "react"
+import "./SideMenu.css"
+import { NavLink, useLocation } from "react-router-dom"
+import SideMenuProjects from "./SideMenuProjects"
+import { getUserData } from "../../Services/UserModel"
+import Logo from "../Logo/Logo"
 
 export default function SideMenu() {
-  let ArrowImg = require("../../Assets/Arrow Flip.svg").default;
-  let ArrowFlipImg = require("../../Assets/Arrow.svg").default;
-  let HomeImg = require("../../Assets/Home inactive.svg").default;
-  let CreateImg = require("../../Assets/Create inactive.svg").default;
-  let AccountImg = require("../../Assets/Account inactive.svg").default;
-  // let LogoutImg = require("../../Assets/Logout inactive.svg").default;
+  let ArrowImg = require("../../Assets/Arrow Flip.svg").default
+  let ArrowFlipImg = require("../../Assets/Arrow.svg").default
+  let HomeImg = require("../../Assets/Home inactive.svg").default
+  let CreateImg = require("../../Assets/Create inactive.svg").default
+  let AccountImg = require("../../Assets/Account inactive.svg").default
+  let LogoutImg = require("../../Assets/Logout inactive.svg").default
 
   const data = useMemo(
     () => [
@@ -57,38 +57,38 @@ export default function SideMenu() {
         image: "",
         url: "",
       },
-      // {
-      //   name: "Logout",
-      //   class: "link",
-      //   image: LogoutImg,
-      //   url: "/login",
-      // },
+      {
+        name: "Logout",
+        class: "link",
+        image: LogoutImg,
+        url: "/login",
+      },
     ],
     [
       AccountImg,
       CreateImg,
       HomeImg,
-      // , LogoutImg
+      LogoutImg
     ]
-  );
+  )
 
-  const [navbarItems, setNavbarItems] = useState([]);
-  const [collapse, setCollapse] = useState(false);
-  const openMenuStyle = !collapse ? { minWidth: "150px" } : {};
+  const [navbarItems, setNavbarItems] = useState([])
+  const [collapse, setCollapse] = useState(false)
+  const openMenuStyle = !collapse ? { minWidth: "150px" } : {}
 
   const toggleCollapse = () => {
-    setCollapse(!collapse);
-  };
+    setCollapse(!collapse)
+  }
 
   useEffect(() => {
-    setNavbarItems([...data]);
-  }, [data]);
+    setNavbarItems([...data])
+  }, [data])
 
-  const location = useLocation();
+  const location = useLocation()
 
   const isActive = (url) => {
-    return location.pathname.startsWith(url);
-  };
+    return location.pathname.startsWith(url)
+  }
 
   return (
     <div className={`sideMenu ${collapse ? "collapsed" : "expanded"}`}>
@@ -107,9 +107,9 @@ export default function SideMenu() {
         {navbarItems.map((item, index) => {
           const imgTag = item.image ? (
             <img alt={`${item.name}`} src={`${item.image}`} />
-          ) : null;
-          const additionalClassName = item.class ? item.class : "";
-          const isLink = item.class === "link";
+          ) : null
+          const additionalClassName = item.class ? item.class : ""
+          const isLink = item.class === "link"
 
           return (
             <div className={`menuItem ${additionalClassName}`} key={index}>
@@ -135,9 +135,9 @@ export default function SideMenu() {
                 </div>
               )}
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
