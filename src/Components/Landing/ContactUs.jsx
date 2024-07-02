@@ -1,5 +1,5 @@
-import React from "react";
-import "./Contact.css";
+import React from "react"
+import "./Contact.css"
 
 const fatma = require("../../Assets/fatma.jpeg")
 const ganna = require("../../Assets/ganna.jpeg")
@@ -34,7 +34,7 @@ const developers = [
 ]
 
 export default function ContactUs() {
-  document.title = "Contact Us";
+  document.title = "Contact Us"
   return (
     <div className="contact-us contactPage">
       <div className="developer-list">
