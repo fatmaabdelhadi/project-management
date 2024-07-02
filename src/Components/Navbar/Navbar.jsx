@@ -62,8 +62,8 @@ export default function Navbar() {
     prevOpen.current = open;
   }, [open]);
 
-  const initials = userData?.username
-    ? userData.username.charAt(0).toUpperCase()
+  const initials = userData?.profile.fullName
+    ? userData.profile.fullName.charAt(0).toUpperCase()
     : "";
 
   return (
@@ -73,14 +73,14 @@ export default function Navbar() {
           <Stack direction="row" spacing={2} alignItems="center">
             <div className="profilePicture">{initials}</div>
             <div
-              className="username"
+              className="fullName"
               ref={anchorRef}
               aria-controls={open ? "composition-menu" : undefined}
               aria-expanded={open ? "true" : undefined}
               aria-haspopup="true"
               onClick={handleToggle}
             >
-              {userData.username}
+              {userData.profile.fullName}
             </div>
             <Popper
               open={open}
