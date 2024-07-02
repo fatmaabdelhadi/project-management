@@ -4,7 +4,7 @@ import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { findProjectByID, setProjectData } from "../../Services/ProjectModel";
 // import "./SideMenu.css";
-import "./Sidemenu.css"
+import "./SideMenu.css"
 export default function SideMenuProjects() {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
