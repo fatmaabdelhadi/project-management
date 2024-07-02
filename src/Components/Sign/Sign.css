@@ -100,3 +100,15 @@
 .login h2 {
   margin-bottom: 5px;
 }
+
+.passwordField {
+  position: relative;
+}
+
+.password-toggle {
+  opacity: 0.5;
+  top: 2px;
+  position: absolute;
+  right: 20px;
+  width: 30px;
+}

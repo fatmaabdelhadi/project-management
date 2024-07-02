@@ -6,8 +6,12 @@ import { loginUser, logoutUser } from "../../Services/UserModel"
 export function LogIn() {
   document.title = "Log In"
 
+  let showPass = require("../../Assets/eye.png")
+  let hidePass = require("../../Assets/hidden.png")
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -28,11 +32,10 @@ export function LogIn() {
         }
       )
 
-      // Store the token in localStorage
+      // Store the token in localStorage & Redirect
       loginUser(response.data)
-
-      // Redirect to the Account Home page
       navigate("/accountHome")
+
     } catch (error) {
       if (error.response) {
         setError(error.response.data)
@@ -67,14 +70,23 @@ export function LogIn() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="passwordField">
+              <input
+                // type="password"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <img
+                src={showPassword ? showPass : hidePass}
+                alt="Toggle Password Visibility"
+                className="password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+              />
+            </div>
           </div>
           <button type="submit">Log In</button>
 
