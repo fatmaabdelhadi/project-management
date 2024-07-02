@@ -34,7 +34,6 @@ export function LogIn() {
         }
       )
 
-      // Store the token in localStorage & Redirect
       loginUser(response.data)
       navigate("/accountHome")
 
