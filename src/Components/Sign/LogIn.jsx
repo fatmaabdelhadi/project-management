@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { loginUser, logoutUser } from "../../Services/UserModel";
+import React, { useState, useEffect } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { loginUser, logoutUser } from "../../Services/UserModel"
 
 export function LogIn() {
   document.title = "Log In"
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  let showPass = require("../../Assets/eye.png")
+  let hidePass = require("../../Assets/hidden.png")
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    logoutUser();
-  }, []);
+    logoutUser()
+  }, [])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
+    setIsLoading(true)
 
     try {
       const response = await axios.post(
@@ -26,30 +32,31 @@ export function LogIn() {
           email,
           password,
         }
-      );
+      )
 
-      // Store the token in localStorage
-      loginUser(response.data);
+      loginUser(response.data)
+      navigate("/accountHome")
 
-      // Redirect to the Account Home page
-      navigate("/accountHome");
     } catch (error) {
       if (error.response) {
-        setError(error.response.data);
+        setError(error.response.data)
       } else {
-        setError("Login failed. Please try again.");
+        setError("Login failed. Please try again.")
       }
       console.error(
         "Error logging in:",
         error.response ? error.response.data : error
-      );
+      )
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="background loginPage">
-      <div className="filter"></div>
-      <div className="formLayout loginLayout">
+      {isLoading && <div className="loader"></div>}
+      <div className={`filter ${isLoading ? "disabled" : ""}`}></div>
+      <div className={`formLayout loginLayout ${isLoading ? "disabled" : ""}`}>
         <form className="signUp login form" onSubmit={handleSubmit}>
           <div>
             <h2>Login</h2>
@@ -66,21 +73,31 @@ export function LogIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="passwordField">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+              <img
+                src={showPassword ? showPass : hidePass}
+                alt="Toggle Password Visibility"
+                className="password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+              />
+            </div>
           </div>
-          <button type="submit">Log In</button>
+          <button type="submit" disabled={isLoading}>Log In</button>
 
           {error && <p className="error">{error}</p>}
         </form>
       </div>
     </div>
-  );
+  )
 }
