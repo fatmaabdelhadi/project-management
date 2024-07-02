@@ -12,6 +12,7 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import "./Project.css";
 import ProjectLinks from "./ProjectLinks";
+import { Tooltip } from "@mui/material";
 
 function ProjectSettings() {
   document.title = "Project Settings";
@@ -29,6 +30,10 @@ function ProjectSettings() {
   // const history = useHistory();
   const navigate = useNavigate();
 
+  let editImg = require("../../Assets/edit.svg").default;
+  let delImg = require("../../Assets/delete.svg").default;
+  let SaveImg = require("../../Assets/Save.svg").default;
+  let CancelImg = require("../../Assets/Cancel.svg").default;
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -313,14 +318,21 @@ function ProjectSettings() {
               <td>
                 {editingRow === row.id ? (
                   <>
-                    <SaveIcon onClick={() => handleSaveClick(row.id)} />
-                    <CancelIcon onClick={() => setEditingRow(null)} />
+                    {/* <SaveIcon onClick={() => handleSaveClick(row.id)} />
+                    <CancelIcon onClick={() => setEditingRow(null)} /> */}
+                                      <div className="d-flex gap-2">
+
+                     <Tooltip title="Save Changes"><div><img style={{width: "30px"}} src={SaveImg} onClick={() => handleSaveClick(row.id)}/></div></Tooltip>
+                     <Tooltip title="Cancel"><div><img style={{width: "30px"}} src={CancelImg} onClick={() => setEditingRow(null)}/></div></Tooltip>
+                     </div>
                   </>
                 ) : (
-                  <>
-                    <EditIcon onClick={() => handleEditClick(row.id)} />
-                    <DeleteIcon onClick={() => handleDeleteClick(row.id)} />
-                  </>
+                  <div className="d-flex gap-2">
+                    <Tooltip title="Edit Task"><div><img style={{width: "30px"}} src={editImg} onClick={() => handleEditClick(row.id)}/></div></Tooltip>
+                    <Tooltip title="Delete Task"><div><img style={{width: "30px"}} src={delImg} onClick={() => handleDeleteClick(row.id)}/></div></Tooltip>
+                 {/* <EditIcon  /> */}
+                    {/* <DeleteIcon onClick={() => handleDeleteClick(row.id)} /> */}
+                  </div>
                 )}
               </td>
             </tr>

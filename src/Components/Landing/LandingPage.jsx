@@ -1,8 +1,7 @@
-import "./Landing.css";
-import { NavLink } from "react-router-dom";
-import { React, useState } from "react";
-import { FaTasks, FaUsers, FaChartLine } from "react-icons/fa";
-
+import "./Landing.css"
+import { NavLink } from "react-router-dom"
+import { React, useState } from "react"
+import { FaTasks, FaUsers, FaChartLine } from 'react-icons/fa'
 export default function LandingPage() {
   return (
     <div className="LandingPage">
