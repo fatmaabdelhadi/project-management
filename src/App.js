@@ -1,40 +1,41 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-import "./variables.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react"
+import "./App.css"
+import "./variables.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
-import axios from "axios";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SideMenu from "./Components/SideMenu/SideMenu";
-import Home from "./Components/Account/AccountHome";
-import Navbar from "./Components/Navbar/Navbar";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import Network from "./Components/Dashboard/Network";
-import CreateTasks from "./Components/Create/CreateTasks";
-import CreateNetwork from "./Components/Create/CreateNetwork";
-import TaskList from "./Components/TaskList/TaskList";
-import TaskListRenderer from "./Components/TaskList/TaskListRenderer";
-import SignUp from "./Components/Sign/SignUp";
-import { LogIn } from "./Components/Sign/LogIn";
-import { UserLayout } from "./Components/Layouts/UserLayout";
-import { GuestLayout } from "./Components/Layouts/GuestLayout";
-import AccountSettings from "./Components/Account/AccountSettings";
-import ProjectSettings from "./Components/Dashboard/ProjectSettings";
-import AccountHome from "./Components/Account/AccountHome";
-import LandingPage from "./Components/Landing/LandingPage";
-import ContactUs from "./Components/Landing/ContactUs";
-import CreateProject from "./Components/Create/CreateProject";
+import axios from "axios"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import SideMenu from "./Components/SideMenu/SideMenu"
+import Home from "./Components/Account/AccountHome"
+import Navbar from "./Components/Navbar/Navbar"
+import Dashboard from "./Components/Dashboard/Dashboard"
+import Network from "./Components/Dashboard/Network"
+import CreateTasks from "./Components/Create/CreateTasks"
+import CreateNetwork from "./Components/Create/CreateNetwork"
+import TaskList from "./Components/TaskList/TaskList"
+import TaskListRenderer from "./Components/TaskList/TaskListRenderer"
+import SignUp from "./Components/Sign/SignUp"
+import { LogIn } from "./Components/Sign/LogIn"
+import { UserLayout } from "./Components/Layouts/UserLayout"
+import { GuestLayout } from "./Components/Layouts/GuestLayout"
+import AccountSettings from "./Components/Account/AccountSettings"
+import ProjectSettings from "./Components/Dashboard/ProjectSettings"
+import AccountHome from "./Components/Account/AccountHome"
+import LandingPage from "./Components/Landing/LandingPage"
+import ContactUs from "./Components/Landing/ContactUs"
+import CreateProject from "./Components/Create/CreateProject"
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 function App() {
-  const [isSigned, setSignStatus] = useState(false);
+  const [isSigned, setSignStatus] = useState(false)
   // const [currentProject, setCurrentProject] = useState(() => {
-  //   const savedProject = JSON.parse(localStorage.getItem("currentProject"));
-  //   return savedProject || { projectID: "", projectName: "" };
-  // });
+  //   const savedProject = JSON.parse(localStorage.getItem("currentProject"))
+  //   return savedProject || { projectID: "", projectName: "" }
+  // })
 
   // useEffect(() => {
-  //   localStorage.setItem("currentProject", JSON.stringify(currentProject));
-  // }, [currentProject]);
+  //   localStorage.setItem("currentProject", JSON.stringify(currentProject))
+  // }, [currentProject])
 
   return (
     <BrowserRouter>
@@ -105,7 +106,7 @@ function App() {
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
       />
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
