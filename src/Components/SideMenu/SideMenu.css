@@ -1,0 +1,129 @@
+.sideMenu {
+    box-shadow: var(--shadow);
+    height: 100%;
+    background-color: var(--lightGrey);
+    transition: width 0.5s ease; /* Adjusted for smoother transition */
+  }
+  
+  .menu {
+    height: inherit;
+  }
+  
+  .menu.collapsed {
+    width: 50px; /* Adjust the collapsed width as needed */
+  }
+  
+  .menu.expanded {
+    width: 250px; /* Adjust this width as needed */
+  }
+  
+  .sideMenuHeader {
+    padding: 30px 10px;
+  }
+  
+  .sideMenuHeader > img {
+    margin-bottom: 100px;
+    float: inline-end;
+    cursor: pointer;
+    transition: transform 0.5s ease; /* Smooth transition for flipping arrow */
+  }
+  
+  .menu.collapsed > .sideMenuHeader > img {
+    transform: scaleX(-1);
+  }
+  
+  .NavLink {
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    opacity: 0.9;
+    transition: filter 0.3s ease-out; /* Smoother transition for filter */
+  }
+  
+  .NavLink:hover {
+    filter: brightness(0.8);
+  }
+  
+  .NavLink .active {
+    color: var(--teal);
+  }
+  
+  .sideMenuItemContent > p {
+    display: block;
+    margin-right: 30px;
+    color: var(--darkGrey);
+    margin: auto;
+  }
+  
+  .active > * > * > * {
+    color: var(--teal) !important;
+    font-weight: 700;
+    filter: brightness(0) saturate(100%) invert(64%) sepia(100%) saturate(263%) hue-rotate(91deg) brightness(84%) contrast(83%);
+  }
+  
+  .active .dot {
+    display: block;
+  }
+  
+  .sideMenuLabel {
+    font-weight: 700;
+    color: var(--darkGrey);
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .menuItem {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .sideMenuItemContent {
+    display: flex;
+    align-items: center;
+  }
+  
+  .sideMenuItemContent > img {
+    margin: 0px 10px;
+  }
+  
+  .ps-menu-button {
+    padding-right: 0 !important;
+  }
+  
+  .dot {
+    display: none;
+  }
+  
+  .divider {
+    width: 80%;
+    height: 1px;
+    background-color: #D9D9D9;
+    padding: 0 10px;
+    margin: 10px auto;
+  }
+  
+  .collapsed-divider {
+    width: 40px;
+  }
+  
+  .expanded-divider {
+    width: 200px;
+  }
+
+  /* Side Menu Projects */
+  .sideMenuProjectsItem {
+    margin: 0px 10px;
+  }
+  
+  .projectLink {
+    color: var(--black);
+    text-decoration: none;
+  }
+  
+  .activeProjectLink > * {
+    font-weight: bold;
+  }
