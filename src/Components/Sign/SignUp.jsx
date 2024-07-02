@@ -9,7 +9,7 @@ export default function SignUp() {
 
   let showPass = require("../../Assets/eye.png")
   let hidePass = require("../../Assets/hidden.png")
-  
+
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -103,14 +103,22 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="passwordField">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <img
+                src={showPassword ? showPass : hidePass}
+                alt="Toggle Password Visibility"
+                className="password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+              />
+            </div>
             <input
               type="password"
               placeholder="Repeat Password"
