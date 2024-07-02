@@ -2,14 +2,7 @@ import "./Landing.css"
 import { NavLink } from "react-router-dom"
 import { React, useState } from "react"
 import { FaTasks, FaUsers, FaChartLine } from 'react-icons/fa'
-
 export default function LandingPage() {
-<<<<<<< HEAD
-  // document.title = "Focus Hive"
-
-  return <div className="LandingPage"></div>;
-}
-=======
   return (
     <div className="LandingPage">
       <div className="landingFilter"></div>
@@ -42,4 +35,3 @@ export default function LandingPage() {
     </div>
   )
 }
->>>>>>> 7a6de7bffcd5952e2791c7ca6c18b09c146d95e0

@@ -37,6 +37,7 @@ export default function SideMenuProjects() {
 
   return (
     <div className="sideMenuProjects">
+      <p className="grey bold">My Projects</p>
       {projects.map((project) => (
         <div key={project.projectID} className="sideMenuProjectsItem">
           <NavLink

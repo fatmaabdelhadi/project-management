@@ -59,7 +59,7 @@ export default function SideMenu() {
       name: "Logout",
       class: "link",
       image: LogoutImg,
-      url: "/login",
+      url: "/",
     },
   ], [AccountImg, CreateImg, HomeImg, LogoutImg]);
 
