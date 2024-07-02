@@ -4,6 +4,7 @@ import { TimeBadge } from "./Badges";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useParams } from "react-router";
 
 export default function UserProjects() {
   const [projects, setProjects] = useState([]);
@@ -102,7 +103,6 @@ export default function UserProjects() {
 
   return (
     <div className="row">
-
       <div className="filtersRow d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div className="filterButtons">
           <button
@@ -176,11 +176,15 @@ export default function UserProjects() {
                   }}
                 ></div>
                 <div className="progress"></div>
-                <span className="progressPer bold"               
-                style={{
-                color: project.progress?.completionPercentage === 100 ? "white" : "",
-              }}
->
+                <span
+                  className="progressPer bold"
+                  style={{
+                    color:
+                      project.progress?.completionPercentage === 100
+                        ? "white"
+                        : "",
+                  }}
+                >
                   {project.progress ? project.progress.completionPercentage : 0}
                   %
                 </span>

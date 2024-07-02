@@ -57,10 +57,10 @@ function App() {
             >
               <Route path="/:username" element={<AccountHome />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/dashboard/" element={<Dashboard />} />
+              {/* <Route path="/dashboard/" element={<Dashboard />} /> */}
               <Route path="/dashboard/:projectID" element={<Dashboard />} />
 
-              <Route path="/create-tasks/" element={<CreateTasks />} />
+              {/* <Route path="/create-tasks/" element={<CreateTasks />} /> */}
               <Route
                 path="/create-tasks/:projectID"
                 element={<CreateTasks />}

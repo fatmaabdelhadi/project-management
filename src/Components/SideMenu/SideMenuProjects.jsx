@@ -3,8 +3,8 @@ import axios from "axios";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getUserProjects, getUserID } from "../../Services/UserModel";
 import { findProjectByID, setProjectData } from "../../Services/ProjectModel";
-// import "./SideMenu.css";
-import "./Sidemenu.css"
+import "./SideMenu.css";
+// import "./Sidemenu.css";
 export default function SideMenuProjects() {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ export default function SideMenuProjects() {
 
   return (
     <div className="sideMenuProjects">
+      <p className="grey bold">My Projects</p>
       {projects.map((project) => (
         <div key={project.projectID} className="sideMenuProjectsItem">
           <NavLink
@@ -53,7 +54,6 @@ export default function SideMenuProjects() {
     </div>
   );
 }
-
 
 // export default function SideMenuProjects({ setCurrentProject }) {
 //     const [projects, setProjects] = useState([]);

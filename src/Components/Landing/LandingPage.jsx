@@ -1,23 +1,22 @@
-import "./Landing.css"
-import { NavLink } from "react-router-dom"
-import { React, useState } from "react"
-import { FaTasks, FaUsers, FaChartLine } from 'react-icons/fa'
+import "./Landing.css";
+import { NavLink } from "react-router-dom";
+import { React, useState } from "react";
+import { FaTasks, FaUsers, FaChartLine } from "react-icons/fa";
 
 export default function LandingPage() {
-<<<<<<< HEAD
-  // document.title = "Focus Hive"
-
-  return <div className="LandingPage"></div>;
-}
-=======
   return (
     <div className="LandingPage">
       <div className="landingFilter"></div>
       <section className="HeroSection">
         <h2>Manage Your Projects Efficiently</h2>
-        <p>Stay organized and achieve your goals with our project management tool.</p>
+        <p>
+          Stay organized and achieve your goals with our project management
+          tool.
+        </p>
         <button className="landingButton">
-          <NavLink to="/signup" className="landingNavLink">Get Started</NavLink>
+          <NavLink to="/signup" className="landingNavLink">
+            Get Started
+          </NavLink>
         </button>
       </section>
       <section className="FeatureSection">
@@ -40,6 +39,5 @@ export default function LandingPage() {
       </section>
       <p className="footer">&#169; Focus Hive EG. All rights reserved.</p>
     </div>
-  )
+  );
 }
->>>>>>> 7a6de7bffcd5952e2791c7ca6c18b09c146d95e0

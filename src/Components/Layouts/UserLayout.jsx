@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
-// import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import SideMenu from "../SideMenu/SideMenu";
 import { getUserID } from "../../Services/UserModel";
 
@@ -58,9 +58,10 @@ export const UserLayout = ({ children }) => {
             currentProject={currentProject}
             setCurrentProject={setCurrentProject}
           /> */}
-              <SideMenu/>
+          <SideMenu />
           <div className="userLayout">
             {/* <Navbar currentProject={currentProject} /> */}
+            <Navbar />
             <div className="Content">
               {children}
               <Outlet />

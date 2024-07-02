@@ -1,22 +1,22 @@
 import axios from "axios";
 
-export function setProjectData(project) {
-  try {
-    localStorage.setItem("currentProject", JSON.stringify(project));
-  } catch (error) {
-    console.error("Error storing project data:", error);
-  }
-}
+// export function setProjectData(project) {
+//   try {
+//     localStorage.setItem("currentProject", JSON.stringify(project));
+//   } catch (error) {
+//     console.error("Error storing project data:", error);
+//   }
+// }
 
-export function getProjectData() {
-  const currentStoredProject = localStorage.getItem("currentProject");
-  if (currentStoredProject) {
-    return JSON.parse(currentStoredProject);
-  } else {
-    console.log("Project data not found in local storage");
-    return null;
-  }
-}
+// export function getProjectData() {
+//   const currentStoredProject = localStorage.getItem("currentProject");
+//   if (currentStoredProject) {
+//     return JSON.parse(currentStoredProject);
+//   } else {
+//     console.log("Project data not found in local storage");
+//     return null;
+//   }
+// }
 
 export function getProjectID() {
   const currentStoredProject = localStorage.getItem("currentProject");
