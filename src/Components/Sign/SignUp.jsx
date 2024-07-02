@@ -7,6 +7,9 @@ import "./Sign.css"
 export default function SignUp() {
   document.title = "Sign Up"
 
+  let showPass = require("../../Assets/eye.png")
+  let hidePass = require("../../Assets/hidden.png")
+  
   const [fullName, setFullName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")

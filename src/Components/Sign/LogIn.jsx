@@ -72,7 +72,6 @@ export function LogIn() {
             />
             <div className="passwordField">
               <input
-                // type="password"
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="Password"
