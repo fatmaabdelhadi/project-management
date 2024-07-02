@@ -70,8 +70,6 @@ export default function SignUp() {
       {isLoading && <div className="loader"></div>}
       <div className={`filter ${isLoading ? "disabled" : ""}`}></div>
       <div className={`formLayout ${isLoading ? "disabled" : ""}`}>
-      {/* <div className="filter"></div> */}
-      {/* <div className="formLayout"> */}
         <form className="signUp form" onSubmit={handleSubmit}>
           <div>
             <h2>Create New Account</h2>
