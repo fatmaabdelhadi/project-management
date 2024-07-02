@@ -7,7 +7,7 @@ import "./TaskList.css";
 import Multiselect from "multiselect-react-dropdown";
 
 export default function TaskList({ addTask, tasks, projectID }) {
-  document.title = `Create Tasks`
+  document.title = `Create Tasks`;
 
   // Empty Task
   const taskTemplate = {
@@ -119,9 +119,34 @@ export default function TaskList({ addTask, tasks, projectID }) {
         setTaskData(taskTemplate); // Reset the form
         setSelectedDependencies([]); // Clear selected dependencies
         setSelectedAssignedUsers([]); // Clear selected assigned users
-        window.location.reload();
+
+        try {
+          await axios.post(
+            `https://pm-platform-backend.onrender.com/api/tasks/calculateEarly/${projectID}`
+          );
+          console.log("Early Start Calculated");
+          await axios.post(
+            `https://pm-platform-backend.onrender.com/api/tasks/calculateLate/${projectID}`
+          );
+          console.log("Late Start Calculated");
+
+          window.location.reload();
+
+          return response.data;
+        } catch (error) {
+          // if (error.response.status === 404 || error.response.status === 400) {
+          //   console.error("Add some data");
+
+          //   return null;
+          // } else {
+          alert("Add valid task data");
+          //   throw error;
+          // }
+
+          // Implement your logic for handling "Done" button click
+        }
       } catch (err) {
-        alert(err.message);
+        alert("Add valid task data");
       }
     } else {
       alert("Start Date, End Date, and Cost must be provided and non-negative");

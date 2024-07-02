@@ -30,7 +30,6 @@ export function getUserID() {
     return null;
   }
 }
-
 export function logoutUser() {
   localStorage.removeItem("PMLogin");
   localStorage.removeItem("currentProject");

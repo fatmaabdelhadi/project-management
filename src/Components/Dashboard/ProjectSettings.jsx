@@ -59,7 +59,9 @@ function ProjectSettings() {
   const fetchTasks = async (projectId) => {
     try {
       const apiUrl = `https://pm-platform-backend.onrender.com`;
-      const response = await axios.get(`${apiUrl}/api/tasks/project/${projectId}`);
+      const response = await axios.get(
+        `${apiUrl}/api/tasks/project/${projectId}`
+      );
       const tasksWithId = response.data.map((task) => ({
         ...task,
         id: task._id,
@@ -106,6 +108,16 @@ function ProjectSettings() {
       setRows((prevRows) =>
         prevRows.map((task) => (task.id === id ? updatedTask : task))
       );
+
+      await axios.post(
+        `https://pm-platform-backend.onrender.com/api/tasks/calculateEarly/${projectID}`
+      );
+      console.log("Early Start Calculated");
+      await axios.post(
+        `https://pm-platform-backend.onrender.com/api/tasks/calculateLate/${projectID}`
+      );
+      console.log("Late Start Calculated");
+
       if (updatedTask.status === "Completed") {
         await axios.put(
           `${apiUrl}/api/projects/percentage/${updatedTask.project}`
@@ -135,12 +147,12 @@ function ProjectSettings() {
     try {
       // Update projectid state if needed
       setprojectid(projectId);
-      navigate("/project-settings/"+projectId)
+      navigate("/project-settings/" + projectId);
       // Optionally navigate to the new project settings page
       // Uncomment and use one of the following navigation methods:
       // history.push(`/project-settings/${projectId}`);
       // navigate(`/project-settings/${projectId}`);
-  
+
       // Fetch tasks for the selected project
       await fetchTasks(projectId);
     } catch (error) {
@@ -150,10 +162,13 @@ function ProjectSettings() {
 
   return (
     <div>
-      <ProjectLinks projectID={projectid}/>
+      <ProjectLinks />
       <div className="searchProject">
         <FormControl className="projectSelect">
-          <label className="selectLabel"> Project Name &nbsp;&nbsp;&nbsp;</label>
+          <label className="selectLabel">
+            {" "}
+            Project Name &nbsp;&nbsp;&nbsp;
+          </label>
           <Select
             className="selectBar"
             labelId="projectSelectLabel"
@@ -320,17 +335,48 @@ function ProjectSettings() {
                   <>
                     {/* <SaveIcon onClick={() => handleSaveClick(row.id)} />
                     <CancelIcon onClick={() => setEditingRow(null)} /> */}
-                                      <div className="d-flex gap-2">
-
-                     <Tooltip title="Save Changes"><div><img style={{width: "30px"}} src={SaveImg} onClick={() => handleSaveClick(row.id)}/></div></Tooltip>
-                     <Tooltip title="Cancel"><div><img style={{width: "30px"}} src={CancelImg} onClick={() => setEditingRow(null)}/></div></Tooltip>
-                     </div>
+                    <div className="d-flex gap-2">
+                      <Tooltip title="Save Changes">
+                        <div>
+                          <img
+                            style={{ width: "30px" }}
+                            src={SaveImg}
+                            onClick={() => handleSaveClick(row.id)}
+                          />
+                        </div>
+                      </Tooltip>
+                      <Tooltip title="Cancel">
+                        <div>
+                          <img
+                            style={{ width: "30px" }}
+                            src={CancelImg}
+                            onClick={() => setEditingRow(null)}
+                          />
+                        </div>
+                      </Tooltip>
+                    </div>
                   </>
                 ) : (
                   <div className="d-flex gap-2">
-                    <Tooltip title="Edit Task"><div><img style={{width: "30px"}} src={editImg} onClick={() => handleEditClick(row.id)}/></div></Tooltip>
-                    <Tooltip title="Delete Task"><div><img style={{width: "30px"}} src={delImg} onClick={() => handleDeleteClick(row.id)}/></div></Tooltip>
-                 {/* <EditIcon  /> */}
+                    <Tooltip title="Edit Task">
+                      <div>
+                        <img
+                          style={{ width: "30px" }}
+                          src={editImg}
+                          onClick={() => handleEditClick(row.id)}
+                        />
+                      </div>
+                    </Tooltip>
+                    <Tooltip title="Delete Task">
+                      <div>
+                        <img
+                          style={{ width: "30px" }}
+                          src={delImg}
+                          onClick={() => handleDeleteClick(row.id)}
+                        />
+                      </div>
+                    </Tooltip>
+                    {/* <EditIcon  /> */}
                     {/* <DeleteIcon onClick={() => handleDeleteClick(row.id)} /> */}
                   </div>
                 )}

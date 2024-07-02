@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Network from "./Network";
 import { NavLink, useParams } from "react-router-dom";
-import {
-  getProjectData,
-  findProjectByID,
-} from "../../Services/ProjectModel";
+import { findProjectByID } from "../../Services/ProjectModel";
 import { getUsernameById } from "../../Services/UserModel";
 import { getProjectTasks } from "../../Services/TaskModel";
 import { PieChart } from "@mui/x-charts";
 import AssignedUsersPieChart from "./AccountPie";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ChecklistIcon from '@mui/icons-material/Checklist';
-import { Tooltip } from "@mui/material";
+import ChecklistIcon from "@mui/icons-material/Checklist";
 import ProjectLinks from "./ProjectLinks";
 
 const taskStatusColors = {
@@ -30,8 +26,6 @@ export default function Dashboard() {
   const [projectData, setProjectData] = useState(null);
   const [tasks, setTasks] = useState([]);
   const { projectID } = useParams(); // Extract 'projectID' from useParams
-
-
 
   useEffect(() => {
     const fetchProjectData = async (id) => {
@@ -56,12 +50,12 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (projectData?.progress) {
-      const progressFill = document.querySelector('.progressFill');
-      const progressPer = document.querySelector('.progressPer');
+      const progressFill = document.querySelector(".progressFill");
+      const progressPer = document.querySelector(".progressPer");
       const progressValue = projectData.progress.completionPercentage || 0;
 
       // Start the width from 0%
-      progressFill.style.width = '0%';
+      progressFill.style.width = "0%";
 
       // Force a reflow to ensure the transition works
       void progressFill.offsetHeight;
@@ -81,7 +75,7 @@ export default function Dashboard() {
           progressPer.innerText = `${counter}%`;
           // Change color when progress reaches 100%
           if (counter === 100) {
-            progressPer.style.color = 'white';
+            progressPer.style.color = "white";
           }
         }
       }, 20);
@@ -94,9 +88,11 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <ProjectLinks projectID={projectID}/>
+      <ProjectLinks />
 
-      <h1 style={{ marginTop: "20px" }} className="bold">{projectData.projectName}</h1>
+      <h1 style={{ marginTop: "20px" }} className="bold">
+        {projectData.projectName}
+      </h1>
       <div className="d-flex gap-2">
         <AccountCircleIcon style={{ opacity: "0.5" }} />
         <p className="grey">Managed by </p>
@@ -116,7 +112,10 @@ export default function Dashboard() {
           <>
             <ChecklistIcon style={{ opacity: "0.7" }} />
             <p className="grey">Progress </p>
-            <p className="bold">{projectData.progress.completedTasks} / {projectData.progress.totalTasks} Tasks Done</p>
+            <p className="bold">
+              {projectData.progress.completedTasks} /{" "}
+              {projectData.progress.totalTasks} Tasks Done
+            </p>
           </>
         )}
       </div>
@@ -126,13 +125,28 @@ export default function Dashboard() {
             <div
               className="progressFill"
               style={{
-                width: `${projectData.progress ? projectData.progress.completionPercentage : 0}%`,
+                width: `${
+                  projectData.progress
+                    ? projectData.progress.completionPercentage
+                    : 0
+                }%`,
                 borderRadius: "8px",
               }}
             ></div>
             <div className="progress"></div>
-            <span className="progressPer bold" style={{ color: projectData.progress?.completionPercentage === 100 ? "white" : "" }}>
-              {projectData.progress ? projectData.progress.completionPercentage : 0}%
+            <span
+              className="progressPer bold"
+              style={{
+                color:
+                  projectData.progress?.completionPercentage === 100
+                    ? "white"
+                    : "",
+              }}
+            >
+              {projectData.progress
+                ? projectData.progress.completionPercentage
+                : 0}
+              %
             </span>
           </>
         )}
@@ -149,7 +163,11 @@ export default function Dashboard() {
             width={"100%"}
           />
           <br></br>
-          <div key="PieChart" style={{ minWidth: "200px", maxWidth: "700px" }} className="d-flex flex-column justify-content-center">
+          <div
+            key="PieChart"
+            style={{ minWidth: "200px", maxWidth: "700px" }}
+            className="d-flex flex-column justify-content-center"
+          >
             <h3 className="bold grey">Task Status</h3>
             <TaskStatusPie tasks={tasks} />
           </div>
@@ -158,7 +176,9 @@ export default function Dashboard() {
             <h3 className="bold grey">Contributers Performance</h3>
             <AssignedUsersPieChart tasks={tasks} />
           </div>
-          <br></br><br></br><br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </>
       ) : (
         <div>

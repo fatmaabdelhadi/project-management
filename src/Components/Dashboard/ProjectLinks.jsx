@@ -1,84 +1,122 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Tooltip, Modal, Button } from "@mui/material";
+import { Tooltip, Button } from "@mui/material";
 import { getUserID } from "../../Services/UserModel";
 import axios from "axios";
+import { findProjectByID } from "../../Services/ProjectModel";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
-export default function ProjectLinks({ projectID }) {
+export default function ProjectLinks() {
   // Assets
-  let SettingsImg = require("../../Assets/settings.svg").default;
-  let AddImg = require("../../Assets/add.png");
-  let DashboardImg = require("../../Assets/dashboard.svg").default;
-  let DeleteImg = require("../../Assets/delete.svg").default;
+  const SettingsImg = require("../../Assets/settings.svg").default;
+  const AddImg = require("../../Assets/add.png");
+  const DashboardImg = require("../../Assets/dashboard.svg").default;
+  const DeleteImg = require("../../Assets/delete.svg").default;
 
-  const [userid, setUserId] = useState("");
+  const { projectID } = useParams();
+  const [userId, setUserId] = useState("");
   const [isManager, setIsManager] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [project, setProject] = useState(null);
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserId = async () => {
+    const fetchUserData = async () => {
       try {
         const user = await getUserID();
         setUserId(user);
-        // Replace with logic to check if user is the manager
-        // For demonstration, let's assume user is always the manager
-        setIsManager(true); // Set to true for demonstration
+        const projectData = await findProjectByID(projectID);
+        setProject(projectData);
+        if (projectData && projectData.projectManager === user) {
+          setIsManager(true);
+        }
       } catch (error) {
-        console.error("Error fetching user ID:", error);
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchUserId();
-  }, []);
+    fetchUserData();
+  }, [projectID]);
 
   const handleDeleteProject = async () => {
     try {
-      const apiUrl = `https://pm-platform-backend.onrender.com`;
-      await axios.delete(`${apiUrl}/api/projects/${projectID}`);
-      setShowDeleteModal(false); // Close modal after deletion
-      // Handle any UI updates or redirects after deletion
+      const apiUrl = "https://pm-platform-backend.onrender.com";
+      await axios.delete(`${apiUrl}/api/projects/delete/${projectID}`);
+      // Assuming successful deletion
+      alert("Project Deleted Successfully");
+      navigate("/home");
+      window.location.reload();
     } catch (error) {
       console.error("Error deleting project:", error);
     }
   };
 
   return (
-    <div className="d-flex flex-row-reverse gap-3 m-5">
+    <div className="d-flex flex-row-reverse gap-3 m-5 align-items-center">
       <Tooltip title="Add New Tasks">
         <NavLink to={`/create-tasks/${projectID}`} key="create-tasks">
-          <img src={AddImg} />
+          <img
+            src={AddImg}
+            alt="Add New Tasks"
+            style={{ textShadow: "0 10px 10px 10px grey" }}
+          />
         </NavLink>
       </Tooltip>
       <Tooltip title="View Dashboard">
         <NavLink to={`/dashboard/${projectID}`} key="dashboard">
-          <img src={DashboardImg} />
+          <img
+            src={DashboardImg}
+            alt="View Dashboard"
+            style={{ textShadow: "0 1px 1px 1px grey" }}
+          />
         </NavLink>
       </Tooltip>
       {isManager && (
-        <Tooltip title="Edit Tasks">
-          <NavLink to={`/project-settings/${projectID}`} key="project-settings">
-            <img src={SettingsImg} />
-          </NavLink>
-          <Button onClick={() => setShowDeleteModal(true)}>
-            <img src={DeleteImg} />
-          </Button>
-        </Tooltip>
+        <>
+          <Tooltip title="Edit Tasks">
+            <NavLink
+              to={`/project-settings/${projectID}`}
+              key="project-settings"
+            >
+              <img
+                src={SettingsImg}
+                alt="Edit Tasks"
+                style={{ textShadow: "var(--shadow)" }}
+              />
+            </NavLink>
+          </Tooltip>
+          <Tooltip title="Delete Project">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => setShowModal(true)} // Set showModal to true to show modal
+            >
+              <img src={DeleteImg} alt="Delete Project" />
+            </Button>
+          </Tooltip>
+        </>
       )}
-      <Modal
-        open={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        aria-labelledby="delete-modal-title"
-        aria-describedby="delete-modal-description"
-      >
-        <div className="modal">
-          <h2 id="delete-modal-title">
-            Are you sure you want to delete this project?
-          </h2>
-          <div className="modal-actions">
-            <Button onClick={() => setShowDeleteModal(false)}>Cancel</Button>
-            <Button onClick={handleDeleteProject}>Delete</Button>
-          </div>
-        </div>
+
+      {/* Bootstrap Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Project</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this project?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button
+            className="danger"
+            variant="danger"
+            onClick={handleDeleteProject}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
