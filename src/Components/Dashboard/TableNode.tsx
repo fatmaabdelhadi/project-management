@@ -113,12 +113,10 @@ function MoreInfo({
         )}
       </div>
 
-      <div className="d-flex gap-2 align-items-center">
+      <div className="d-flex gap-2 align-items-center m-2">
         <AccountCircleIcon style={{ opacity: "0.5" }} />
-        <p className="bold">
-          {assignedUsers
-            .map((userId) => usernames[userId])
-            .join(", ")}
+        <p className="bold" style={{ margin: "unset", padding: "unset" }}>
+          {assignedUsers.map((userId) => usernames[userId]).join(", ")}
         </p>
       </div>
       <p className="moreInfoDesc">

@@ -46,6 +46,7 @@
   width: max-content;
   /* width: 300px; */
   /* height: 100px; */
+  transition: visibility 1s ease-in;
   z-index: 10000;
 }
 
